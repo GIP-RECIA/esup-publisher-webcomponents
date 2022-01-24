@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Esup-Publisher - JsTree</title>
+    <meta name="description" content="Esup-Publisher - JsTree" />
+    <link rel="stylesheet" href="./font-awesome/solid.css" />
+    <script>
+      if (!window.customElements) {
+        document.write('<!--');
+      }
+    </script>
+    <script src="./vendor/custom-elements-es5-adapter.js"></script>
+    <!-- ! DO NOT REMOVE THIS COMMENT, WE NEED ITS CLOSING MARKER -->
+  </head>
+
+  <body>
+    <header><h1>Esup-Publisher - JsTree</h1></header>
+    <script src="./vendor/webcomponents-loader.js"></script>
+    <script>
+      const datas = [
+        {
+          "id":"1:PUBLISHER",
+          "text":"Flash-Infos",
+          "children":false
+        },
+        {
+          "id":"2:PUBLISHER",
+          "text":"Actualités",
+          "children":true,
+          "getChildren": [
+            {
+              "id":"4:PUBLISHER",
+              "text":"Vie Scolaire",
+              "children":false
+            },
+            {
+              "id":"5:PUBLISHER",
+              "text":"Pédagogie",
+              "children":false
+            },
+            {
+              "id":"6:PUBLISHER",
+              "text":"Direction",
+              "children":false
+            }
+          ]
+        },
+        {
+          "id":"3:PUBLISHER",
+          "text":"Documents",
+          "children":false
+        }
+      ];
+      const config = {
+        "identifier": "tree",
+        "showCheckbox": true,
+        "isMultipleSelection": true
+      };
+      const onSelection= (res) => console.log("Selected datas : ", res);
+
+      const tree = document.createElement('esup-js-tree');
+      tree.setAttribute('datas', JSON.stringify(datas));
+      tree.setAttribute('config', JSON.stringify(config));
+      tree.onSelection = onSelection;
+
+      document.body.appendChild(tree);
+    </script>
+  </body>
+</html>

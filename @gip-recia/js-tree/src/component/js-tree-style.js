@@ -1,6 +1,6 @@
-import {css} from 'lit-element';
+import {css} from 'lit-element'
 
-export const treeviewStyles = css`
+export const jsTreeStyle = css`
     /* tree */
     .root-tree {
         padding-left: 0;
@@ -155,4 +155,4 @@ export const treeviewStyles = css`
     i.icon-10:before {
         content: var(--icon-10-content, '\\f07b');
     }
-  `;
+  `

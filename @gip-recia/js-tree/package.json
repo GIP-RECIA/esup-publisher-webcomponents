@@ -1,5 +1,5 @@
 {
-  "name": "@esup-publisher/js-tree",
+  "name": "@gip-recia/js-tree",
   "version": "0.0.1",
   "description": "Js Tree",
   "main": "src/component/js-tree.js",
@@ -7,7 +7,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "module",
   "scripts": {
     "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
     "lint:eslint": "eslint src/component/js-tree.js",

@@ -62,8 +62,8 @@
       const onSelection= (res) => console.log("Selected datas : ", res);
 
       const tree = document.createElement('esup-js-tree');
-      tree.setAttribute('datas', JSON.stringify(datas));
-      tree.setAttribute('config', JSON.stringify(config));
+      tree.datas = datas;
+      tree.config = config;
       tree.onSelection = onSelection;
 
       document.body.appendChild(tree);

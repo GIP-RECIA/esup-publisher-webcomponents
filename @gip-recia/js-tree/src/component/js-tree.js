@@ -1,15 +1,15 @@
-import {LitElement, html } from 'lit-element';
-import { treeviewStyles } from './treeview-style.js';
+import {LitElement, html } from 'lit-element'
+import { jsTreeStyle } from './js-tree-style.js'
 
 /**
- * Tree view component.
+ * Js-Tree component.
  */
 export class JsTree extends LitElement {
 
   static get styles() {
     return [
-      treeviewStyles
-    ];
+      jsTreeStyle
+    ]
   }
 
   static get properties() {
@@ -19,55 +19,85 @@ export class JsTree extends LitElement {
        * Tableau des valeurs racine de l'arbre.
        * @type {Array}
        */
-      datas : {type: Array},
+      datas: { attribute: false },
 
       /**
        * Configuration de l'arbre.
        * @type {Object}
        */
-      config: {type: Object},
+      config: { attribute: false },
 
       /**
        * Fonction appelée à la sélection d'un élement de l'arbre.
        * @type {Function}
        */
-      onSelection: {type: Function}
-    };
+      onSelection: { attribute: false },
+
+      /**
+       * Propriété interne pour l'affichage et la mainpulation des éléments.
+       * @type {Array}
+       */
+      _datas: { state: true },
+
+      /**
+       * Propriété interne pour savoir si une première intéraction au clavier a été faite.
+       * @type {Boolean}
+       */
+      _initKeyboardNavigation: { state: true }
+    }
   }
 
-  connectedCallback() {
-    super.connectedCallback()
+  constructor() {
+    super()
 
-    // Initialisation des données
-    this.initDataList(this.datas, this.config.identifier)
-
-    // Initialisation de la navigation au clavier
-    this.activeElement = this.datas && this.datas.length > 0 ? this.datas[0] : null
-    this.initKeyboardNavigation = false
+    this._datas = []
+    this._initKeyboardNavigation = false
   }
 
   render() {
-    return this.renderTree(this.datas, 0, null)
+    return this.renderTree(this._datas, 0, null)
   }
 
   updated(changedProperties){
     super.updated(changedProperties)
 
-    // Cochage des checkbox des éléments sélectionnés
-    this.shadowRoot.querySelectorAll('input[type="checkbox"]').forEach(el=> {
-      const data = this.findDatasByProperty(this.datas, 'idHtml', el.id.replace('-checkbox',''))
-      if(data && data.length === 1) {
-        el.checked = data[0].selected
-      }
-    })
-
-    // Focus sur l'élément actif
-    if (this.initKeyboardNavigation && this.activeElement) {
-      this.shadowRoot.querySelectorAll('li').forEach(el=> {
-        if (el.id === this.activeElement.idHtml) {
-          el.focus()
+    // Si les propriétés datas ou config sont modifiés, on initialise les éléments
+    let initDatas = false
+    if (changedProperties) {
+      changedProperties.forEach((value, key) => {
+        if (key === 'datas' || key === 'config') {
+          initDatas = true
         }
       })
+    }
+
+    if (initDatas) {
+      // Initialisation des données
+      this._datas = this.datas
+      this._initKeyboardNavigation = false
+      this.initDataList(this._datas, this.config.identifier)
+
+      // Initialisation de la navigation au clavier
+      this.activeElement = this._datas && this._datas.length > 0 ? this._datas[0] : null
+
+      this.requestUpdate()
+    } else {
+      // Cochage des checkbox des éléments sélectionnés
+      this.shadowRoot.querySelectorAll('input[type="checkbox"]').forEach(el=> {
+        const data = this.findDatasByProperty(this._datas, 'idHtml', el.id.replace('-checkbox',''))
+        if(data && data.length === 1) {
+          el.checked = data[0].selected
+        }
+      })
+
+      // Focus sur l'élément actif
+      if (this._initKeyboardNavigation && this.activeElement) {
+        this.shadowRoot.querySelectorAll('li').forEach(el=> {
+          if (el.id === this.activeElement.idHtml) {
+            el.focus()
+          }
+        })
+      }
     }
   }
 
@@ -102,7 +132,7 @@ export class JsTree extends LitElement {
             </li>`
         })}
       </ul>
-    `;
+    `
   }
 
   /**
@@ -141,12 +171,12 @@ export class JsTree extends LitElement {
    * @param {Object} data Elément cliqué
    */
   onClickItem(event, data) {
-    event.stopPropagation();
+    event.stopPropagation()
     this.activeElement = data
     const oldValue = data.selected
     // Si sélection simple, on désélectionne les éléments préalablement sélectionnés
     if (!this.config.isMultipleSelection) {
-      this.unSelectDatas(this.datas)
+      this.unSelectDatas(this._datas)
     }
     data.selected = !oldValue
     
@@ -154,7 +184,7 @@ export class JsTree extends LitElement {
 
     // Appel de la méthode callback passé en paramètre
     if (this.onSelection) {
-      const selectedDatas = this.findDatasByProperty(this.datas, 'selected', true)
+      const selectedDatas = this.findDatasByProperty(this._datas, 'selected', true)
       this.onSelection(selectedDatas)
     }
   }
@@ -166,7 +196,7 @@ export class JsTree extends LitElement {
    * @param {Object} data Elément cliqué
    */
   onClickRow(event, data) {
-    event.stopPropagation();
+    event.stopPropagation()
     this.activeElement = data
     if (data.children) {
       if (data.expanded) {
@@ -218,8 +248,8 @@ export class JsTree extends LitElement {
       } else if(this.activeElement.parent && this.activeElement.parent.expanded){
         this.activeElement = this.activeElement.parent
       }
-      event.preventDefault();
-      event.stopPropagation();
+      event.preventDefault()
+      event.stopPropagation()
       this.requestUpdate()
     } else if( event.keyCode === 38 ) {
       // Touche haut
@@ -228,8 +258,8 @@ export class JsTree extends LitElement {
       if (sibbling != null) {
         this.activeElement = sibbling
       }
-      event.preventDefault();
-      event.stopPropagation();
+      event.preventDefault()
+      event.stopPropagation()
       this.requestUpdate()
     } else if( event.keyCode === 39 ) {
       // Touche droite
@@ -239,27 +269,27 @@ export class JsTree extends LitElement {
           if (this.activeElement.loadedChildren && this.activeElement.loadedChildren.length > 0) {
             this.activeElement = this.activeElement.loadedChildren[0]
           }
-          event.preventDefault();
-          event.stopPropagation();
+          event.preventDefault()
+          event.stopPropagation()
           this.requestUpdate()
         } else {
           this.activeElement.expanded = true
           this.activeElement.ulClasses.push('subtree-active')
           this.activeElement.liClasses.push('item-active')
           this.loadDataChildren(this.activeElement, () => {
-            event.preventDefault();
-            event.stopPropagation();
+            event.preventDefault()
+            event.stopPropagation()
             this.requestUpdate()
           })
         }
       } else {
-        event.preventDefault();
-        event.stopPropagation();
+        event.preventDefault()
+        event.stopPropagation()
       }
     } else if( event.keyCode === 40 ) {
       // Touche bas
       // On se déplace sur l'élement en dessus
-      if (this.initKeyboardNavigation) {
+      if (this._initKeyboardNavigation) {
         if (this.activeElement.expanded && this.activeElement.loadedChildren && this.activeElement.loadedChildren.length > 0) {
           this.activeElement = this.activeElement.loadedChildren[0]
         } else {
@@ -269,11 +299,11 @@ export class JsTree extends LitElement {
           }
         }
       }
-      event.preventDefault();
-      event.stopPropagation();
+      event.preventDefault()
+      event.stopPropagation()
       this.requestUpdate()
     }
-    this.initKeyboardNavigation = true
+    this._initKeyboardNavigation = true
   }
 
   /**
@@ -382,10 +412,10 @@ export class JsTree extends LitElement {
         }
       }
     } else {
-      for (let i = 0; i < this.datas.length; i++) {
-        if (this.datas[i].id === element.id) {
-          if (i < this.datas.length - 1) {
-            return this.datas[i+1]
+      for (let i = 0; i < this._datas.length; i++) {
+        if (this._datas[i].id === element.id) {
+          if (i < this._datas.length - 1) {
+            return this._datas[i+1]
           }
         }
       }
@@ -411,10 +441,10 @@ export class JsTree extends LitElement {
         }
       }
     } else {
-      for (let i = 0; i < this.datas.length; i++) {
-        if (this.datas[i].id === element.id) {
+      for (let i = 0; i < this._datas.length; i++) {
+        if (this._datas[i].id === element.id) {
           if (i > 0) {
-            return this.getLastVisibleChild(this.datas[i-1])
+            return this.getLastVisibleChild(this._datas[i-1])
           }
         }
       }

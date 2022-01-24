@@ -1,13 +1,13 @@
 # **Esup Js-Tree**
 
-Js-Tree est un webcomponent s'appuiant sur la librairie Lit pour afficher une arborescence dépliable.
+Js-Tree est un webcomponent s'appuyant sur la librairie Lit pour afficher une arborescence dépliable.
 
 ## **Installation**
 
 1. Installation via npm :
 
 ```shell
-npm install @esup-publisher/js-tree
+npm install @gip-recia/js-tree
 ```
 
 2. Importation du composant :
@@ -15,7 +15,7 @@ npm install @esup-publisher/js-tree
 Dans un module JavaScript :
 
 ```
-import '@esup-publisher/js-tree';
+import '@gip-recia/js-tree';
 ```
 
 Dans une page HTML :
@@ -29,7 +29,7 @@ import './path/to/js-tree.js';
 3. Ajout du composant dans l'application/composant :
 
 ```html
-<esup-js-tree datas="..." config="..." onSelection="..."></esup-js-tree>
+<esup-js-tree .datas="..." .config="..." .onSelection="..."></esup-js-tree>
 ```
 
 ## **Paramètres**

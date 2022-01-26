@@ -55,7 +55,7 @@ export class JsTree extends LitElement {
   }
 
   render() {
-    return this.renderTree(this._datas, 0, null)
+    return this._renderTree(this._datas, 0, null)
   }
 
   updated(changedProperties){
@@ -75,7 +75,7 @@ export class JsTree extends LitElement {
       // Initialisation des données
       this._datas = this.datas
       this._initKeyboardNavigation = false
-      this.initDataList(this._datas, this.config.identifier)
+      this._initDataList(this._datas, this.config.identifier)
 
       // Initialisation de la navigation au clavier
       this.activeElement = this._datas && this._datas.length > 0 ? this._datas[0] : null
@@ -84,7 +84,7 @@ export class JsTree extends LitElement {
     } else {
       // Cochage des checkbox des éléments sélectionnés
       this.shadowRoot.querySelectorAll('input[type="checkbox"]').forEach(el=> {
-        const data = this.findDatasByProperty(this._datas, 'idHtml', el.id.replace('-checkbox',''))
+        const data = this._findDatasByProperty(this._datas, 'idHtml', el.id.replace('-checkbox',''))
         if(data && data.length === 1) {
           el.checked = data[0].selected
         }
@@ -102,6 +102,99 @@ export class JsTree extends LitElement {
   }
 
   /**
+   * Méthode permettant de sélectionner un noeud à partir de son id.
+   *
+   * @param {String} id Identifiant du noeud
+   */
+   selectNode(id) {
+    if (id) {
+      const data = this._findDatasByProperty(this._datas, 'id', id)
+      if (data && data.length > 0 && !data[0].selected) {
+        this._onClickItem(null, data[0])
+      }
+    }
+  }
+
+  /**
+   * Méthode permettant d'ajouter un nouveau noeud.
+   *
+   * @param {String} idParent Identifiant du noeud parent
+   * @param {Object} properties Propriétés du nouveau noeud
+   */
+  addNode(idParent, properties) {
+    if (idParent) {
+      const parent = this._findDatasByProperty(this._datas, 'id', idParent)
+      if (parent && parent.length > 0 && parent[0].areChildrenLoaded) {
+        this._initDataList([properties], parent[0].idHtml)
+        properties.parent = parent[0]
+        parent[0].loadedChildren.push(properties)
+
+        this.requestUpdate()
+      }
+    } else {
+      this._initDataList([properties], this.config.identifier)
+      properties.parent = null
+      this._datas.push(properties)
+
+      this.requestUpdate()
+    }
+  }
+
+  /**
+   * Méthode permettant de supprimer un noeud à partir de son id.
+   *
+   * @param {String} id Identifiant du noeud
+   */
+  deleteNode(id) {
+    if (id) {
+      const data = this._findDatasByProperty(this._datas, 'id', id)
+      if (data && data.length > 0) {
+        const previousSelectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
+        if (data[0].parent) {
+          data[0].parent.loadedChildren = data[0].parent.loadedChildren.filter(child => child.id !== data[0].id)
+        } else {
+          this._datas = this._datas.filter(child => child.id !== data[0].id)
+        }
+
+        this.requestUpdate()
+
+        const nextSelectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
+        if (previousSelectedDatas.length !== nextSelectedDatas.length) {
+          // Information d'une désélection
+          this._sendSelection()
+        }
+      }
+    }
+  }
+
+  /**
+   * Méthode permettant de recharger un noeud.
+   *
+   * @param {String} id Identifiant du noeud
+   * @param {Object} properties Nouvelles propriétés du noeud
+   * @param {Boolean} refreshChildren Indique s'il faut rafraichir les enfants
+   */
+   refreshNode(id, properties, refreshChildren = false) {
+    if (id) {
+      const data = this._findDatasByProperty(this._datas, 'id', id)
+      if (data && data.length > 0) {
+        const previousSelectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
+
+        this._refreshNodes(data[0], properties, refreshChildren).then(() => {
+
+          this.requestUpdate()
+
+          const nextSelectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
+          if (previousSelectedDatas.length !== nextSelectedDatas.length) {
+            // Information d'une désélection
+            this._sendSelection()
+          }
+        })
+      }
+    }
+  }
+
+  /**
    * Fonction récursive pour construire un niveau de l'arborescence.
    *
    * @param {Array} datas Tableau des éléments du niveau actuel
@@ -109,26 +202,26 @@ export class JsTree extends LitElement {
    * @param {Object} parent Elément parent du niveau actuel
    * @returns Code HTML
    */
-  renderTree(datas, level, parent) {
+  _renderTree(datas, level, parent) {
     return html`
       <ul id="${this.config.identifier}" class="${level === 0 ? 'root-tree' : parent.ulClasses.join(' ')}"
           role="${level === 0 ? (this.config.isMultipleSelection ? 'listbox' : 'tree') : 'group'}"
           aria-multiselectable="${level === 0 && this.config.isMultipleSelection ? 'true' : 'false'}" tabindex="${level === 0 ? '0' : '-1'}"
           aria-activedescendant="${level === 0 && this.activeElement ? this.activeElement.idHtml : ''}"
-          aria-labelledby="${parent ? parent.idHtml + '-text' : ''}" @keydown="${(e) => this.onKeyDown(e)}">
+          aria-labelledby="${parent ? parent.idHtml + '-text' : ''}" @keydown="${(e) => this._onKeyDown(e)}">
         ${(datas || []).map((data) => {
           return html`
             <li id ="${data.idHtml}" class="${data.liClasses.join(' ')}" tabindex="-1" aria-expanded="${data.expanded}" 
                 role="${this.config.showCheckbox ? 'option' : 'treeitem'}" aria-selected="${data.selected}">
-                <div class="row" @click="${(e) => this.onClickRow(e, data)}">
-                  ${this.renderIconIndocator(data)}
-                  <div class="row-data ${data.selected ? 'jstree-clicked' : ''}" @click="${(e) => this.onClickItem(e, data)}">
-                    ${this.renderCheckbox(data)}
+                <div class="row" @click="${(e) => this._onClickRow(e, data)}">
+                  ${this._renderIconIndicator(data)}
+                  <div class="row-data ${data.selected ? 'jstree-clicked' : ''}" @click="${(e) => this._onClickItem(e, data)}">
+                    ${this._renderCheckbox(data)}
                     <i class="icon ${data.iconIndex !== null ? 'icon-' + data.iconIndex : ''}" aria-hidden="true"></i>
                     <span id="${data.idHtml}-text">${data.text}</span>
                   </div>
                 </div>
-                ${data.loadedChildren ? this.renderTree(data.loadedChildren, level + 1 , data) : ''}
+                ${data.loadedChildren ? this._renderTree(data.loadedChildren, level + 1 , data) : ''}
             </li>`
         })}
       </ul>
@@ -141,7 +234,7 @@ export class JsTree extends LitElement {
    * @param {Object} data Elément
    * @returns Code HTML
    */
-  renderIconIndocator(data) {
+  _renderIconIndicator(data) {
     if (data.children) {
       return  html`<i class="icon icon-indicator"></i>`
     } else {
@@ -155,7 +248,7 @@ export class JsTree extends LitElement {
    * @param {Object} data Elément
    * @returns Code HTML
    */
-  renderCheckbox(data) {
+  _renderCheckbox(data) {
     if (this.config.showCheckbox) {
       return  html`<input type="checkbox" id ="${data.idHtml}-checkbox"
         tabindex="-1" ?checked="${data.selected}" aria-checked="${data.selected}" aria-labelledby="${data.idHtml}-text">`
@@ -170,23 +263,22 @@ export class JsTree extends LitElement {
    * @param {Object} event Evènement 
    * @param {Object} data Elément cliqué
    */
-  onClickItem(event, data) {
-    event.stopPropagation()
+  _onClickItem(event, data) {
+    if (event) {
+      event.stopPropagation()
+    }
     this.activeElement = data
     const oldValue = data.selected
     // Si sélection simple, on désélectionne les éléments préalablement sélectionnés
     if (!this.config.isMultipleSelection) {
-      this.unSelectDatas(this._datas)
+      this._unSelectDatas(this._datas)
     }
     data.selected = !oldValue
     
     this.requestUpdate()
 
-    // Appel de la méthode callback passé en paramètre
-    if (this.onSelection) {
-      const selectedDatas = this.findDatasByProperty(this._datas, 'selected', true)
-      this.onSelection(selectedDatas)
-    }
+    // Information d'une sélection/désélection
+    this._sendSelection()
   }
 
   /**
@@ -195,7 +287,7 @@ export class JsTree extends LitElement {
    * @param {Object} event Evènement 
    * @param {Object} data Elément cliqué
    */
-  onClickRow(event, data) {
+  _onClickRow(event, data) {
     event.stopPropagation()
     this.activeElement = data
     if (data.children) {
@@ -216,7 +308,7 @@ export class JsTree extends LitElement {
           data.ulClasses.push('subtree-active')
           data.liClasses.push('item-active')
           if (!data.areChildrenLoaded) {
-            this.loadDataChildren(data, () => this.requestUpdate())
+            this._loadDataChildren(data, () => this.requestUpdate())
           } else {
             this.requestUpdate()
           }
@@ -230,10 +322,10 @@ export class JsTree extends LitElement {
    *
    * @param {Object} event Evènement
    */
-  onKeyDown(event) {
+  _onKeyDown(event) {
     if( event.keyCode === 13 || event.keyCode === 32 ) {
       // Touche entrée ou Espace
-      this.onClickItem(event, this.activeElement)
+      this._onClickItem(event, this.activeElement)
     } else if( event.keyCode === 37 ) {
       // Touche gauche
       // On replie l'élément actif
@@ -254,7 +346,7 @@ export class JsTree extends LitElement {
     } else if( event.keyCode === 38 ) {
       // Touche haut
       // On se déplace sur l'élement au dessus
-      const sibbling = this.getUpVisibleSiblingElement(this.activeElement)
+      const sibbling = this._getUpVisibleSiblingElement(this.activeElement)
       if (sibbling != null) {
         this.activeElement = sibbling
       }
@@ -276,7 +368,7 @@ export class JsTree extends LitElement {
           this.activeElement.expanded = true
           this.activeElement.ulClasses.push('subtree-active')
           this.activeElement.liClasses.push('item-active')
-          this.loadDataChildren(this.activeElement, () => {
+          this._loadDataChildren(this.activeElement, () => {
             event.preventDefault()
             event.stopPropagation()
             this.requestUpdate()
@@ -293,7 +385,7 @@ export class JsTree extends LitElement {
         if (this.activeElement.expanded && this.activeElement.loadedChildren && this.activeElement.loadedChildren.length > 0) {
           this.activeElement = this.activeElement.loadedChildren[0]
         } else {
-          const sibbling = this.getDownVisibleSiblingElement(this.activeElement)
+          const sibbling = this._getDownVisibleSiblingElement(this.activeElement)
           if (sibbling != null) {
             this.activeElement = sibbling
           }
@@ -312,7 +404,7 @@ export class JsTree extends LitElement {
    * @param {Array} datas Tableau des éléments
    * @param {String} parentIdHtml Identifiant HTML du parent des éléments
    */
-  initDataList(datas, parentIdHtml) {
+  _initDataList(datas, parentIdHtml) {
     if (datas && datas.length > 0) {
       datas.forEach(data => {
         data.ulClasses = ['subtree']
@@ -335,11 +427,11 @@ export class JsTree extends LitElement {
    *
    * @param {Array} datas Tableau des éléments
    */
-  unSelectDatas(datas) {
+  _unSelectDatas(datas) {
     datas.forEach(data => {
       data.selected = false
       if(data.loadedChildren){
-        this.unSelectDatas(data.loadedChildren)
+        this._unSelectDatas(data.loadedChildren)
       }
     })
   }
@@ -352,14 +444,14 @@ export class JsTree extends LitElement {
    * @param {String|Number} propertyValue Valeur de la propriété recherchée
    * @returns Tableau des éléments trouvés
    */
-  findDatasByProperty(datas, propertyName, propertyValue) {
+  _findDatasByProperty(datas, propertyName, propertyValue) {
     let result = []
     datas.forEach( data => {
       if(data[propertyName] === propertyValue) {
         result.push(data)
       }
       if (data.children && data.loadedChildren){
-        result = result.concat(this.findDatasByProperty(data.loadedChildren, propertyName, propertyValue))
+        result = result.concat(this._findDatasByProperty(data.loadedChildren, propertyName, propertyValue))
       }
     })
     return result
@@ -371,26 +463,31 @@ export class JsTree extends LitElement {
    * @param {Object} data Elément
    * @param {Function} callback Fonction appelé après le chargement des enfants
    */
-  loadDataChildren(data, callback) {
-    if (typeof data.getChildren === 'function') {
-      data.getChildren().then(children => {
-        this.initDataList(children, data.idHtml)
-        data.loadedChildren = children
-        data.loadedChildren.forEach(child => child.parent = data)
-        data.areChildrenLoaded = true
-        if (callback) {
-          callback()
-        }
-      })
-    } else if (Array.isArray(data.getChildren) || data.getChildren instanceof Array) {
-      var children = data.getChildren
-      this.initDataList(children, data.idHtml)
+  _loadDataChildren(data, callback) {
+    this._getChildren(data, (children) => {
+      this._initDataList(children, data.idHtml)
       data.loadedChildren = children
       data.loadedChildren.forEach(child => child.parent = data)
       data.areChildrenLoaded = true
       if (callback) {
         callback()
       }
+    })
+  }
+
+  /**
+   * Méthode récupérant les enfants d'un élément.
+   *
+   * @param {Object} data Elément
+   * @param {Function} callback Fonction appelé après la récupération des enfants
+   */
+  _getChildren(data, callback) {
+    if (typeof data.getChildren === 'function') {
+      data.getChildren().then(children => {
+        callback(children)
+      })
+    } else if (Array.isArray(data.getChildren) || data.getChildren instanceof Array) {
+      callback(data.getChildren)
     }
   }
 
@@ -400,14 +497,14 @@ export class JsTree extends LitElement {
    * @param {Object} element Elément
    * @returns Elément en dessous
    */
-  getDownVisibleSiblingElement(element) {
+  _getDownVisibleSiblingElement(element) {
     if (element.parent) {
       for (let i = 0; i < element.parent.loadedChildren.length; i++) {
         if ( element.parent.loadedChildren[i].id === element.id) {
           if (i < element.parent.loadedChildren.length -1) {
             return element.parent.loadedChildren[i+1]
           } else {
-            return this.getDownVisibleSiblingElement(element.parent)
+            return this._getDownVisibleSiblingElement(element.parent)
           }
         }
       }
@@ -429,12 +526,12 @@ export class JsTree extends LitElement {
    * @param {Object} element Elément
    * @returns Elément au dessus
    */
-  getUpVisibleSiblingElement(element) {
+  _getUpVisibleSiblingElement(element) {
     if (element.parent) {
       for (let i = 0; i < element.parent.loadedChildren.length; i++) {
         if ( element.parent.loadedChildren[i].id === element.id) {
           if (i > 0) {
-            return this.getLastVisibleChild(element.parent.loadedChildren[i-1])
+            return this._getLastVisibleChild(element.parent.loadedChildren[i-1])
           } else {
             return element.parent
           }
@@ -444,7 +541,7 @@ export class JsTree extends LitElement {
       for (let i = 0; i < this._datas.length; i++) {
         if (this._datas[i].id === element.id) {
           if (i > 0) {
-            return this.getLastVisibleChild(this._datas[i-1])
+            return this._getLastVisibleChild(this._datas[i-1])
           }
         }
       }
@@ -458,12 +555,60 @@ export class JsTree extends LitElement {
    * @param {Object} element Elément
    * @returns Elément le plus bas
    */
-  getLastVisibleChild(element) {
+  _getLastVisibleChild(element) {
     if (element.expanded && element.loadedChildren && element.loadedChildren.length > 0) {
-      return this.getLastVisibleChild(element.loadedChildren[element.loadedChildren.length - 1])
+      return this._getLastVisibleChild(element.loadedChildren[element.loadedChildren.length - 1])
     } else {
       return element
     }
+  }
+
+  /**
+   * Méthode pour indiquer qu'une sélection/désélection a été faite.
+   */
+  _sendSelection() {
+    // Appel de la méthode pour informer d'une sélection/désélection
+    if (this.onSelection) {
+      const selectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
+      this.onSelection(selectedDatas)
+    }
+  }
+
+  /**
+   * Méthode permettant de recharger des noeuds.
+   *
+   * @param {Object} oldNode Anciennes données du noeud
+   * @param {Object} newNode Nouvelles données du noeud
+   * @param {Boolean} refreshChildren Indique s'il faut rafraichir les enfants du noeud
+   */
+  _refreshNodes(oldNode, newNode, refreshChildren) {
+    return new Promise(resolve => {
+      Object.assign(oldNode, newNode)
+      if (refreshChildren && oldNode.children && oldNode.areChildrenLoaded) {
+        this._getChildren(oldNode, (newChildren) => {
+          // Suppresson des enfants qui ne sont plus là
+          const newIds = newChildren.map(c => c.id)
+          oldNode.loadedChildren = oldNode.loadedChildren.filter(child => newIds.includes(child.id))
+          // Ajout/Mise à jour des enfants
+          let index = 0
+          const promises = []
+          newChildren.forEach(newChild => {
+            const oldChild = oldNode.loadedChildren.find(c => c.id === newChild.id)
+            if (!oldChild) {
+              this._initDataList([newChild], oldNode.idHtml)
+              newChild.parent = oldNode
+              oldNode.loadedChildren.splice(index, 0, newChild);
+            } else {
+              promises.push(this._refreshNodes(oldChild, newChild, refreshChildren))
+            }
+            index++
+          })
+          Promise.all(promises).then(() => resolve())
+        })
+      } else {
+        resolve()
+      }
+    })
   }
 }
 

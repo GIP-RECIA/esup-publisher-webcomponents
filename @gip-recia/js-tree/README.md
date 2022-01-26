@@ -52,11 +52,46 @@ Propriétés de chaque élément :
 Propriétés disponibles :
 |Nom|Type|Obligatoire|Description|
 |--------|--------|--------|--------|
-|identifier|String|Non|Identifiant html de l'arbre.|
+|identifier|String|Non|Identifiant html de l'arbre|
 |showCheckbox|Boolean|Non|Permet d'afficher ou non une case à cocher sur chaque branche de l'arbre|
 |isMultipleSelection|Boolean|Non|Permet la sélection multiple sur l'arborescence (avec ou sans case à cocher)|
 
 - `onSelection` - Fonction appelée lors de la sélection d'un élément de l'arbre.
+
+## **Fonctions**
+
+Plusieurs fonctions sont disponibles pour manipuler l'arborescence :
+
+- `selectNode` - Permet de sélectionner un élément.
+
+Paramètres :
+|Nom|Type|Obligatoire|Description|
+|--------|--------|--------|--------|
+|id|String|Oui|Identifiant unique de l'élément|
+
+- `addNode` - Permet d'ajouter un élément dans l'arborescence.
+
+Paramètres :
+|Nom|Type|Obligatoire|Description|
+|--------|--------|--------|--------|
+|idParent|String|Oui|Identifiant unique de l'élément parent|
+|properties|Object|Oui|Propriétés du nouvel élément (cf. tableau ci-dessus des propriétés des éléments)|
+
+- `deleteNode` - Permet de supprimer un élément dans l'arborescence.
+
+Paramètres :
+|Nom|Type|Obligatoire|Description|
+|--------|--------|--------|--------|
+|id|String|Oui|Identifiant unique de l'élément|
+
+- `refreshNode` - Permet de rafraichir les données d'un élément dans l'arborescence.
+
+Paramètres :
+|Nom|Type|Obligatoire|Description|
+|--------|--------|--------|--------|
+|id|String|Oui|Identifiant unique de l'élément|
+|properties|Object|Oui|Propriétés à mettre à jour de l'élément (cf. tableau ci-dessus des propriétés des éléments)|
+|refreshChildren|Boolean|Non|Indique s'il faut recharger les enfants de l'élément (par défaut : false)|
 
 ## **Variables CSS**
 

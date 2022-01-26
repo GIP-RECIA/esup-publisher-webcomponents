@@ -18,8 +18,46 @@
 
   <body>
     <header><h1>Esup-Publisher - JsTree</h1></header>
+    <div>
+      <button type="button" onclick="addNode()">Add node</button>
+      <button type="button" onclick="selectNode('6:PUBLISHER')">Select "Direction" node</button>
+      <button type="button" onclick="deleteNode('5:PUBLISHER')">Delete "Pédagogie" node</button>
+      <button type="button" onclick="refreshNode()">Refresh "Actualités" children (delete last children)</button>
+    </div>
     <script src="./vendor/webcomponents-loader.js"></script>
     <script>
+      const children = [
+        {
+          "id":"4:PUBLISHER",
+          "text":"Vie Scolaire",
+          "children":false
+        },
+        {
+          "id":"5:PUBLISHER",
+          "text":"Pédagogie",
+          "children":true,
+          "getChildren": () => new Promise(resolve => {
+            console.log('Loading "Pédagogie" children', children)
+            resolve([
+              {
+                "id":"7:PUBLISHER",
+                "text":"Enfant 1",
+                "children":false
+              },
+              {
+                "id":"8:PUBLISHER",
+                "text":"Enfant 2",
+                "children":false
+              }
+            ])
+          })
+        },
+        {
+          "id":"6:PUBLISHER",
+          "text":"Direction",
+          "children":false
+        }
+      ];
       const datas = [
         {
           "id":"1:PUBLISHER",
@@ -30,23 +68,10 @@
           "id":"2:PUBLISHER",
           "text":"Actualités",
           "children":true,
-          "getChildren": [
-            {
-              "id":"4:PUBLISHER",
-              "text":"Vie Scolaire",
-              "children":false
-            },
-            {
-              "id":"5:PUBLISHER",
-              "text":"Pédagogie",
-              "children":false
-            },
-            {
-              "id":"6:PUBLISHER",
-              "text":"Direction",
-              "children":false
-            }
-          ]
+          "getChildren": () => new Promise(resolve => {
+            console.log('Loading "Actualités" children', children)
+            resolve(children)
+          })
         },
         {
           "id":"3:PUBLISHER",
@@ -67,6 +92,23 @@
       tree.onSelection = onSelection;
 
       document.body.appendChild(tree);
+
+      addNode = () => {
+        tree.addNode(null, { id:'newNode1', text: 'new node', children: false})
+      };
+
+      selectNode = (id) => {
+        tree.selectNode(id)
+      };
+
+      deleteNode = (id) => {
+        tree.deleteNode(id)
+      };
+
+      refreshNode = () => {
+        children.splice(children.length -1)
+        tree.refreshNode('2:PUBLISHER', { text: 'Actualités update'}, true)
+      };
     </script>
   </body>
 </html>

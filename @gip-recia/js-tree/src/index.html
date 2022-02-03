@@ -23,6 +23,7 @@
       <button type="button" onclick="selectNode('6:PUBLISHER')">Select "Direction" node</button>
       <button type="button" onclick="deleteNode('5:PUBLISHER')">Delete "Pédagogie" node</button>
       <button type="button" onclick="refreshNode()">Refresh "Actualités" children (delete last children)</button>
+      <button type="button" onclick="deselectNodes()">Deselect all nodes</button>
     </div>
     <script src="./vendor/webcomponents-loader.js"></script>
     <script>
@@ -108,6 +109,10 @@
       refreshNode = () => {
         children.splice(children.length -1)
         tree.refreshNode('2:PUBLISHER', { text: 'Actualités update'}, true)
+      };
+
+      deselectNodes = () => {
+        tree.deselectAllNodes()
       };
     </script>
   </body>

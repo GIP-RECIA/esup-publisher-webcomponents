@@ -116,6 +116,21 @@ export class JsTree extends LitElement {
   }
 
   /**
+   * Méthode permettant de désélectionner tous les noeuds.
+   */
+  deselectAllNodes() {
+    const previousSelectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
+    if (previousSelectedDatas && previousSelectedDatas.length > 0) {
+      this._unSelectDatas(this._datas)
+
+      this.requestUpdate()
+
+      // Information d'une sélection/désélection
+      this._sendSelection()
+    }
+  }
+
+  /**
    * Méthode permettant d'ajouter un nouveau noeud.
    *
    * @param {String} idParent Identifiant du noeud parent
@@ -251,7 +266,8 @@ export class JsTree extends LitElement {
   _renderCheckbox(data) {
     if (this.config.showCheckbox) {
       return  html`<input type="checkbox" id ="${data.idHtml}-checkbox"
-        tabindex="-1" ?checked="${data.selected}" aria-checked="${data.selected}" aria-labelledby="${data.idHtml}-text">`
+        tabindex="-1" ?checked="${data.selected}" aria-checked="${data.selected}" aria-labelledby="${data.idHtml}-text"
+        ?disabled="${this.config.allowDeselection === false && data.selected}">`
     } else {
       return  html``
     }
@@ -259,8 +275,8 @@ export class JsTree extends LitElement {
 
   /**
    * Méthode appelé au clic sur un élément entrainant sa sélection/désélection.
-   * 
-   * @param {Object} event Evènement 
+   *
+   * @param {Object} event Evènement
    * @param {Object} data Elément cliqué
    */
   _onClickItem(event, data) {
@@ -268,23 +284,26 @@ export class JsTree extends LitElement {
       event.stopPropagation()
     }
     this.activeElement = data
-    const oldValue = data.selected
-    // Si sélection simple, on désélectionne les éléments préalablement sélectionnés
-    if (!this.config.isMultipleSelection) {
-      this._unSelectDatas(this._datas)
-    }
-    data.selected = !oldValue
-    
-    this.requestUpdate()
 
-    // Information d'une sélection/désélection
-    this._sendSelection()
+    if (this.config.allowDeselection !== false || !data.selected) {
+      const oldValue = data.selected
+      // Si sélection simple, on désélectionne les éléments préalablement sélectionnés
+      if (!this.config.isMultipleSelection) {
+        this._unSelectDatas(this._datas)
+      }
+      data.selected = !oldValue
+      
+      this.requestUpdate()
+
+      // Information d'une sélection/désélection
+      this._sendSelection()
+    }
   }
 
   /**
    * Méthode appelé au clic sur une ligne de l'arborescence entrainant son dépliage/repliage.
-   * 
-   * @param {Object} event Evènement 
+   *
+   * @param {Object} event Evènement
    * @param {Object} data Elément cliqué
    */
   _onClickRow(event, data) {

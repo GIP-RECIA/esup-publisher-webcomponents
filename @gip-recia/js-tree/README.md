@@ -53,8 +53,9 @@ Propriétés disponibles :
 |Nom|Type|Obligatoire|Description|
 |--------|--------|--------|--------|
 |identifier|String|Non|Identifiant html de l'arbre|
-|showCheckbox|Boolean|Non|Permet d'afficher ou non une case à cocher sur chaque branche de l'arbre|
-|isMultipleSelection|Boolean|Non|Permet la sélection multiple sur l'arborescence (avec ou sans case à cocher)|
+|showCheckbox|Boolean|Non|Permet d'afficher ou non une case à cocher sur chaque branche de l'arbre. Par défaut: false.|
+|isMultipleSelection|Boolean|Non|Permet la sélection multiple sur l'arborescence (avec ou sans case à cocher). Par défaut: false.|
+|allowDeselection|Boolean|Non|Permet dautoriser ou non la désélection dans l'arboresence. Par défaut: true.|
 
 - `onSelection` - Fonction appelée lors de la sélection d'un élément de l'arbre.
 
@@ -68,6 +69,8 @@ Paramètres :
 |Nom|Type|Obligatoire|Description|
 |--------|--------|--------|--------|
 |id|String|Oui|Identifiant unique de l'élément|
+
+- `deselectAllNodes` - Permet de désélectionner tous les éléments.
 
 - `addNode` - Permet d'ajouter un élément dans l'arborescence.
 

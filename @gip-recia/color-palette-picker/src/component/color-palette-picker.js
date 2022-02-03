@@ -37,34 +37,34 @@ export class ColorPalettePicker extends LitElement {
       onColorChanged: { attribute: false },
 
       /**
-        * Propriété interne pour stocker la modal.
-        * @type {Object}
-        */
-       _colorModal : { state: true },
+       * Propriété interne pour stocker la modal.
+       * @type {Object}
+       */
+      _colorModal : { state: true },
 
       /**
        * Propriété interne pour stocker la couleur sélectionnée.
        * @type {String}
        */
-       _color: { state: true },
+      _color: { state: true },
 
       /**
        * Propriété interne pour stocker la couleur sélectionnée initialement.
        * @type {String}
        */
-       _originalColor: { state: true },
+      _originalColor: { state: true },
 
-       /**
-        * Propriété interne pour stocker les labels affichés par le composant.
-        * @type {Object}
-        */
-       _labels : { state: true },
+      /**
+       * Propriété interne pour stocker les labels affichés par le composant.
+       * @type {Object}
+       */
+      _labels : { state: true },
 
-       /**
+      /**
        * Propriété interne pour stocker la langue.
        * @type {String}
        */
-        _lang: { state: true }
+      _lang: { state: true }
     }
   }
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Esup-Publisher - Subject Infos</title>
+    <meta name="description" content="Esup-Publisher - Subject Infos" />
+
+    <link rel="stylesheet" href="./font-awesome/solid.css" />
+
+    <script>
+      if (!window.customElements) {
+        document.write('<!--');
+      }
+    </script>
+    <script src="./vendor/custom-elements-es5-adapter.js"></script>
+    <!-- ! DO NOT REMOVE THIS COMMENT, WE NEED ITS CLOSING MARKER -->
+  </head>
+
+  <body>
+    <header><h1>Esup-Publisher - Subject Infos</h1></header>
+    <script src="./vendor/webcomponents-loader.js"></script>
+    <script>
+      const datas = [
+        {
+          "modelId": {
+            "keyId":"id:Reference:Props:Prof1",
+            "keyType":"GROUP"
+          },
+          "displayName":"Prof 1",
+          "foundOnExternalSource":true
+        },
+        {
+          "modelId": {
+            "keyId":"id:Reference:Props:Eleve1",
+            "keyType":"PERSON"
+          },
+          "displayName":"Eleve 1",
+          "foundOnExternalSource":false
+        }
+      ];
+      const config = {
+        lang: 'en',
+        labels: {
+          'en': {
+            'disappear': 'don\'t exists anymore !',
+          }
+        }
+      };
+      const ul = document.createElement('ul');
+      datas.forEach(data => {
+        const li = document.createElement('li');
+        const subjectInfos = document.createElement('esup-subject-infos');
+        subjectInfos.subject = data;
+        subjectInfos.config = config;
+        subjectInfos.onSubjectClicked = () => console.log('click');
+        const slot = document.createElement('span');
+        slot.innerHTML = 'slot';
+        subjectInfos.appendChild(slot);
+        li.appendChild(subjectInfos);
+        ul.appendChild(li);
+      });
+      document.body.appendChild(ul);
+    </script>
+  </body>
+</html>

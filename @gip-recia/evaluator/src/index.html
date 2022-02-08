@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Esup-Publisher - Evaluator</title>
+    <meta name="description" content="Esup-Publisher - Evaluator" />
+    <link rel="stylesheet" href="./font-awesome/solid.css" />
+
+    <script>
+      if (!window.customElements) {
+        document.write('<!--');
+      }
+    </script>
+    <script src="./vendor/custom-elements-es5-adapter.js"></script>
+    <!-- ! DO NOT REMOVE THIS COMMENT, WE NEED ITS CLOSING MARKER -->
+  </head>
+
+  <body>
+    <header><h1>Esup-Publisher - Evaluator</h1></header>
+    <script src="./vendor/webcomponents-loader.js"></script>
+    <script>
+      const data = {
+        "class": "OPERATOR",
+        "id": 27,
+        "type": "OR",
+        "evaluators": [
+          {
+            "class": "USERATTRIBUTES",
+            "id": 29,
+            "attribute": "uid",
+            "value": "UserId1",
+            "mode": "EQUALS"
+          },
+          {
+            "class": "USERGROUP",
+            "id": 30,
+            "group": "GroupId1"
+          },
+          {
+            "class": "USERATTRIBUTES",
+            "id": 31,
+            "attribute": "uid",
+            "value": "UserId2",
+            "mode": "EQUALS"
+          }
+        ]
+      };
+      const config = {
+        "lang": "fr",
+        "userDisplayedAttrs": ["mail", "ENTPersonProfils", "ESCOUAI"],
+        "getSubjectInfos": (type, id) => new Promise(resolve => {
+          if (id === 'UserId1') {
+            resolve({
+              "modelId": {
+                "keyId": "UserId1",
+                "keyType": "PERSON"
+              },
+              "displayName": "FirstName1 LastName1",
+              "foundOnExternalSource": true,
+              "login": "UserId1",
+              "attributes": {
+                  "mail": [
+                    "firstname1.lastname1@mail.fr"
+                  ],
+                  "ENTPersonProfils": [
+                    "Profil1",
+                    "Profil2"
+                  ],
+                  "ESCOUAI": [
+                    "CodeESCOUAI1"
+                  ]
+              },
+              "foundOnInternalSource": false
+            });
+          } else if (id === 'GroupId1') {
+            resolve({
+              "modelId": {
+                "keyId": "GroupId1",
+                "keyType": "GROUP"
+              },
+              "displayName": "GroupName1",
+              "foundOnExternalSource": true,
+            });
+          } else if (id === 'UserId2') {
+            resolve({
+              "modelId": {
+                "keyId": "UserId2",
+                "keyType": "PERSON"
+              },
+              "displayName": "FirstName2 LastName2",
+              "foundOnExternalSource": true,
+              "login": "UserId2",
+              "attributes": {
+                "mail": [
+                  "firstname2.lastname2@mail.fr"
+                ],
+                "ENTPersonProfils": [
+                  "Profil1",
+                  "Profil2"
+                ],
+                "ESCOUAI": [
+                  "CodeESCOUAI2"
+                ],
+              },
+              "foundOnInternalSource": false
+            });
+          } else {
+            if (type === 'PERSON') {
+              resolve({
+                "modelId": {
+                  "keyId": "UserId" + id,
+                  "keyType": "PERSON"
+                },
+                "displayName": "FirstName" + id + " LastName" + id,
+                "foundOnExternalSource": true,
+                "login": "UserId" + id,
+                "attributes": {
+                    "mail": [
+                      "firstname" + id + ".lastname" + id + "@mail.fr"
+                    ],
+                    "ENTPersonProfils": [
+                      "Profil1",
+                      "Profil2"
+                    ],
+                    "ESCOUAI": [
+                      "CodeESCOUAI" + id
+                    ]
+                },
+                "foundOnInternalSource": false
+              });
+            } else {
+              resolve({
+                "modelId": {
+                  "keyId": "GroupId" + id,
+                  "keyType": "GROUP"
+                },
+                "displayName": "GroupName" + id,
+                "foundOnExternalSource": true,
+              });
+            }
+          }
+        }),
+        treeGroupDatas: [
+          {
+            "id":"1:PUBLISHER",
+            "text":"Flash-Infos",
+            "children":false,
+            "a_attr" : {"model" : {"modelId": {keyId: "1", keyType: "GROUP"}}}
+          },
+          {
+            "id":"2:PUBLISHER",
+            "text":"Actualités",
+            "children":true,
+            "a_attr" : {"model" : {"modelId": {keyId: "2", keyType: "GROUP"}}},
+            "getChildren": () => new Promise(resolve => {
+              resolve([
+                {
+                  "id":"4:PUBLISHER",
+                  "text":"Vie Scolaire",
+                  "children":false,
+                  "a_attr" : {"model" : {"modelId": {keyId: "4", keyType: "GROUP"}}}
+                },
+                {
+                  "id":"5:PUBLISHER",
+                  "text":"Pédagogie",
+                  "children":true,
+                  "a_attr" : {"model" : {"modelId": {keyId: "5", keyType: "GROUP"}}},
+                  "getChildren": () => new Promise(resolve => {
+                    resolve([
+                      {
+                        "id":"7:PUBLISHER",
+                        "text":"Enfant 1",
+                        "children":false,
+                        "a_attr" : {"model" : {"modelId": {keyId: "7", keyType: "GROUP"}}}
+                      },
+                      {
+                        "id":"8:PUBLISHER",
+                        "text":"Enfant 2",
+                        "children":false,
+                        "a_attr" : {"model" : {"modelId": {keyId: "8", keyType: "GROUP"}}}
+                      }
+                    ])
+                  })
+                },
+                {
+                  "id":"6:PUBLISHER",
+                  "text":"Direction",
+                  "children":false,
+                  "a_attr" : {"model" : {"modelId": {keyId: "6", keyType: "GROUP"}}}
+                }
+              ])
+            })
+          },
+          {
+            "id":"3:PUBLISHER",
+            "text":"Documents",
+            "children":false,
+            "a_attr" : {"model" : {"modelId": {keyId: "3", keyType: "GROUP"}}}
+          }
+        ],
+        extendedAttrs: [
+          "ESCOSIRENCourant",
+          "uid",
+          "ENTPersonJointure",
+          "mail",
+          "ENTPersonProfils",
+          "ESCOUAI",
+          "displayName",
+          "ESCOUAICourant",
+          "isMemberOf",
+          "cn",
+          "ESCOPersonProfils"
+        ],
+        searchUsers: (term) => {
+          console.log('searchUsers : ', term)
+          return Promise.resolve([
+            { "modelId": { "keyId": "01", "keyType": "PERSON" }, "displayName": "FirstName01 LastName01", "attributes": { "attr1": "attr101", "attr2": "attr201" } },
+            { "modelId": { "keyId": "02", "keyType": "PERSON" }, "displayName": "FirstName02 LastName02", "attributes": { "attr1": "attr102", "attr2": "attr202" } },
+            { "modelId": { "keyId": "03", "keyType": "PERSON" }, "displayName": "FirstName03 LastName03", "attributes": { "attr1": "attr103", "attr2": "attr203" } },
+            { "modelId": { "keyId": "04", "keyType": "PERSON" }, "displayName": "FirstName04 LastName04", "attributes": { "attr1": "attr104", "attr2": "attr204" } },
+            { "modelId": { "keyId": "05", "keyType": "PERSON" }, "displayName": "FirstName05 LastName05", "attributes": { "attr1": "attr105", "attr2": "attr205" } },
+            { "modelId": { "keyId": "06", "keyType": "PERSON" }, "displayName": "FirstName06 LastName06", "attributes": { "attr1": "attr106", "attr2": "attr206" } },
+            { "modelId": { "keyId": "07", "keyType": "PERSON" }, "displayName": "FirstName07 LastName07", "attributes": { "attr1": "attr107", "attr2": "attr207" } },
+            { "modelId": { "keyId": "08", "keyType": "PERSON" }, "displayName": "FirstName08 LastName08", "attributes": { "attr1": "attr108", "attr2": "attr208" } },
+            { "modelId": { "keyId": "09", "keyType": "PERSON" }, "displayName": "FirstName09 LastName09", "attributes": { "attr1": "attr109", "attr2": "attr209" } },
+            { "modelId": { "keyId": "10", "keyType": "PERSON" }, "displayName": "FirstName10 LastName10", "attributes": { "attr1": "attr110", "attr2": "attr210" } },
+            { "modelId": { "keyId": "11", "keyType": "PERSON" }, "displayName": "FirstName11 LastName11", "attributes": { "attr1": "attr111", "attr2": "attr211" } },
+            { "modelId": { "keyId": "12", "keyType": "PERSON" }, "displayName": "FirstName12 LastName12", "attributes": { "attr1": "attr112", "attr2": "attr212" } },
+            { "modelId": { "keyId": "13", "keyType": "PERSON" }, "displayName": "FirstName13 LastName13", "attributes": { "attr1": "attr113", "attr2": "attr213" } },
+            { "modelId": { "keyId": "14", "keyType": "PERSON" }, "displayName": "FirstName14 LastName14", "attributes": { "attr1": "attr114", "attr2": "attr214" } },
+            { "modelId": { "keyId": "15", "keyType": "PERSON" }, "displayName": "FirstName15 LastName15", "attributes": { "attr1": "attr115", "attr2": "attr215" } },
+            { "modelId": { "keyId": "16", "keyType": "PERSON" }, "displayName": "FirstName16 LastName16", "attributes": { "attr1": "attr116", "attr2": "attr216" } },
+            { "modelId": { "keyId": "17", "keyType": "PERSON" }, "displayName": "FirstName17 LastName17", "attributes": { "attr1": "attr117", "attr2": "attr217" } },
+            { "modelId": { "keyId": "18", "keyType": "PERSON" }, "displayName": "FirstName18 LastName18", "attributes": { "attr1": "attr118", "attr2": "attr218" } },
+            { "modelId": { "keyId": "19", "keyType": "PERSON" }, "displayName": "FirstName19 LastName19", "attributes": { "attr1": "attr119", "attr2": "attr219" } },
+            { "modelId": { "keyId": "20", "keyType": "PERSON" }, "displayName": "FirstName20 LastName20", "attributes": { "attr1": "attr120", "attr2": "attr220" } },
+            { "modelId": { "keyId": "21", "keyType": "PERSON" }, "displayName": "FirstName21 LastName21", "attributes": { "attr1": "attr121", "attr2": "attr221" } },
+            { "modelId": { "keyId": "22", "keyType": "PERSON" }, "displayName": "FirstName22 LastName22", "attributes": { "attr1": "attr122", "attr2": "attr222" } },
+            { "modelId": { "keyId": "23", "keyType": "PERSON" }, "displayName": "FirstName23 LastName23", "attributes": { "attr1": "attr123", "attr2": "attr223" } },
+            { "modelId": { "keyId": "24", "keyType": "PERSON" }, "displayName": "FirstName24 LastName24", "attributes": { "attr1": "attr124", "attr2": "attr224" } },
+            { "modelId": { "keyId": "25", "keyType": "PERSON" }, "displayName": "FirstName25 LastName25", "attributes": { "attr1": "attr125", "attr2": "attr225" } },
+            { "modelId": { "keyId": "26", "keyType": "PERSON" }, "displayName": "FirstName26 LastName26", "attributes": { "attr1": "attr126", "attr2": "attr226" } },
+            { "modelId": { "keyId": "27", "keyType": "PERSON" }, "displayName": "FirstName27 LastName27", "attributes": { "attr1": "attr127", "attr2": "attr227" } },
+            { "modelId": { "keyId": "28", "keyType": "PERSON" }, "displayName": "FirstName28 LastName28", "attributes": { "attr1": "attr128", "attr2": "attr228" } },
+            { "modelId": { "keyId": "29", "keyType": "PERSON" }, "displayName": "FirstName29 LastName29", "attributes": { "attr1": "attr129", "attr2": "attr229" } },
+            { "modelId": { "keyId": "30", "keyType": "PERSON" }, "displayName": "FirstName30 LastName30", "attributes": { "attr1": "attr130", "attr2": "attr230" } },
+            { "modelId": { "keyId": "31", "keyType": "PERSON" }, "displayName": "FirstName31 LastName31", "attributes": { "attr1": "attr131", "attr2": "attr231" } },
+            { "modelId": { "keyId": "32", "keyType": "PERSON" }, "displayName": "FirstName32 LastName32", "attributes": { "attr1": "attr132", "attr2": "attr232" } },
+            { "modelId": { "keyId": "33", "keyType": "PERSON" }, "displayName": "FirstName33 LastName33", "attributes": { "attr1": "attr133", "attr2": "attr233" } },
+            { "modelId": { "keyId": "34", "keyType": "PERSON" }, "displayName": "FirstName34 LastName34", "attributes": { "attr1": "attr134", "attr2": "attr234" } },
+            { "modelId": { "keyId": "35", "keyType": "PERSON" }, "displayName": "FirstName35 LastName35", "attributes": { "attr1": "attr135", "attr2": "attr235" } },
+            { "modelId": { "keyId": "36", "keyType": "PERSON" }, "displayName": "FirstName36 LastName36", "attributes": { "attr1": "attr136", "attr2": "attr236" } },
+            { "modelId": { "keyId": "37", "keyType": "PERSON" }, "displayName": "FirstName37 LastName37", "attributes": { "attr1": "attr137", "attr2": "attr237" } },
+            { "modelId": { "keyId": "38", "keyType": "PERSON" }, "displayName": "FirstName38 LastName38", "attributes": { "attr1": "attr138", "attr2": "attr238" } },
+            { "modelId": { "keyId": "39", "keyType": "PERSON" }, "displayName": "FirstName39 LastName39", "attributes": { "attr1": "attr139", "attr2": "attr239" } },
+            { "modelId": { "keyId": "40", "keyType": "PERSON" }, "displayName": "FirstName40 LastName40", "attributes": { "attr1": "attr140", "attr2": "attr240" } },
+            { "modelId": { "keyId": "41", "keyType": "PERSON" }, "displayName": "FirstName41 LastName41", "attributes": { "attr1": "attr141", "attr2": "attr241" } },
+            { "modelId": { "keyId": "42", "keyType": "PERSON" }, "displayName": "FirstName42 LastName42", "attributes": { "attr1": "attr142", "attr2": "attr242" } },
+            { "modelId": { "keyId": "43", "keyType": "PERSON" }, "displayName": "FirstName43 LastName43", "attributes": { "attr1": "attr143", "attr2": "attr243" } },
+            { "modelId": { "keyId": "44", "keyType": "PERSON" }, "displayName": "FirstName44 LastName44", "attributes": { "attr1": "attr144", "attr2": "attr244" } },
+            { "modelId": { "keyId": "45", "keyType": "PERSON" }, "displayName": "FirstName45 LastName45", "ATTRIBUTES": { "attr1": "attr145", "attr2": "attr245" } },
+            { "modelId": { "keyId": "46", "keyType": "PERSON" }, "displayName": "FirstName46 LastName46", "ATTRIBUTES": { "attr1": "attr146", "attr2": "attr246" } },
+            { "modelId": { "keyId": "47", "keyType": "PERSON" }, "displayName": "FirstName47 LastName47", "attributes": { "attr1": "attr147", "attr2": "attr247" } },
+            { "modelId": { "keyId": "48", "keyType": "PERSON" }, "displayName": "FirstName48 LastName48", "attributes": { "attr1": "attr148", "attr2": "attr248" } },
+            { "modelId": { "keyId": "49", "keyType": "PERSON" }, "displayName": "FirstName49 LastName49", "attributes": { "attr1": "attr149", "attr2": "attr249" } },
+            { "modelId": { "keyId": "50", "keyType": "PERSON" }, "displayName": "FirstName50 LastName50", "attributes": { "attr1": "attr150", "attr2": "attr250" } },
+            { "modelId": { "keyId": "51", "keyType": "PERSON" }, "displayName": "FirstName51 LastName51", "attributes": { "attr1": "attr151", "attr2": "attr251" } }
+          ])
+        },
+        getGroupMembers: (group) => {
+          console.log('getGroupMembers : ', group)
+          return Promise.resolve([
+            { "modelId": { "keyId": "01", "keyType": "PERSON" }, "displayName": "FirstName01 LastName01", "attributes": { "attr1": "attr101", "attr2": "attr201" } },
+            { "modelId": { "keyId": "02", "keyType": "PERSON" }, "displayName": "FirstName02 LastName02", "attributes": { "attr1": "attr102", "attr2": "attr202" } },
+            { "modelId": { "keyId": "03", "keyType": "PERSON" }, "displayName": "FirstName03 LastName03", "attributes": { "attr1": "attr103", "attr2": "attr203" } },
+            { "modelId": { "keyId": "04", "keyType": "PERSON" }, "displayName": "FirstName04 LastName04", "attributes": { "attr1": "attr104", "attr2": "attr204" } },
+            { "modelId": { "keyId": "05", "keyType": "PERSON" }, "displayName": "FirstName05 LastName05", "attributes": { "attr1": "attr105", "attr2": "attr205" } },
+            { "modelId": { "keyId": "06", "keyType": "PERSON" }, "displayName": "FirstName06 LastName06", "attributes": { "attr1": "attr106", "attr2": "attr206" } },
+            { "modelId": { "keyId": "07", "keyType": "PERSON" }, "displayName": "FirstName07 LastName07", "attributes": { "attr1": "attr107", "attr2": "attr207" } },
+            { "modelId": { "keyId": "08", "keyType": "PERSON" }, "displayName": "FirstName08 LastName08", "attributes": { "attr1": "attr108", "attr2": "attr208" } },
+            { "modelId": { "keyId": "09", "keyType": "PERSON" }, "displayName": "FirstName09 LastName09", "attributes": { "attr1": "attr109", "attr2": "attr209" } },
+            { "modelId": { "keyId": "10", "keyType": "PERSON" }, "displayName": "FirstName10 LastName10", "attributes": { "attr1": "attr110", "attr2": "attr210" } },
+            { "modelId": { "keyId": "11", "keyType": "PERSON" }, "displayName": "FirstName11 LastName11", "attributes": { "attr1": "attr111", "attr2": "attr211" } },
+            { "modelId": { "keyId": "12", "keyType": "PERSON" }, "displayName": "FirstName12 LastName12", "attributes": { "attr1": "attr112", "attr2": "attr212" } },
+            { "modelId": { "keyId": "13", "keyType": "PERSON" }, "displayName": "FirstName13 LastName13", "attributes": { "attr1": "attr113", "attr2": "attr213" } },
+            { "modelId": { "keyId": "14", "keyType": "PERSON" }, "displayName": "FirstName14 LastName14", "attributes": { "attr1": "attr114", "attr2": "attr214" } },
+            { "modelId": { "keyId": "15", "keyType": "PERSON" }, "displayName": "FirstName15 LastName15", "attributes": { "attr1": "attr115", "attr2": "attr215" } },
+            { "modelId": { "keyId": "16", "keyType": "PERSON" }, "displayName": "FirstName16 LastName16", "attributes": { "attr1": "attr116", "attr2": "attr216" } },
+            { "modelId": { "keyId": "17", "keyType": "PERSON" }, "displayName": "FirstName17 LastName17", "attributes": { "attr1": "attr117", "attr2": "attr217" } },
+            { "modelId": { "keyId": "18", "keyType": "PERSON" }, "displayName": "FirstName18 LastName18", "attributes": { "attr1": "attr118", "attr2": "attr218" } },
+            { "modelId": { "keyId": "19", "keyType": "PERSON" }, "displayName": "FirstName19 LastName19", "attributes": { "attr1": "attr119", "attr2": "attr219" } },
+            { "modelId": { "keyId": "20", "keyType": "PERSON" }, "displayName": "FirstName20 LastName20", "attributes": { "attr1": "attr120", "attr2": "attr220" } },
+            { "modelId": { "keyId": "21", "keyType": "PERSON" }, "displayName": "FirstName21 LastName21", "attributes": { "attr1": "attr121", "attr2": "attr221" } },
+            { "modelId": { "keyId": "22", "keyType": "PERSON" }, "displayName": "FirstName22 LastName22", "attributes": { "attr1": "attr122", "attr2": "attr222" } },
+            { "modelId": { "keyId": "23", "keyType": "PERSON" }, "displayName": "FirstName23 LastName23", "attributes": { "attr1": "attr123", "attr2": "attr223" } },
+            { "modelId": { "keyId": "24", "keyType": "PERSON" }, "displayName": "FirstName24 LastName24", "attributes": { "attr1": "attr124", "attr2": "attr224" } },
+            { "modelId": { "keyId": "25", "keyType": "PERSON" }, "displayName": "FirstName25 LastName25", "attributes": { "attr1": "attr125", "attr2": "attr225" } },
+            { "modelId": { "keyId": "26", "keyType": "PERSON" }, "displayName": "FirstName26 LastName26", "attributes": { "attr1": "attr126", "attr2": "attr226" } },
+            { "modelId": { "keyId": "27", "keyType": "PERSON" }, "displayName": "FirstName27 LastName27", "attributes": { "attr1": "attr127", "attr2": "attr227" } },
+            { "modelId": { "keyId": "28", "keyType": "PERSON" }, "displayName": "FirstName28 LastName28", "attributes": { "attr1": "attr128", "attr2": "attr228" } },
+            { "modelId": { "keyId": "29", "keyType": "PERSON" }, "displayName": "FirstName29 LastName29", "attributes": { "attr1": "attr129", "attr2": "attr229" } },
+            { "modelId": { "keyId": "30", "keyType": "PERSON" }, "displayName": "FirstName30 LastName30", "attributes": { "attr1": "attr130", "attr2": "attr230" } },
+            { "modelId": { "keyId": "31", "keyType": "PERSON" }, "displayName": "FirstName31 LastName31", "attributes": { "attr1": "attr131", "attr2": "attr231" } },
+            { "modelId": { "keyId": "32", "keyType": "PERSON" }, "displayName": "FirstName32 LastName32", "attributes": { "attr1": "attr132", "attr2": "attr232" } },
+            { "modelId": { "keyId": "33", "keyType": "PERSON" }, "displayName": "FirstName33 LastName33", "attributes": { "attr1": "attr133", "attr2": "attr233" } },
+            { "modelId": { "keyId": "34", "keyType": "PERSON" }, "displayName": "FirstName34 LastName34", "attributes": { "attr1": "attr134", "attr2": "attr234" } },
+            { "modelId": { "keyId": "35", "keyType": "PERSON" }, "displayName": "FirstName35 LastName35", "attributes": { "attr1": "attr135", "attr2": "attr235" } },
+            { "modelId": { "keyId": "36", "keyType": "PERSON" }, "displayName": "FirstName36 LastName36", "attributes": { "attr1": "attr136", "attr2": "attr236" } },
+            { "modelId": { "keyId": "37", "keyType": "PERSON" }, "displayName": "FirstName37 LastName37", "attributes": { "attr1": "attr137", "attr2": "attr237" } },
+            { "modelId": { "keyId": "38", "keyType": "PERSON" }, "displayName": "FirstName38 LastName38", "attributes": { "attr1": "attr138", "attr2": "attr238" } },
+            { "modelId": { "keyId": "39", "keyType": "PERSON" }, "displayName": "FirstName39 LastName39", "attributes": { "attr1": "attr139", "attr2": "attr239" } },
+            { "modelId": { "keyId": "40", "keyType": "PERSON" }, "displayName": "FirstName40 LastName40", "attributes": { "attr1": "attr140", "attr2": "attr240" } },
+            { "modelId": { "keyId": "41", "keyType": "PERSON" }, "displayName": "FirstName41 LastName41", "attributes": { "attr1": "attr141", "attr2": "attr241" } },
+            { "modelId": { "keyId": "42", "keyType": "PERSON" }, "displayName": "FirstName42 LastName42", "attributes": { "attr1": "attr142", "attr2": "attr242" } },
+            { "modelId": { "keyId": "43", "keyType": "PERSON" }, "displayName": "FirstName43 LastName43", "attributes": { "attr1": "attr143", "attr2": "attr243" } },
+            { "modelId": { "keyId": "44", "keyType": "PERSON" }, "displayName": "FirstName44 LastName44", "attributes": { "attr1": "attr144", "attr2": "attr244" } },
+            { "modelId": { "keyId": "45", "keyType": "PERSON" }, "displayName": "FirstName45 LastName45", "ATTRIBUTES": { "attr1": "attr145", "attr2": "attr245" } },
+            { "modelId": { "keyId": "46", "keyType": "PERSON" }, "displayName": "FirstName46 LastName46", "ATTRIBUTES": { "attr1": "attr146", "attr2": "attr246" } },
+            { "modelId": { "keyId": "47", "keyType": "PERSON" }, "displayName": "FirstName47 LastName47", "attributes": { "attr1": "attr147", "attr2": "attr247" } },
+            { "modelId": { "keyId": "48", "keyType": "PERSON" }, "displayName": "FirstName48 LastName48", "attributes": { "attr1": "attr148", "attr2": "attr248" } },
+            { "modelId": { "keyId": "49", "keyType": "PERSON" }, "displayName": "FirstName49 LastName49", "attributes": { "attr1": "attr149", "attr2": "attr249" } },
+            { "modelId": { "keyId": "50", "keyType": "PERSON" }, "displayName": "FirstName50 LastName50", "attributes": { "attr1": "attr150", "attr2": "attr250" } },
+            { "modelId": { "keyId": "51", "keyType": "PERSON" }, "displayName": "FirstName51 LastName51", "attributes": { "attr1": "attr151", "attr2": "attr251" } }
+          ])
+        },
+        operators: [
+          "OR",
+          "AND",
+          "NOT"
+        ],
+        stringEvaluators: [
+            "CONTAINS",
+            "EQUALS",
+            "STARTS_WITH",
+            "ENDS_WITH",
+            "EXISTS",
+            "MATCH"
+        ],
+        userAttributes: [
+          "ESCOSIRENCourant",
+          "uid",
+          "ENTPersonJointure",
+          "mail",
+          "ENTPersonProfils",
+          "ESCOUAI",
+          "displayName",
+          "ESCOUAICourant",
+          "isMemberOf",
+          "cn",
+          "ESCOPersonProfils"
+        ]
+      };
+      const evaluator = document.createElement('esup-evaluator');
+      evaluator.evaluator = data;
+      evaluator.config = config;
+      evaluator.simple = false;
+      document.body.appendChild(evaluator);
+
+      const editEvaluator = document.createElement('esup-edit-evaluator');
+      editEvaluator.evaluator = {
+          "class": "OPERATOR",
+          "id": 1,
+          "type": "OR",
+          "evaluators": [
+              {
+                  "class": "USERGROUP",
+                  "id": 30,
+                  "group": "GroupId1"
+              }
+          ]
+      }
+      editEvaluator.config = config;
+      editEvaluator.onModification = (evaluator) => {
+        console.log('Evaluator modified : ', evaluator)
+        console.log('Evaluator is valid : ', editEvaluator.isValid())
+      }
+      document.body.appendChild(editEvaluator);
+    </script>
+  </body>
+</html>
+

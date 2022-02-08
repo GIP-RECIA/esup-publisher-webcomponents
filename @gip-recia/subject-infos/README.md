@@ -38,7 +38,7 @@ import './path/to/subject-infos.js';
 Le webcomponent Subject-Infos accepte les paramètres suivants :
 - `subject` - Objet contenant les éléments permettant l'affichage de la personne/du groupe.
 
-Les propriétés de l'objet vari selon le context :
+Les propriétés de l'objet varient selon le context :
 
 Contexte DTO :
 |Nom|Type|Obligatoire|Description|
@@ -125,11 +125,11 @@ esup-subject-infos {
 }
 ``` 
 
-## **Test du webcomposant**
+## **Test du webcomponent**
 
-Pour tester le webcomposant, exécuter la commande suivante :
+Pour tester le webcomponent, exécuter la commande suivante :
 ```shell
 npm run dev
 ```
 
-Une page avec le webcomposant est alors disponible à l'adresse http://localhost:8080.
+Une page avec le webcomponent est alors disponible à l'adresse http://localhost:8080.

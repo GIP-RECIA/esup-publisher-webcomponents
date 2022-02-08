@@ -1,9 +1,12 @@
-import { LitElement, html } from 'lit-element'
+import { LitElement, html } from 'lit'
 import { subjectInfosStyle } from './subject-infos-style.js'
 import { subjectInfoLabel } from './subject-infos-label.js'
 import { bootstrapStyle } from './bootstrap-style.js'
 
-class SubjectInfos extends LitElement {
+/**
+ * Subject Infos component.
+ */
+export class SubjectInfos extends LitElement {
 
   static get styles() {
     return [
@@ -398,4 +401,6 @@ class SubjectInfos extends LitElement {
   }
 }
 
-customElements.define('esup-subject-infos', SubjectInfos)
+if (!customElements.get('esup-subject-infos')) {
+  customElements.define('esup-subject-infos', SubjectInfos)
+}

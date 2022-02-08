@@ -1,4 +1,4 @@
-import {css} from 'lit-element';
+import { css } from 'lit'
 
 export const subjectInfosStyle = css`
     a:hover, a:focus, a:link {
@@ -16,7 +16,7 @@ export const subjectInfosStyle = css`
         background-color: var(--subject-infos-focus-background-color, transparent);
     }
 
-    a.icon {
+    .icon {
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
         display: inline-block;
@@ -28,7 +28,7 @@ export const subjectInfosStyle = css`
         font-family: 'Font Awesome 5 Free';
         font-weight: 900;
     }
-    a.icon:before {
+    .icon:before {
         content: '\\f128';
     }
 
@@ -39,18 +39,18 @@ export const subjectInfosStyle = css`
     .icon-question:before {
         content: var(--icon-question-content, '\\f128');
     }
-    a.icon-users {
+    .icon-users {
         font-family: var(--icon-users-font-family, 'Font Awesome 5 Free');
         font-weight: var(--icon-users-font-weight, 900);
     }
-    a.icon-users:before {
+    .icon-users:before {
         content: var(--icon-users-content, '\\f0c0');
     }
-    a.icon-user {
+    .icon-user {
         font-family: var(--icon-user-font-family, 'Font Awesome 5 Free');
         font-weight: var(--icon-user-font-weight, 900);
     }
-    a.icon-user:before {
+    .icon-user:before {
         content: var(--icon-user-content, '\\f007');
     }
 

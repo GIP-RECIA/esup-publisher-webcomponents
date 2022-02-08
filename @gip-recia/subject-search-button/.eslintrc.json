@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "extends": ["eslint:recommended"],
+  "parser": "babel-eslint",
+  "globals": {
+    "chai": "readonly"
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "es6": true
+  },
+  "rules": {
+    "no-unexpected-multiline": "off"
+  }
+}

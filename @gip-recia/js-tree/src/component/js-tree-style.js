@@ -1,29 +1,30 @@
-import {css} from 'lit-element'
+import { css } from 'lit'
 
 export const jsTreeStyle = css`
     /* tree */
     .root-tree {
         padding-left: 0;
+        margin-left: 1px;
+        margin-right: 1px;
+        --min-dimension: var(--min-clickable-dimension, 24px)
     }
     .root-tree li {
         list-style-type:none;
     }
     .root-tree .row-data:focus,
-    .root-tree .row-data:hover{
-        color: var(--text-color, black);
-    }
-    .root-tree li {
-        margin-bottom: 2px;
-        margin-top: 2px;
+    .root-tree .row-data:hover {
+        color: var(--hover-text-color, black);
     }
     .root-tree .row-data.jstree-clicked,
     .root-tree .row-data.jstree-clicked span {
-        background-color: var(--selected-background-color, white);
+        background-color: var(--selected-background-color, transparent);
         color: var(--selected-text-color, black);
     }
     .root-tree .row,
     .root-tree .row-data {
         display: inline-block;
+        min-height: var(--min-dimension);
+        min-width: var(--min-dimension);
     }
     .root-tree .row-data span {
         margin-right: 3px;
@@ -35,16 +36,25 @@ export const jsTreeStyle = css`
         display:block;
     }
     .row {
-        width: calc(100% - 20px);
+        width: calc(100% - var(--min-dimension));
         cursor: pointer;
         position: relative;
-        padding-left: 20px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        padding-right: 1px;
+        padding-left: var(--min-dimension);
+    }
+    .align-items-center {
+        align-items: center !important;
+    }
+    .d-flex {
+        display: flex !important;
     }
     .icon-indicator {
-        left: 0;
+        left: calc(var(--min-dimension) / 2);
         position: absolute;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY(-50%) translateX(-50%);
     }
     .row-data {
         width: 100%;

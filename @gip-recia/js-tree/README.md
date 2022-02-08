@@ -104,9 +104,10 @@ Plusieurs variables CSS peuvent être définis pour personnaliser l'arbre :
 
 |Nom|Description|
 |--------|--------|
+|--hover-text-color|Permet de modifier la couleur au survol du texte des éléments de l'arborescence|
 |--selected-background-color|Permet de modifier la couleur de fond des éléments sélectionnés dans l'arborescence|
-|--text-color|Permet de modifier la couleur du texte des éléments de l'arborescence|
 |--selected-text-color|Permet de modifier la couleur du texte des éléments sélectionnés de l'arborescence |
+|--min-clickable-dimension|Permet de modifier la hauteur/largeur minimum des éléments cliquables de l'arborescence |
 
 Par défaut le webcomponent Js-Tree s'appuie sur les fonts Font-Awesome pour afficher des icônes (via des pseudo-elements). Il est cependant possible de personnaliser les icônes affichées via les propriétés suivantes :
 
@@ -144,11 +145,11 @@ esup-js-tree {
 }
 ``` 
 
-## **Test du webcomposant**
+## **Test du webcomponent**
 
-Pour tester le webcomposant, exécuter la commande suivante :
+Pour tester le webcomponent, exécuter la commande suivante :
 ```shell
 npm run dev
 ```
 
-Une page avec le webcomposant est alors disponible à l'adresse http://localhost:8080.
+Une page avec le webcomponent est alors disponible à l'adresse http://localhost:8080.

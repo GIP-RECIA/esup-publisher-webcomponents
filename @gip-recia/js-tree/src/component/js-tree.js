@@ -1,4 +1,4 @@
-import {LitElement, html } from 'lit-element'
+import { LitElement, html } from 'lit'
 import { jsTreeStyle } from './js-tree-style.js'
 
 /**
@@ -230,7 +230,7 @@ export class JsTree extends LitElement {
                 role="${this.config.showCheckbox ? 'option' : 'treeitem'}" aria-selected="${data.selected}">
                 <div class="row" @click="${(e) => this._onClickRow(e, data)}">
                   ${this._renderIconIndicator(data)}
-                  <div class="row-data ${data.selected ? 'jstree-clicked' : ''}" @click="${(e) => this._onClickItem(e, data)}">
+                  <div class="row-data d-flex align-items-center ${data.selected ? 'jstree-clicked' : ''}" @click="${(e) => this._onClickItem(e, data)}">
                     ${this._renderCheckbox(data)}
                     <i class="icon ${data.iconIndex !== null ? 'icon-' + data.iconIndex : ''}" aria-hidden="true"></i>
                     <span id="${data.idHtml}-text">${data.text}</span>
@@ -631,4 +631,6 @@ export class JsTree extends LitElement {
   }
 }
 
-window.customElements.define('esup-js-tree', JsTree)
+if (!customElements.get('esup-js-tree')) {
+  customElements.define('esup-js-tree', JsTree)
+}

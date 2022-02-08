@@ -1,10 +1,10 @@
-import { LitElement, html } from 'lit-element'
+import { LitElement, html } from 'lit'
 import { colorPaletteStyle } from './color-palette-style.js'
 import { colorPaletteLabel } from './color-palette-label.js'
 import { bootstrapStyle } from './bootstrap-style.js'
 
 /**
- * Color palette Picker component.
+ * Color Palette Picker component.
  */
 export class ColorPalettePicker extends LitElement {
 
@@ -101,6 +101,7 @@ export class ColorPalettePicker extends LitElement {
                       @click="${(e) => this._onClickColor(e, col)}" @keydown="${(e) => this._onKeyDownColor(e, col)}"></div>
                     </div>`
                   })}
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-outline-dark" @click="${(e) => this._onClickCancel(e)}" >
@@ -276,4 +277,6 @@ export class ColorPalettePicker extends LitElement {
   }
 }
 
-window.customElements.define('esup-color-palette-picker', ColorPalettePicker)
+if (!customElements.get('esup-color-palette-picker')) {
+  customElements.define('esup-color-palette-picker', ColorPalettePicker)
+}

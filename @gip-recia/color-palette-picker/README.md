@@ -61,11 +61,11 @@ Par défaut le webcomponent Color Palette Picker s'appuie sur les fonts Font-Awe
 |--icon-validate-font-weight|Permet de configurer poids de la police de caractères de l'icône de validation|
 |--icon-validate-content|Caractère unicode dans la famille de police de caractères utilisée pour l'icône de validation|
 
-## **Test du webcomposant**
+## **Test du webcomponent**
 
-Pour tester le webcomposant, exécuter la commande suivante :
+Pour tester le webcomponent, exécuter la commande suivante :
 ```shell
 npm run dev
 ```
 
-Une page avec le webcomposant est alors disponible à l'adresse http://localhost:8080.
+Une page avec le webcomponent est alors disponible à l'adresse http://localhost:8080.

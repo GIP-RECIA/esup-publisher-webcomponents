@@ -127,16 +127,26 @@ export class SubjectInfos extends LitElement {
         if (this._isDefined(this.subject) && this._isDefined(this.subject.modelId)
             && !this._isDefined(this.subject.attributes) && 'GROUP' !== this.subject.modelId.keyType) {
             // is DTO
-            this.config.getSubjectInfos(this.subject.modelId.keyType, this.subject.modelId.keyId).then(result => {
-              this._subject = result
+            // On teste si on n'a pas déjà récupéré les infos
+            if (this._subject === null || !this._isDefined(this._subject) || this.subject.modelId.keyType !== this._subject.modelId.keyType || this.subject.modelId.keyId !== this._subject.modelId.keyId) {
+              this.config.getSubjectInfos(this.subject.modelId.keyType, this.subject.modelId.keyId).then(result => {
+                this._subject = result
+                this.requestUpdate()
+              })
+            } else {
               this.requestUpdate()
-            })
+            }
         } else if (this._isDefined(this.subject) && 'keyType' in this.subject && 'keyId' in this.subject){
             // is key Id
-            this.config.getSubjectInfos(this.subject.keyType, this.subject.keyId).then(result => {
-              this._subject = result
+            // On teste si on n'a pas déjà récupéré les infos
+            if (this._subject === null || !this._isDefined(this._subject) || this.subject.keyType !== this._subject.modelId.keyType || this.subject.keyId !== this._subject.modelId.keyId) {
+              this.config.getSubjectInfos(this.subject.keyType, this.subject.keyId).then(result => {
+                this._subject = result
+                this.requestUpdate()
+              })
+            } else {
               this.requestUpdate()
-            })
+            }
         } else {
           this._subject = this.subject
           this.requestUpdate()

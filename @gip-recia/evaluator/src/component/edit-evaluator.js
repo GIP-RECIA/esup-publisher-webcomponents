@@ -296,13 +296,9 @@ export class EditEvaluator extends LitElement {
       }
       this.requestUpdate()
     } else {
-      if (!this._tooltip) {
-        this._tooltip = this.shadowRoot.querySelector('#tooltip')
-      }
+      this._tooltip = this.shadowRoot.querySelector('#tooltip')
       this._tooltipClosing = false
-      if (!this._dropdown) {
-        this._dropdown = this.shadowRoot.querySelector('#dropdown')
-      }
+      this._dropdown = this.shadowRoot.querySelector('#dropdown')
     }
   }
 

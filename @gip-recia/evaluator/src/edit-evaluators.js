@@ -4,10 +4,8 @@ import { LitElement, html } from 'lit'
  * EditEvaluators component.
  */
 export class EditEvaluators extends LitElement {
-
   static get properties() {
     return {
-
       /**
        * Tableau des évaluateurs à traiter.
        * @type {Array}
@@ -23,6 +21,7 @@ export class EditEvaluators extends LitElement {
   }
 
   render() {
+    // prettier-ignore
     return html`
       <ul class='edit-evaluator'>
         ${(this.collection || []).map((member) => {

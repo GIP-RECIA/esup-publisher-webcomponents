@@ -6,7 +6,6 @@ import { evaluatorLabel } from './evaluator-label.js'
  * Evaluator component.
  */
 export class Evaluator extends LitElement {
-
   static get styles() {
     return [
       evaluatorStyle,
@@ -20,7 +19,6 @@ export class Evaluator extends LitElement {
 
   static get properties() {
     return {
-
       /**
        * Objet contenant les données à afficher.
        * @type {Object}
@@ -43,19 +41,7 @@ export class Evaluator extends LitElement {
        * Configuration de l'évaluateur.
        * @type {Object}
        */
-      config: { attribute: false },
-
-      /**
-       * Propriété interne pour stocker les labels affichés par le composant.
-       * @type {Object}
-       */
-      _labels : { state: true },
-
-      /**
-       * Propriété interne pour stocker la langue.
-       * @type {String}
-       */
-      _lang: { state: true }
+      config: { attribute: false }
     }
   }
 
@@ -71,41 +57,57 @@ export class Evaluator extends LitElement {
       switch (this.evaluator.class) {
         case 'OPERATOR':
           if (this.simple) {
+            // prettier-ignore
             rendering = html`<esup-simple-evaluators .collection="${this.evaluator.evaluators}" .config="${this.config}"></esup-simple-evaluators>`
             if (this.isChild || this.evaluator.type !== 'OR') {
+              // prettier-ignore
               rendering = html`<span>${this._getLabel('forAdvancedOnly')}</span>`
             }
           } else {
+            // prettier-ignore
             rendering = html`<span>${this.evaluator.type}</span><esup-evaluators .collection="${this.evaluator.evaluators}" .config="${this.config}"></esup-evaluators>`
           }
           if (!(this.isChild || this.simple)) {
+            // prettier-ignore
             rendering = html`<ul class="evaluator"><li>${rendering}</li></ul>`
           }
           break
         case 'AUTHENTICATED':
           if (!this.simple) {
+            // prettier-ignore
             rendering = html`<span>${this._getLabel('authenticatedUsers.text')}</span>`
           } else {
+            // prettier-ignore
             rendering = html`<span>${this._getLabel('forAdvancedOnly')}</span>`
           }
           break
         case 'USERATTRIBUTES':
         case 'USERMULTIVALUEDATTRIBUTES':
-          if (this.evaluator.attribute === 'uid' && this.evaluator.mode === 'EQUALS') {
-            const userModelId = { keyType: 'PERSON', keyId: this.evaluator.value }
+          if (
+            this.evaluator.attribute === 'uid' &&
+            this.evaluator.mode === 'EQUALS'
+          ) {
+            const userModelId = {
+              keyType: 'PERSON',
+              keyId: this.evaluator.value
+            }
             if (!this.simple) {
+              // prettier-ignore
               rendering = html`<esup-subject-infos .subject="${userModelId}" .config="${this.config}"><span>${this._getLabel('userAttribute.subjetIs')}</span></esup-subject-infos>`
             } else {
+              // prettier-ignore
               rendering = html`<esup-subject-infos .subject="${userModelId}" .config="${this.config}"></esup-subject-infos>`
             }
           } else {
             if (!this.simple) {
+              // prettier-ignore
               rendering = html`
                 <span>${this._getLabel('userAttribute.attribute', { attribute: this.evaluator.attribute })}</span>
                 <span>${this._getLabel('userAttribute.mode', { mode: this.evaluator.mode })}</span>
                 <span>${this._getLabel('userAttribute.value', { value: this.evaluator.value })}</span>
               `
             } else {
+              // prettier-ignore
               rendering = html`<span>${this._getLabel('forAdvancedOnly')}</span>`
             }
           }
@@ -113,23 +115,25 @@ export class Evaluator extends LitElement {
         case 'USERGROUP': {
           const groupModelId = { keyType: 'GROUP', keyId: this.evaluator.group }
           if (!this.simple) {
+            // prettier-ignore
             rendering = html`<esup-subject-infos .subject="${groupModelId}" .config="${this.config}"><span>${this._getLabel('userGroup.memberOf')}</span></esup-subject-infos>`
           } else {
+            // prettier-ignore
             rendering = html`<esup-subject-infos .subject="${groupModelId}" .config="${this.config}"></esup-subject-infos>`
           }
           break
         }
         default:
-          break;
+          break
       }
     }
     return rendering
   }
 
-  updated(changedProperties){
-    super.updated(changedProperties)
+  willUpdate(changedProperties) {
+    super.willUpdate(changedProperties)
 
-    // Si les propriétés datas ou config sont modifiés, on initialise les éléments
+    // Si la propriété config est modifiée, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
       changedProperties.forEach((value, key) => {
@@ -142,7 +146,8 @@ export class Evaluator extends LitElement {
     if (initDatas) {
       // Initialisation des données
       this._labels = evaluatorLabel
-      this._lang = this.config && this.config.lang ? this.config.lang : this._lang
+      this._lang =
+        this.config && this.config.lang ? this.config.lang : this._lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         Object.keys(this.config.labels).forEach(lang => {
@@ -155,8 +160,6 @@ export class Evaluator extends LitElement {
           }
         })
       }
-
-      this.requestUpdate()
     }
   }
 
@@ -169,10 +172,8 @@ export class Evaluator extends LitElement {
   _getLabel(key, params) {
     var label = this._labels[this._lang][key]
     if (params) {
-      label = label.replace(/{(.+)}/g, function(match, param) { 
-        return typeof params[param] != 'undefined'
-          ? params[param] 
-          : match
+      label = label.replace(/{(.+)}/g, function (match, param) {
+        return typeof params[param] != 'undefined' ? params[param] : match
       })
     }
     return label

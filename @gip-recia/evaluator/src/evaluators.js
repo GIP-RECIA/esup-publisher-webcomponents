@@ -1,25 +1,16 @@
-import { LitElement, html, css } from 'lit'
+import { LitElement, html } from 'lit'
 import { evaluatorStyle } from './evaluator-style.js'
 
 /**
- * Simple Evaluators component.
+ * Evaluators component.
  */
-export class SimpleEvaluators extends LitElement {
-
+export class Evaluators extends LitElement {
   static get styles() {
-    return [
-      evaluatorStyle,
-      css`
-        :host > ul {
-          padding: 0;
-        }
-      `
-    ]
+    return [evaluatorStyle]
   }
 
   static get properties() {
     return {
-
       /**
        * Tableau des évaluateurs à afficher.
        * @type {Array}
@@ -35,12 +26,13 @@ export class SimpleEvaluators extends LitElement {
   }
 
   render() {
+    // prettier-ignore
     return html`
       <ul class="evaluator">
         ${(this.collection || []).map((member) => {
           return html`
             <li>
-              <esup-evaluator .evaluator="${member}" .config="${this.config}" .isChild="${true}" .simple="${true}"></esup-evaluator>
+              <esup-evaluator .evaluator="${member}" .config="${this.config}" .isChild="${true}" .simple="${false}"></esup-evaluator>
             </li>
           `
         })}
@@ -49,6 +41,6 @@ export class SimpleEvaluators extends LitElement {
   }
 }
 
-if (!customElements.get('esup-simple-evaluators')) {
-  customElements.define('esup-simple-evaluators', SimpleEvaluators)
+if (!customElements.get('esup-evaluators')) {
+  customElements.define('esup-evaluators', Evaluators)
 }

@@ -1,7 +1,0 @@
-import'@gip-recia/subject-infos'
-import'@gip-recia/subject-search-button'
-export * from './evaluator.js'
-export * from './evaluators.js'
-export * from './simple-evaluators.js'
-export * from './edit-evaluator.js'
-export * from './edit-evaluators.js'

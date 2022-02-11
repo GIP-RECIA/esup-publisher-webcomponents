@@ -7,7 +7,6 @@ import { bootstrapStyle } from './bootstrap-style.js'
  * Edit Evaluator component.
  */
 export class EditEvaluator extends LitElement {
-
   static get styles() {
     return [
       editEvaluatorStyle,
@@ -22,7 +21,6 @@ export class EditEvaluator extends LitElement {
 
   static get properties() {
     return {
-
       /**
        * Objet contenant les données à éditer.
        * @type {Object}
@@ -45,49 +43,7 @@ export class EditEvaluator extends LitElement {
        * Fonction appelée à la modification de l'évaluateur.
        * @type {Function}
        */
-      onModification: { attribute: false },
-
-      /**
-       * Propriété interne pour l'affichage et la manipulation de l'évaluator.
-       * @type {Object}
-       */
-      _evaluator: { state: true },
-
-      /**
-       * Propriété interne pour stocker les labels affichés par le composant.
-       * @type {Object}
-       */
-      _labels: { state: true },
-
-      /**
-       * Propriété interne pour stocker la langue.
-       * @type {String}
-       */
-      _lang: { state: true },
-
-      /**
-       * Propriété interne pour stocker le tooltip.
-       * @type {Object}
-       */
-      _tooltip: { state: true },
-
-      /**
-       * Propriété interne pour indiquer que le tooltip est en train de se fermer.
-       * @type {Boolean}
-       */
-      _tooltipClosing: { state: true },
-
-      /**
-       * Propriété interne pour stocker le dropdown.
-       * @type {Object}
-       */
-      _dropdown: { state: true },
-
-      /**
-       * Propriété interne pour stocker les attributs utilisateur.
-       * @type {Object}
-       */
-      _userAttributes: { state: true }
+      onModification: { attribute: false }
     }
   }
 
@@ -104,12 +60,17 @@ export class EditEvaluator extends LitElement {
 
   render() {
     var rendering = html``
-    if (this._isDefined(this.config.operators) && this._isDefined(this.config.stringEvaluators)
-      && this._isDefined(this._userAttributes) && this._isDefined(this._evaluator)
-      && this._isDefined(this._evaluator.class)) {
+    if (
+      this._isDefined(this.config.operators) &&
+      this._isDefined(this.config.stringEvaluators) &&
+      this._isDefined(this._userAttributes) &&
+      this._isDefined(this._evaluator) &&
+      this._isDefined(this._evaluator.class)
+    ) {
       switch (this._evaluator.class) {
         case 'OPERATOR':
           if (this.isChild) {
+            // prettier-ignore
             rendering = html`
               <div class="row g-1 align-items-center">
                 <div class="col-auto">
@@ -136,6 +97,7 @@ export class EditEvaluator extends LitElement {
               </esup-edit-evaluators>
             `
           } else {
+            // prettier-ignore
             rendering = html`
               <ul class="evaluator">
                 <li>
@@ -161,6 +123,7 @@ export class EditEvaluator extends LitElement {
           }
           break
         case 'AUTHENTICATED':
+          // prettier-ignore
           rendering = html`
             <div class="row g-1 align-items-center">
               <div class="col-auto">
@@ -175,20 +138,33 @@ export class EditEvaluator extends LitElement {
         case 'USERATTRIBUTES':
         case 'USERMULTIVALUEDATTRIBUTES':
           var userRendering = html``
-          if (this._evaluator.value && this._evaluator.attribute === 'uid' && this._evaluator.mode === 'EQUALS') {
-            const userModelId = { keyType: 'PERSON', keyId: this._evaluator.value }
+          if (
+            this._evaluator.value &&
+            this._evaluator.attribute === 'uid' &&
+            this._evaluator.mode === 'EQUALS'
+          ) {
+            const userModelId = {
+              keyType: 'PERSON',
+              keyId: this._evaluator.value
+            }
+            // prettier-ignore
             userRendering = html`
               <esup-subject-infos .subject="${userModelId}" .config="${this.config}">
                 <span>${this._getLabel('userAttribute.subjetIs')}</span>
               </esup-subject-infos>
             `
-          } else if (this._evaluator.attribute === 'uid' && this._evaluator.mode === 'EQUALS') {
+          } else if (
+            this._evaluator.attribute === 'uid' &&
+            this._evaluator.mode === 'EQUALS'
+          ) {
+            // prettier-ignore
             userRendering = html`
               <esup-subject-search-button .multiSelection="${false}" .searchType="${'PERSON'}" .searchId="${this._generateId()}"
                 .config="${this.config}" .onSelection="${(subjects) => this._onPersonSelection(subjects)}" class="input-group">
               </esup-subject-search-button>
             `
           } else {
+            // prettier-ignore
             userRendering = html`
               <div class="row g-0 align-items-center">
                 <div class="col-auto">
@@ -211,6 +187,7 @@ export class EditEvaluator extends LitElement {
               </div>
             `
           }
+          // prettier-ignore
           rendering = html`
             <div class="row g-1 align-items-center">
               <div class="col-auto">
@@ -225,19 +202,25 @@ export class EditEvaluator extends LitElement {
         case 'USERGROUP':
           var groupRendering = html``
           if (this._evaluator.group && this._evaluator.group !== '') {
-            const userModelId = { keyType: 'GROUP', keyId: this._evaluator.group }
+            const userModelId = {
+              keyType: 'GROUP',
+              keyId: this._evaluator.group
+            }
+            // prettier-ignore
             groupRendering = html`
               <esup-subject-infos .subject="${userModelId}" .config="${this.config}">
                 <span>${this._getLabel('userGroup.memberOf')}</span>
               </esup-subject-infos>
             `
           } else {
+            // prettier-ignore
             groupRendering = html`
               <esup-subject-search-button .multiSelection="${false}" .searchType="${'GROUP'}" .searchId="${this._generateId()}"
                 .config="${this.config}" .onSelection="${(subjects) => this._onGroupSelection(subjects)}" class="input-group">
               </esup-subject-search-button>
             `
           }
+          // prettier-ignore
           rendering = html`
             <div class="row g-1 align-items-center">
               <div class="col-auto">
@@ -249,7 +232,8 @@ export class EditEvaluator extends LitElement {
             </div>
           `
           break
-        default :
+        default:
+          // prettier-ignore
           rendering = html`
             <div class="row g-1 align-items-center">
               <div class="col-auto">
@@ -266,9 +250,10 @@ export class EditEvaluator extends LitElement {
     return rendering
   }
 
-  updated(changedProperties){
-    super.updated(changedProperties)
-    
+  willUpdate(changedProperties) {
+    super.willUpdate(changedProperties)
+
+    // Si les propriétés evaluator ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
       changedProperties.forEach((value, key) => {
@@ -279,9 +264,12 @@ export class EditEvaluator extends LitElement {
     }
     if (initDatas) {
       this._evaluator = this.evaluator
-      this._userAttributes = this.config.userAttributes.filter(attr => attr !== 'uid')
+      this._userAttributes = this.config.userAttributes.filter(
+        attr => attr !== 'uid'
+      )
       this._labels = editEvaluatorLabel
-      this._lang = this.config && this.config.lang ? this.config.lang : this._lang
+      this._lang =
+        this.config && this.config.lang ? this.config.lang : this._lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         Object.keys(this.config.labels).forEach(lang => {
@@ -294,12 +282,15 @@ export class EditEvaluator extends LitElement {
           }
         })
       }
-      this.requestUpdate()
-    } else {
-      this._tooltip = this.shadowRoot.querySelector('#tooltip')
-      this._tooltipClosing = false
-      this._dropdown = this.shadowRoot.querySelector('#dropdown')
     }
+  }
+
+  updated(changedProperties) {
+    super.updated(changedProperties)
+
+    this._tooltip = this.shadowRoot.querySelector('#tooltip')
+    this._tooltipClosing = false
+    this._dropdown = this.shadowRoot.querySelector('#dropdown')
   }
 
   /**
@@ -317,6 +308,7 @@ export class EditEvaluator extends LitElement {
    * @returns Code HTML
    */
   _renderButtons() {
+    // prettier-ignore
     return html`
       <div class="btn-group" role="group">
         <div class="btn-group" role="group" id="dropdown" @focusout="${(e) => this._onDropDownFocusOut(e)}" @keydown="${(e) => this._onDropDownKeyDown(e)}">
@@ -347,6 +339,7 @@ export class EditEvaluator extends LitElement {
    * @returns Code HTML
    */
   _renderDeleteEvaluator() {
+    // prettier-ignore
     return html`
       <a class="text-danger" href="" @click="${(e) => this._deleteEvaluator(e)}" data-tooltip aria-describedby="tooltip" @mouseenter="${() => this._showToolTip()}" @mouseleave="${() => this._hideToolTip()}">
         <i class="icon icon-remove"></i>
@@ -397,12 +390,24 @@ export class EditEvaluator extends LitElement {
           return true
         case 'USERATTRIBUTES':
         case 'USERMULTIVALUEDATTRIBUTES':
-          return (this._isDefined(evaluator.value) && this._isDefined(evaluator.attribute) && this._isDefined(evaluator.mode) &&
-          evaluator.value !== '' && evaluator.attribute !== '' && evaluator.mode !== '' &&
-          evaluator.value !== null && evaluator.attribute !== null && evaluator.mode !== null)
+          return (
+            this._isDefined(evaluator.value) &&
+            this._isDefined(evaluator.attribute) &&
+            this._isDefined(evaluator.mode) &&
+            evaluator.value !== '' &&
+            evaluator.attribute !== '' &&
+            evaluator.mode !== '' &&
+            evaluator.value !== null &&
+            evaluator.attribute !== null &&
+            evaluator.mode !== null
+          )
         case 'USERGROUP':
-          return this._isDefined(evaluator.group) && evaluator.group !== '' && evaluator.group !== null
-        default :
+          return (
+            this._isDefined(evaluator.group) &&
+            evaluator.group !== '' &&
+            evaluator.group !== null
+          )
+        default:
           return false
       }
     }
@@ -423,43 +428,53 @@ export class EditEvaluator extends LitElement {
 
     switch (type) {
       case 'OPERATOR':
-        this._evaluator.evaluators = this._evaluator.evaluators.concat([{
-          class: 'OPERATOR',
-          id: null,
-          type: 'OR',
-          evaluators: []
-        }])
+        this._evaluator.evaluators = this._evaluator.evaluators.concat([
+          {
+            class: 'OPERATOR',
+            id: null,
+            type: 'OR',
+            evaluators: []
+          }
+        ])
         break
       case 'USER':
-        this._evaluator.evaluators = this._evaluator.evaluators.concat([{
-          class: 'USERATTRIBUTES',
-          id: null,
-          mode: 'EQUALS',
-          attribute: 'uid',
-          value: null
-        }])
+        this._evaluator.evaluators = this._evaluator.evaluators.concat([
+          {
+            class: 'USERATTRIBUTES',
+            id: null,
+            mode: 'EQUALS',
+            attribute: 'uid',
+            value: null
+          }
+        ])
         break
       case 'GROUP':
-        this._evaluator.evaluators = this._evaluator.evaluators.concat([{
-          class: 'USERGROUP',
-          id: null,
-          group: null
-        }])
+        this._evaluator.evaluators = this._evaluator.evaluators.concat([
+          {
+            class: 'USERGROUP',
+            id: null,
+            group: null
+          }
+        ])
         break
       case 'AUTH':
-        this._evaluator.evaluators = this._evaluator.evaluators.concat([{
-          class: 'AUTHENTICATED',
-          id: null
-        }])
+        this._evaluator.evaluators = this._evaluator.evaluators.concat([
+          {
+            class: 'AUTHENTICATED',
+            id: null
+          }
+        ])
         break
       case 'ATTRIBUTE':
-        this._evaluator.evaluators = this._evaluator.evaluators.concat([{
-          class: 'USERMULTIVALUEDATTRIBUTES',
-          id: null,
-          mode: this.config.stringEvaluators[0],
-          attribute: this._userAttributes[0],
-          value: null
-        }])
+        this._evaluator.evaluators = this._evaluator.evaluators.concat([
+          {
+            class: 'USERMULTIVALUEDATTRIBUTES',
+            id: null,
+            mode: this.config.stringEvaluators[0],
+            attribute: this._userAttributes[0],
+            value: null
+          }
+        ])
         break
     }
     this.requestUpdate()
@@ -585,7 +600,9 @@ export class EditEvaluator extends LitElement {
       if (persons[0].modelId) {
         this._evaluator.value = persons[0].modelId.keyId
       } else if (persons[0].extendedSubject) {
-        this._evaluator.value = persons[0].extendedSubject.keyValue + persons[0].extendedSubject.keyAttribute
+        this._evaluator.value =
+          persons[0].extendedSubject.keyValue +
+          persons[0].extendedSubject.keyAttribute
       }
 
       this.requestUpdate()
@@ -605,7 +622,9 @@ export class EditEvaluator extends LitElement {
       if (groups[0].modelId) {
         this._evaluator.group = groups[0].modelId.keyId
       } else if (groups[0].extendedSubject) {
-        this._evaluator.group = groups[0].extendedSubject.keyValue + groups[0].extendedSubject.keyAttribute
+        this._evaluator.group =
+          groups[0].extendedSubject.keyValue +
+          groups[0].extendedSubject.keyAttribute
       }
 
       this.requestUpdate()
@@ -623,6 +642,7 @@ export class EditEvaluator extends LitElement {
    */
   _renderToolTip(tooltip) {
     if (tooltip && tooltip.length > 0) {
+      // prettier-ignore
       return  html`
         <div class="tooltip fade bs-tooltip-top" id="tooltip" role="tooltip" style="display: none"
           @mouseover="${() => { this._hideToolTip() }}">
@@ -631,7 +651,7 @@ export class EditEvaluator extends LitElement {
         </div>
       `
     } else {
-      return  html``
+      return html``
     }
   }
 
@@ -649,7 +669,8 @@ export class EditEvaluator extends LitElement {
         if (this._tooltip.offsetWidth >= this._tooltip.parentNode.offsetWidth) {
           this._tooltip.style.left = '0px'
         } else {
-          this._tooltip.style.left = Math.round(this._tooltip.parentNode.offsetWidth / 2) + 'px'
+          this._tooltip.style.left =
+            Math.round(this._tooltip.parentNode.offsetWidth / 2) + 'px'
           this._tooltip.style.transform = 'translateX(-50%)'
         }
         this._tooltip.style.top = -(this._tooltip.offsetHeight + 1) + 'px'
@@ -659,7 +680,12 @@ export class EditEvaluator extends LitElement {
         const arrow = this._tooltip.querySelector('.tooltip-arrow')
         arrow.style.position = 'absolute'
         arrow.style.transform = 'translateX(-50%)'
-        const left = Math.round(Math.min(this._tooltip.offsetWidth, this._tooltip.parentNode.offsetWidth) / 2)
+        const left = Math.round(
+          Math.min(
+            this._tooltip.offsetWidth,
+            this._tooltip.parentNode.offsetWidth
+          ) / 2
+        )
         arrow.style.left = left + 'px'
       }
     }
@@ -669,7 +695,11 @@ export class EditEvaluator extends LitElement {
    * Méthode masquant le tooltip.
    */
   _hideToolTip() {
-    if (this._tooltip && !this._tooltipClosing && this._tooltip.classList.contains('show')) {
+    if (
+      this._tooltip &&
+      !this._tooltipClosing &&
+      this._tooltip.classList.contains('show')
+    ) {
       // Masquage du tooltip
       this._tooltip.classList.remove('show')
 
@@ -703,7 +733,8 @@ export class EditEvaluator extends LitElement {
     if (!dropdownBtn.classList.contains('show')) {
       dropdownBtn.classList.add('show')
       dropdownBtn.setAttribute('aria-expanded', true)
-      this._dropdown.querySelector('.dropdown-menu').style.transform = 'translateY(' + (this._dropdown.offsetHeight + 2) + 'px)'
+      this._dropdown.querySelector('.dropdown-menu').style.transform =
+        'translateY(' + (this._dropdown.offsetHeight + 2) + 'px)'
       this._dropdown.querySelector('.dropdown-menu').classList.add('show')
     }
   }
@@ -726,14 +757,14 @@ export class EditEvaluator extends LitElement {
    * @param {Object} event Evènement
    */
   _onDropDownKeyDown(event) {
-    if(event.keyCode === 27) {
+    if (event.keyCode === 27) {
       // Touche Echappe
       this._hideDropDown()
       this._dropdown.querySelector('.dropdown-toggle').focus()
 
       event.preventDefault()
       event.stopPropagation()
-    } else if(event.keyCode === 38) {
+    } else if (event.keyCode === 38) {
       // Touche Haut
       if (event.target !== this._dropdown.querySelector('.dropdown-toggle')) {
         // On est dans le menu, on focus l'entrée précédente
@@ -744,10 +775,10 @@ export class EditEvaluator extends LitElement {
           event.stopPropagation()
         }
       }
-    } else if(event.keyCode === 40) {
-       // Touche Bas
-       if (event.target !== this._dropdown.querySelector('.dropdown-toggle')) {
-         // On est dans le menu, on focus l'entrée suivante
+    } else if (event.keyCode === 40) {
+      // Touche Bas
+      if (event.target !== this._dropdown.querySelector('.dropdown-toggle')) {
+        // On est dans le menu, on focus l'entrée suivante
         const nextSibling = event.target.parentNode.nextElementSibling
         if (nextSibling) {
           nextSibling.childNodes[0].focus()
@@ -757,7 +788,9 @@ export class EditEvaluator extends LitElement {
       } else {
         // On est sûr le bouton, on déplie le menu et on sélectionne la première entrée
         this._showDropDown()
-        this._dropdown.querySelector('.dropdown-menu li:first-child').childNodes[0].focus()
+        this._dropdown
+          .querySelector('.dropdown-menu li:first-child')
+          .childNodes[0].focus()
         event.preventDefault()
         event.stopPropagation()
       }
@@ -771,8 +804,13 @@ export class EditEvaluator extends LitElement {
    */
   _onDropDownFocusOut(event) {
     const dropdownBtn = this._dropdown.querySelector('.dropdown-toggle')
-    const dropDownItems = Array.from(this._dropdown.querySelectorAll('.dropdown-item'))
-    if (event.relatedTarget !== dropdownBtn && !dropDownItems.includes(event.relatedTarget)) {
+    const dropDownItems = Array.from(
+      this._dropdown.querySelectorAll('.dropdown-item')
+    )
+    if (
+      event.relatedTarget !== dropdownBtn &&
+      !dropDownItems.includes(event.relatedTarget)
+    ) {
       this._hideDropDown()
     }
   }
@@ -805,7 +843,7 @@ export class EditEvaluator extends LitElement {
         },
         bubbles: true,
         composed: true
-      };
+      }
       this.dispatchEvent(new CustomEvent(eventName, options))
     }
   }

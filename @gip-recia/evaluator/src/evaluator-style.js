@@ -1,7 +1,7 @@
 import { css } from 'lit'
 
 export const evaluatorStyle = css`
-    .evaluator {
-        list-style: none;
-    }
-  `
+  .evaluator {
+    list-style: none;
+  }
+`

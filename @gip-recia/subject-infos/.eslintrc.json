@@ -15,5 +15,13 @@
   },
   "rules": {
     "no-unexpected-multiline": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["rollup.config.js", "web-test-runner.config.js"],
+      "env": {
+        "node": true
+      }
+    }
+  ]
 }

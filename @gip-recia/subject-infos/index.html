@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Esup-Publisher - Subject Infos</title>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/lit/polyfill-support.js"></script>
+    <link
+      rel="stylesheet"
+      href="../node_modules/@fortawesome/fontawesome-free/css/solid.css" />
+    <script type="module" src="./src/subject-infos.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Esup-Publisher - Subject Infos</h1>
+    </header>
+  </body>
+  <script>
+    const datas = [
+      {
+        modelId: {
+          keyId: 'id:Reference:Props:Prof1',
+          keyType: 'GROUP'
+        },
+        displayName: 'Prof 1',
+        foundOnExternalSource: true
+      },
+      {
+        modelId: {
+          keyId: 'id:Reference:Props:Eleve1',
+          keyType: 'PERSON'
+        },
+        displayName: 'Eleve 1',
+        foundOnExternalSource: false
+      }
+    ]
+    const config = {
+      lang: 'en',
+      labels: {
+        en: {
+          disappear: "don't exists anymore !"
+        }
+      }
+    }
+    const ul = document.createElement('ul')
+    datas.forEach(data => {
+      const li = document.createElement('li')
+      const subjectInfos = document.createElement('esup-subject-infos')
+      subjectInfos.subject = data
+      subjectInfos.config = config
+      subjectInfos.onSubjectClicked = () => console.log('click')
+      const slot = document.createElement('span')
+      slot.innerHTML = 'slot'
+      subjectInfos.appendChild(slot)
+      li.appendChild(subjectInfos)
+      ul.appendChild(li)
+    })
+    document.body.appendChild(ul)
+  </script>
+</html>

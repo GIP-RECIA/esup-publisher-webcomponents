@@ -23,14 +23,14 @@ export const subjectSearchButtonStyle = css`
     font-weight: var(--icon-cancel-font-weight, 900);
   }
   .icon-cancel:before {
-      content: var(--icon-cancel-content, '\\f05e');
+    content: var(--icon-cancel-content, '\\f05e');
   }
   .icon-validate {
-      font-family: var(--icon-validate-font-family, 'Font Awesome 5 Free');
-      font-weight: var(--icon-validate-font-weight, 900);
+    font-family: var(--icon-validate-font-family, 'Font Awesome 5 Free');
+    font-weight: var(--icon-validate-font-weight, 900);
   }
   .icon-validate:before {
-      content: var(--icon-validate-content, '\\f019');
+    content: var(--icon-validate-content, '\\f019');
   }
   .icon-question {
     font-family: var(--icon-question-font-family, 'Font Awesome 5 Free');
@@ -48,6 +48,6 @@ export const subjectSearchButtonStyle = css`
   }
 
   [data-tooltip] {
-      position: relative;
+    position: relative;
   }
-  `
+`

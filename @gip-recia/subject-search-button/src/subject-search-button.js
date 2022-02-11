@@ -2,46 +2,41 @@ import { LitElement, html } from 'lit'
 import { subjectSearchButtonStyle } from './subject-search-button-style.js'
 import { subjectSearchButtonLabel } from './subject-search-button-label.js'
 import { bootstrapStyle } from './bootstrap-style.js'
-import'@gip-recia/js-tree'
+import '@gip-recia/js-tree'
 
 /**
  * Subject Search Button component.
  */
 export class SubjectSearchButton extends LitElement {
-
   static get styles() {
-    return [
-      subjectSearchButtonStyle,
-      bootstrapStyle
-    ]
+    return [subjectSearchButtonStyle, bootstrapStyle]
   }
 
   static get properties() {
     return {
-
       /**
        * Type de recherche.
        * @type {String}
        */
-      searchType : { attribute: false},
+      searchType: { attribute: false },
 
       /**
        * Recherche étendue ou non.
        * @type {Boolean}
        */
-      withExtended : { attribute: false},
+      withExtended: { attribute: false },
 
       /**
        * Identifiant unique du composant.
        * @type {String}
        */
-      searchId : { attribute: false},
+      searchId: { attribute: false },
 
       /**
        * Indique si on est en multisélection.
        * @type {Boolean}
        */
-      multiSelection: { attribute: false},
+      multiSelection: { attribute: false },
 
       /**
        * Configuration du subject-search-button.
@@ -53,73 +48,7 @@ export class SubjectSearchButton extends LitElement {
        * Fonction appelée à la sélection de données.
        * @type {Function}
        */
-      onSelection: { attribute: false },
-
-      /**
-       * Propriété interne pour stocker les labels affichés par le composant.
-       * @type {Object}
-       */
-      _labels : { state: true },
-
-      /**
-       * Propriété interne pour stocker la langue.
-       * @type {String}
-       */
-      _lang: { state: true },
-
-      /**
-       * Object stockant les données sélectionnées.
-       * @type {Object}
-       */
-      _container: { state: true },
-
-      /**
-       * Propriété interne pour indiquer qu'un tooltip est en train de se fermer.
-       * @type {Array}
-       */
-      _tooltipClosing: { state: true },
-
-      /**
-       * Propriété interne pour stocker les critères de recherche.
-       * @type {Object}
-       */
-      _search: { state: true },
-
-      /**
-       * Propriété interne pour stocker les données de la page affichée des résultats de recherche des utilisateurs.
-       * @type {Array}
-       */
-      _resultsArr: { state: true },
-
-      /**
-       * Propriété interne pour stocker le résultat de la recherche des utilisateurs.
-       * @type {Array}
-       */
-      _userResult: { state: true },
-
-      /**
-       * Propriété interne pour stocker le nombre de résultat de la recherche des utilisateurs après filtrage.
-       * @type {Array}
-       */
-      _nbTotalItems: { state: true },
-
-      /**
-       * Propriété interne pour stocker le page courante de résultat de la recherche des utilisateurs.
-       * @type {Array}
-       */
-      _currentPage: { state: true },
-
-      /**
-       * Propriété interne pour stocker le nombre de page de résultat de la recherche des utilisateurs.
-       * @type {Array}
-       */
-      _numPerPage: { state: true },
-
-      /**
-       * Propriété interne pour stocker la liste des tailles de page disponible.
-       * @type {Array}
-       */
-      _listNumPerPage: { state: true }
+      onSelection: { attribute: false }
     }
   }
 
@@ -129,7 +58,7 @@ export class SubjectSearchButton extends LitElement {
     this._lang = 'fr'
     this._container = { subjects: [] }
     this._tooltipClosing = []
-    this._search = { queryUserTerm: '', filter:'' }
+    this._search = { queryUserTerm: '', filter: '' }
     this._resultsArr = []
     this._userResult = []
     this._nbTotalItems = 0
@@ -142,18 +71,17 @@ export class SubjectSearchButton extends LitElement {
     var rendering = html``
     var modals = html``
     if (this.searchType !== 'PERSON') {
+      // prettier-ignore
       rendering = html`
         ${rendering}
         <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._showGroupListModal()}">
           <i class="icon icon-plus"></i><span>&nbsp;${this._getLabel('type.group')}</span>
         </button>
       `
-      modals = html`
-        ${modals}
-        ${this._renderGroupListModal()}
-      `
+      modals = html` ${modals} ${this._renderGroupListModal()} `
     }
     if (this.searchType !== 'GROUP') {
+      // prettier-ignore
       rendering = html`
         ${rendering}
         <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._showUserListModal()}">
@@ -164,17 +92,18 @@ export class SubjectSearchButton extends LitElement {
         </button>
       `
       modals = html`
-        ${modals}
-        ${this._renderUserListModal()}
+        ${modals} ${this._renderUserListModal()}
         ${this._renderUserFromGroupListModal()}
       `
     }
+    // prettier-ignore
     rendering = html`
       <div class="btn-group" role="group" aria-label="SearchOnUserType">
         ${rendering}
       </div>
     `
     if (this.withExtended) {
+      // prettier-ignore
       rendering = html`
         ${rendering}
         <div class="btn-group" role="group" aria-label="SearchOnUserType">
@@ -187,11 +116,11 @@ export class SubjectSearchButton extends LitElement {
         </div>
       `
       modals = html`
-        ${modals}
-        ${this._renderUserAttributeModal()}
+        ${modals} ${this._renderUserAttributeModal()}
         ${this._renderUserAttributeRegexModal()}
       `
     }
+    // prettier-ignore
     return html`
       <div class="subject-search-button">
         ${rendering}
@@ -200,21 +129,22 @@ export class SubjectSearchButton extends LitElement {
     `
   }
 
-  updated(changedProperties){
-    super.updated(changedProperties)
+  willUpdate(changedProperties) {
+    super.willUpdate(changedProperties)
 
+    // Si la propriété config est modifiée, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
       changedProperties.forEach((value, key) => {
-        if (key === 'searchType' || key === 'searchId' || key === 'withExtended'
-          || key === 'multiSelection' || key === 'config') {
+        if (key === 'config') {
           initDatas = true
         }
       })
     }
     if (initDatas) {
       this._labels = subjectSearchButtonLabel
-      this._lang = this.config && this.config.lang ? this.config.lang : this._lang
+      this._lang =
+        this.config && this.config.lang ? this.config.lang : this._lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         Object.keys(this.config.labels).forEach(lang => {
@@ -227,27 +157,53 @@ export class SubjectSearchButton extends LitElement {
           }
         })
       }
-      this.requestUpdate()
-    } else {
-      // Sélection des radiobuton/checkbox des utilisateur sélectionnés dans la modal des utilisateurs
-      this.shadowRoot.querySelectorAll('#userListModal' + this.searchId + ' input[type="radio"]').forEach(el=> {
-        el.checked = this._resultsArr[el.dataset.index] === this._container.subject
-      })
-      this.shadowRoot.querySelectorAll('#userListModal' + this.searchId + ' input[type="checkbox"]').forEach(el=> {
-        el.checked = this._container.subjects.includes(this._resultsArr[el.dataset.index])
-      })
-
-      // Sélection des radiobuton/checkbox des utilisateurs sélectionnés dans la modal des utilisateurs de groupe
-      this.shadowRoot.querySelectorAll('#userFromGroupListModal' + this.searchId + ' input[type="radio"]').forEach(el=> {
-        el.checked = this._resultsArr[el.dataset.index] === this._container.subject
-      })
-      this.shadowRoot.querySelectorAll('#userFromGroupListModal' + this.searchId + ' input[type="checkbox"]').forEach(el=> {
-        el.checked = this._container.subjects.includes(this._resultsArr[el.dataset.index])
-      })
     }
   }
 
+  updated(changedProperties) {
+    super.updated(changedProperties)
+
+    // Sélection des radiobuton/checkbox des utilisateur sélectionnés dans la modal des utilisateurs
+    this.shadowRoot
+      .querySelectorAll(
+        '#userListModal' + this.searchId + ' input[type="radio"]'
+      )
+      .forEach(el => {
+        el.checked =
+          this._resultsArr[el.dataset.index] === this._container.subject
+      })
+    this.shadowRoot
+      .querySelectorAll(
+        '#userListModal' + this.searchId + ' input[type="checkbox"]'
+      )
+      .forEach(el => {
+        el.checked = this._container.subjects.includes(
+          this._resultsArr[el.dataset.index]
+        )
+      })
+
+    // Sélection des radiobuton/checkbox des utilisateurs sélectionnés dans la modal des utilisateurs de groupe
+    this.shadowRoot
+      .querySelectorAll(
+        '#userFromGroupListModal' + this.searchId + ' input[type="radio"]'
+      )
+      .forEach(el => {
+        el.checked =
+          this._resultsArr[el.dataset.index] === this._container.subject
+      })
+    this.shadowRoot
+      .querySelectorAll(
+        '#userFromGroupListModal' + this.searchId + ' input[type="checkbox"]'
+      )
+      .forEach(el => {
+        el.checked = this._container.subjects.includes(
+          this._resultsArr[el.dataset.index]
+        )
+      })
+  }
+
   _renderGroupListModal() {
+    // prettier-ignore
     return html`
       <div class="modal fade" id="${'groupListModal' + this.searchId}" tabindex="-1" role="dialog" aria-labelledby="myGroupListLabel" aria-hidden="true"
         @click="${() => this._hideGroupListModal()}">
@@ -274,114 +230,116 @@ export class SubjectSearchButton extends LitElement {
   }
 
   _renderUserListModal() {
+    // prettier-ignore
     return html`
-    <div class="modal fade" id="${'userListModal' + this.searchId}" tabindex="-1" role="dialog" aria-labelledby="myUserListLabel" aria-hidden="true"
-      @click="${() => this._hideUserListModal()}">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content" @click="${(e) => e.stopPropagation()}">
-          <div class="modal-header">
-            <h4 id="myUserListLabel" class="modal-title">${this._getLabel('search.targets.user')}</h4>
-            <button type="button" class="btn-close" @click="${() => this._hideUserListModal()}" aria-hidden="true"></button>
-          </div>
-          <div class="modal-body">
-            <form name="searchUserForm" role="form" novalidate>
-              <div class="row g-3 align-items-center mb-3">
-                <div class="col-auto">
-                  <label for="search" class="col-form-label fw-bold">
-                    <span>${this._getLabel('user.search.label')}</span>
-                    <span class="icon icon-question" data-tooltip aria-describedby="tooltipuserListModal" @mouseenter="${() => this._showToolTip('userListModal')}" @mouseleave="${() => this._hideToolTip('userListModal')}">
-                      ${this._renderToolTip('userListModal', this._getLabel('user.search.desc'))}
-                    </span>
-                  </label>
-                </div>
-                <div class="col-auto">
-                  <div class="input-group">
-                    <input class="form-control" type="text" id="search" name="search" placeholder="${this._getLabel('user.search.placeholder')}"
-                      value="${this._search.queryUserTerm}" required minlength="3" @keyup="${(e) => this._onInputUserTerm(e.target.value)}">
-                    <button type="button" class="btn search" .disabled="${this._search.queryUserTerm.length < 3}" @click="${() => this._searchUser()}">
-                      <i class="icon icon-search"></i>
-                    </button>
+      <div class="modal fade" id="${'userListModal' + this.searchId}" tabindex="-1" role="dialog" aria-labelledby="myUserListLabel" aria-hidden="true"
+        @click="${() => this._hideUserListModal()}">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content" @click="${(e) => e.stopPropagation()}">
+            <div class="modal-header">
+              <h4 id="myUserListLabel" class="modal-title">${this._getLabel('search.targets.user')}</h4>
+              <button type="button" class="btn-close" @click="${() => this._hideUserListModal()}" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+              <form name="searchUserForm" role="form" novalidate>
+                <div class="row g-3 align-items-center mb-3">
+                  <div class="col-auto">
+                    <label for="search" class="col-form-label fw-bold">
+                      <span>${this._getLabel('user.search.label')}</span>
+                      <span class="icon icon-question" data-tooltip aria-describedby="tooltipuserListModal" @mouseenter="${() => this._showToolTip('userListModal')}" @mouseleave="${() => this._hideToolTip('userListModal')}">
+                        ${this._renderToolTip('userListModal', this._getLabel('user.search.desc'))}
+                      </span>
+                    </label>
                   </div>
-                </div>
-              </div>
-            </form>
-
-            ${this._userResult.length > 0 ? html`
-              <div class="card">
-                <div class="card-header">
-                  <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                      <div class="row g-3 align-items-center">
-                        <div class="col-auto">
-                          <label for="filter">${this._getLabel('filter.label')}</label>
-                        </div>
-                        <div class="col-auto">
-                          <input id="filter" type="text" @keyup="${(e) => this._onInputFilter(e.target.value)}"
-                            class="form-control" placeholder="${this._getLabel('filter.placeholder')}">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-auto">
-                      <div class="row g-3 align-items-center">
-                        <div class="col-auto">
-                          <label for="nbItems">${this._getLabel('pager.nbItems')}</label>
-                        </div>
-                        <div class="col-auto">
-                          <select id="nbItems" class="form-select" @change="${(e) => this._onChangeNumPerPage(e.target.value)}">
-                            ${this._listNumPerPage.map(num => html`
-                              <option value="${num}" ?selected=${this._numPerPage === num}>${num}</option>
-                            `)}
-                          </select>
-                        </div>
-                      </div>
+                  <div class="col-auto">
+                    <div class="input-group">
+                      <input class="form-control" type="text" id="search" name="search" placeholder="${this._getLabel('user.search.placeholder')}"
+                        value="${this._search.queryUserTerm}" required minlength="3" @keyup="${(e) => this._onInputUserTerm(e.target.value)}">
+                      <button type="button" class="btn search" .disabled="${this._search.queryUserTerm.length < 3}" @click="${() => this._searchUser()}">
+                        <i class="icon icon-search"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
+              </form>
 
-                <div class="card-body">
-                  <ul class="list-unstyled">
-                    ${this._resultsArr.map((user, idx) => html`
-                      <li>
-                        <input type="${this.multiSelection ? 'checkbox' : 'radio'}" name="user" id="${'user' + idx}" data-index="${idx}" @click="${() => this._onUserListSelection(user)}">
-                        <label for="${'user' + idx}" data-tooltip aria-describedby="${'tooltipuser' + idx}" @mouseenter="${() => this._showToolTip('user' + idx)}" @mouseleave="${() => this._hideToolTip('user' + idx)}">
-                          ${user.displayName}
-                          ${this._renderToolTip('user' + idx, this._tooltipUser(user))}
-                        </label>
-                      </li>
-                    `)}
-                  </ul>
-                </div>
-                <div class="card-footer">
-                  <nav>
-                    <ul class="pagination" aria-label="Navigation par page">
-                      <li @click="${(e) => this._goToPage(e, 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}"><a class="page-link" href="">&lt;&lt;</a></li>
-                      <li @click="${(e) => this._goToPage(e, this._currentPage - 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}"><a class="page-link" href="">&lt;</a></li>
-                      ${this._getVisiblePages().map(page =>  html`
-                        <li class="page-item ${this._currentPage === page ? 'active' : ''}" @click="${(e) => this._goToPage(e, page)}"><a class="page-link" href="">${page}</a></li>
+              ${this._userResult.length > 0 ? html`
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row g-3 align-items-center">
+                      <div class="col-auto">
+                        <div class="row g-3 align-items-center">
+                          <div class="col-auto">
+                            <label for="filter">${this._getLabel('filter.label')}</label>
+                          </div>
+                          <div class="col-auto">
+                            <input id="filter" type="text" @keyup="${(e) => this._onInputFilter(e.target.value)}"
+                              class="form-control" placeholder="${this._getLabel('filter.placeholder')}">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <div class="row g-3 align-items-center">
+                          <div class="col-auto">
+                            <label for="nbItems">${this._getLabel('pager.nbItems')}</label>
+                          </div>
+                          <div class="col-auto">
+                            <select id="nbItems" class="form-select" @change="${(e) => this._onChangeNumPerPage(e.target.value)}">
+                              ${this._listNumPerPage.map(num => html`
+                                <option value="${num}" ?selected=${this._numPerPage === num}>${num}</option>
+                              `)}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                    <ul class="list-unstyled">
+                      ${this._resultsArr.map((user, idx) => html`
+                        <li>
+                          <input type="${this.multiSelection ? 'checkbox' : 'radio'}" name="user" id="${'user' + idx}" data-index="${idx}" @click="${() => this._onUserListSelection(user)}">
+                          <label for="${'user' + idx}" data-tooltip aria-describedby="${'tooltipuser' + idx}" @mouseenter="${() => this._showToolTip('user' + idx)}" @mouseleave="${() => this._hideToolTip('user' + idx)}">
+                            ${user.displayName}
+                            ${this._renderToolTip('user' + idx, this._tooltipUser(user))}
+                          </label>
+                        </li>
                       `)}
-                      <li @click="${(e) => this._goToPage(e, this._currentPage + 1)}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}"><a class="page-link" href="">&gt;</a></li>
-                      <li @click="${(e) => this._goToPage(e, this._getTotalPage())}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}"><a class="page-link" href="">&gt;&gt;</a></li>
                     </ul>
-                  </nav>
+                  </div>
+                  <div class="card-footer">
+                    <nav>
+                      <ul class="pagination" aria-label="Navigation par page">
+                        <li @click="${(e) => this._goToPage(e, 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}"><a class="page-link" href="">&lt;&lt;</a></li>
+                        <li @click="${(e) => this._goToPage(e, this._currentPage - 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}"><a class="page-link" href="">&lt;</a></li>
+                        ${this._getVisiblePages().map(page =>  html`
+                          <li class="page-item ${this._currentPage === page ? 'active' : ''}" @click="${(e) => this._goToPage(e, page)}"><a class="page-link" href="">${page}</a></li>
+                        `)}
+                        <li @click="${(e) => this._goToPage(e, this._currentPage + 1)}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}"><a class="page-link" href="">&gt;</a></li>
+                        <li @click="${(e) => this._goToPage(e, this._getTotalPage())}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}"><a class="page-link" href="">&gt;&gt;</a></li>
+                      </ul>
+                    </nav>
+                  </div>
                 </div>
-              </div>
-            ` : html``}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._hideUserListModal()}">
-              <span class="icon icon-cancel"></span>&nbsp;<span>${this._getLabel('cancel')}</span>
-            </button>
-            <button type="button" class="btn btn-primary validate" @click="${() => this._submitUserListModal()}" .disabled="${!this._canSubmit()}">
-              <span class="icon icon-validate"></span>&nbsp;<span>${this._getLabel('validate')}</span>
-            </button>
+              ` : html``}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._hideUserListModal()}">
+                <span class="icon icon-cancel"></span>&nbsp;<span>${this._getLabel('cancel')}</span>
+              </button>
+              <button type="button" class="btn btn-primary validate" @click="${() => this._submitUserListModal()}" .disabled="${!this._canSubmit()}">
+                <span class="icon icon-validate"></span>&nbsp;<span>${this._getLabel('validate')}</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     `
   }
 
   _renderUserFromGroupListModal() {
+    // prettier-ignore
     return html`
       <div class="modal fade" id="${'userFromGroupListModal' + this.searchId}" tabindex="-1" role="dialog" aria-labelledby="myUserFromGroupListLabel" aria-hidden="true"
         @click="${() => this._hideUserFromGroupListModal()}">
@@ -476,6 +434,7 @@ export class SubjectSearchButton extends LitElement {
   }
 
   _renderUserAttributeModal() {
+    // prettier-ignore
     return html`
       <div class="modal fade" id="${'userAttributeModal' + this.searchId}" tabindex="-1" role="dialog" aria-labelledby="myUserAttributeLabel" aria-hidden="true"
         @click="${() => this._hideUserAttributeModal()}">
@@ -512,6 +471,7 @@ export class SubjectSearchButton extends LitElement {
   }
 
   _renderUserAttributeRegexModal() {
+    // prettier-ignore
     return html`
       <div class="modal fade" id="${'userAttributeRegexModal' + this.searchId}" tabindex="-1" role="dialog" aria-labelledby="myUserAttributeRegexLabel" aria-hidden="true"
         @click="${() => this._hideUserAttributeRegexModal()}">
@@ -556,6 +516,7 @@ export class SubjectSearchButton extends LitElement {
    */
   _renderToolTip(id, tooltip) {
     if (tooltip && tooltip.length > 0) {
+      // prettier-ignore
       return  html`
         <div class="tooltip fade bs-tooltip-top" id="${'tooltip' + id}" role="tooltip" style="display: none"
           @mouseover="${() => { this._hideToolTip(id) }}">
@@ -564,7 +525,7 @@ export class SubjectSearchButton extends LitElement {
         </div>
       `
     } else {
-      return  html``
+      return html``
     }
   }
 
@@ -583,7 +544,8 @@ export class SubjectSearchButton extends LitElement {
         if (tooltip.offsetWidth >= tooltip.parentNode.offsetWidth) {
           tooltip.style.left = '0px'
         } else {
-          tooltip.style.left = Math.round(tooltip.parentNode.offsetWidth / 2) + 'px'
+          tooltip.style.left =
+            Math.round(tooltip.parentNode.offsetWidth / 2) + 'px'
           tooltip.style.transform = 'translateX(-50%)'
         }
         tooltip.style.top = -(tooltip.offsetHeight + 1) + 'px'
@@ -593,7 +555,9 @@ export class SubjectSearchButton extends LitElement {
         const arrow = tooltip.querySelector('.tooltip-arrow')
         arrow.style.position = 'absolute'
         arrow.style.transform = 'translateX(-50%)'
-        const left = Math.round(Math.min(tooltip.offsetWidth, tooltip.parentNode.offsetWidth) / 2)
+        const left = Math.round(
+          Math.min(tooltip.offsetWidth, tooltip.parentNode.offsetWidth) / 2
+        )
         arrow.style.left = left + 'px'
       }
     }
@@ -606,7 +570,11 @@ export class SubjectSearchButton extends LitElement {
    */
   _hideToolTip(id) {
     let tooltip = this.shadowRoot.querySelector('#tooltip' + id)
-    if (tooltip && !this._tooltipClosing[id] && tooltip.classList.contains('show')) {
+    if (
+      tooltip &&
+      !this._tooltipClosing[id] &&
+      tooltip.classList.contains('show')
+    ) {
       // Masquage du tooltip
       tooltip.classList.remove('show')
 
@@ -628,14 +596,21 @@ export class SubjectSearchButton extends LitElement {
       tree = document.createElement('esup-js-tree')
       tree.setAttribute('id', 'jsTreeGroup' + this.searchId)
       tree.datas = this.config.treeGroupDatas
-      tree.config = Object.assign({
-        'showCheckbox': true,
-        'isMultipleSelection': this.multiSelection
-      }, this.config)
-      tree.onSelection = (datas) => this._onTreeGroupSelection(datas)
-      this.shadowRoot.querySelector('#groupListModal' + this.searchId + ' .tree').appendChild(tree)
+      tree.config = Object.assign(
+        {
+          showCheckbox: true,
+          isMultipleSelection: this.multiSelection
+        },
+        this.config
+      )
+      tree.onSelection = datas => this._onTreeGroupSelection(datas)
+      this.shadowRoot
+        .querySelector('#groupListModal' + this.searchId + ' .tree')
+        .appendChild(tree)
     }
-    this.shadowRoot.querySelector('#groupListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#groupListModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
     this._showModal('groupListModal' + this.searchId)
   }
 
@@ -664,9 +639,15 @@ export class SubjectSearchButton extends LitElement {
    */
   _showUserListModal() {
     this._clearSubject()
-    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' #search').value = this._search.queryUserTerm
-    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' button.search').disabled = this._search.queryUserTerm.length < 3
-    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#userListModal' + this.searchId + ' #search'
+    ).value = this._search.queryUserTerm
+    this.shadowRoot.querySelector(
+      '#userListModal' + this.searchId + ' button.search'
+    ).disabled = this._search.queryUserTerm.length < 3
+    this.shadowRoot.querySelector(
+      '#userListModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
     this._showModal('userListModal' + this.searchId)
   }
 
@@ -691,20 +672,29 @@ export class SubjectSearchButton extends LitElement {
    */
   _showUserFromGroupListModal() {
     this._clearSubject()
-    var tree = this.shadowRoot.querySelector('#jsTreeUserFromGroup' + this.searchId)
+    var tree = this.shadowRoot.querySelector(
+      '#jsTreeUserFromGroup' + this.searchId
+    )
     if (!tree) {
       tree = document.createElement('esup-js-tree')
       tree.setAttribute('id', 'jsTreeUserFromGroup' + this.searchId)
       tree.datas = this.config.treeGroupDatas
-      tree.config = Object.assign({
-        'showCheckbox': false,
-        'isMultipleSelection': false,
-        'allowDeselection': false
-      }, this.config)
-      tree.onSelection = (datas) => this._onTreeUserFromGroupSelection(datas)
-      this.shadowRoot.querySelector('#userFromGroupListModal' + this.searchId + ' .tree').appendChild(tree)
+      tree.config = Object.assign(
+        {
+          showCheckbox: false,
+          isMultipleSelection: false,
+          allowDeselection: false
+        },
+        this.config
+      )
+      tree.onSelection = datas => this._onTreeUserFromGroupSelection(datas)
+      this.shadowRoot
+        .querySelector('#userFromGroupListModal' + this.searchId + ' .tree')
+        .appendChild(tree)
     }
-    this.shadowRoot.querySelector('#userFromGroupListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#userFromGroupListModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
     this._showModal('userFromGroupListModal' + this.searchId)
   }
 
@@ -713,7 +703,9 @@ export class SubjectSearchButton extends LitElement {
    */
   _hideUserFromGroupListModal() {
     this._clearSubject()
-    const tree = this.shadowRoot.querySelector('#jsTreeUserFromGroup' + this.searchId)
+    const tree = this.shadowRoot.querySelector(
+      '#jsTreeUserFromGroup' + this.searchId
+    )
     if (tree) {
       tree.remove()
     }
@@ -733,10 +725,20 @@ export class SubjectSearchButton extends LitElement {
    */
   _showUserAttributeModal() {
     this._clearSubject()
-    this._container.extendedSubject = { keyAttribute: null, keyValue: null, keyType: 'PERSON_ATTR' }
-    this.shadowRoot.querySelector('#userAttributeModal' + this.searchId + ' option[value=""]').selected = true
-    this.shadowRoot.querySelector('#userAttributeModal' + this.searchId + ' #userValue').value = ''
-    this.shadowRoot.querySelector('#userAttributeModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this._container.extendedSubject = {
+      keyAttribute: null,
+      keyValue: null,
+      keyType: 'PERSON_ATTR'
+    }
+    this.shadowRoot.querySelector(
+      '#userAttributeModal' + this.searchId + ' option[value=""]'
+    ).selected = true
+    this.shadowRoot.querySelector(
+      '#userAttributeModal' + this.searchId + ' #userValue'
+    ).value = ''
+    this.shadowRoot.querySelector(
+      '#userAttributeModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
     this._showModal('userAttributeModal' + this.searchId)
   }
 
@@ -761,10 +763,20 @@ export class SubjectSearchButton extends LitElement {
    */
   _showUserAttributeRegexModal() {
     this._clearSubject()
-    this._container.extendedSubject = { keyAttribute: null, keyValue: null, keyType: 'PERSON_ATTR_REGEX' }
-    this.shadowRoot.querySelector('#userAttributeRegexModal' + this.searchId + ' option[value=""]').selected = true
-    this.shadowRoot.querySelector('#userAttributeRegexModal' + this.searchId + ' #userRegexValue').value = ''
-    this.shadowRoot.querySelector('#userAttributeRegexModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this._container.extendedSubject = {
+      keyAttribute: null,
+      keyValue: null,
+      keyType: 'PERSON_ATTR_REGEX'
+    }
+    this.shadowRoot.querySelector(
+      '#userAttributeRegexModal' + this.searchId + ' option[value=""]'
+    ).selected = true
+    this.shadowRoot.querySelector(
+      '#userAttributeRegexModal' + this.searchId + ' #userRegexValue'
+    ).value = ''
+    this.shadowRoot.querySelector(
+      '#userAttributeRegexModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
     this._showModal('userAttributeRegexModal' + this.searchId)
   }
 
@@ -790,15 +802,25 @@ export class SubjectSearchButton extends LitElement {
    * @returns True si le formulaire peut être validée, False sinon
    */
   _canSubmit() {
-    return (this._isDefined(this._container.subject) && this._isDefined(this._container.subject.modelId)
-        && this._container.subject.modelId !== {})
-      || (this._isDefined(this._container.extendedSubject) && this._container.extendedSubject !== {}
-        && this._container.extendedSubject.keyAttribute !== null && this._container.extendedSubject.keyAttribute !== ''
-        && this._container.extendedSubject.keyValue !== null && this._container.extendedSubject.keyValue.length >= 3
-        && this._container.extendedSubject.keyValue.length <= 512)
-      || (this._isDefined(this._container.subjects) && this._container.subjects.length > 0
-        && this._isDefined(this._container.subjects[this._container.subjects.length - 1].modelId)
-        && this._container.subjects[this._container.subjects.length - 1].modelId !== {})
+    return (
+      (this._isDefined(this._container.subject) &&
+        this._isDefined(this._container.subject.modelId) &&
+        this._container.subject.modelId !== {}) ||
+      (this._isDefined(this._container.extendedSubject) &&
+        this._container.extendedSubject !== {} &&
+        this._container.extendedSubject.keyAttribute !== null &&
+        this._container.extendedSubject.keyAttribute !== '' &&
+        this._container.extendedSubject.keyValue !== null &&
+        this._container.extendedSubject.keyValue.length >= 3 &&
+        this._container.extendedSubject.keyValue.length <= 512) ||
+      (this._isDefined(this._container.subjects) &&
+        this._container.subjects.length > 0 &&
+        this._isDefined(
+          this._container.subjects[this._container.subjects.length - 1].modelId
+        ) &&
+        this._container.subjects[this._container.subjects.length - 1]
+          .modelId !== {})
+    )
   }
 
   /**
@@ -806,15 +828,28 @@ export class SubjectSearchButton extends LitElement {
    */
   _submitSubject() {
     let result = []
-    if (this._container.subjects && this._isArray(this._container.subjects) && this._container.subjects.length > 0) {
+    if (
+      this._container.subjects &&
+      this._isArray(this._container.subjects) &&
+      this._container.subjects.length > 0
+    ) {
       if (this.multiSelection) {
         result = this._container.subjects
       } else {
-        result.push(this._container.subjects[this._container.subjects.length - 1])
+        result.push(
+          this._container.subjects[this._container.subjects.length - 1]
+        )
       }
-    } else if (this._isDefined(this._container.subject) && this._isDefined(this._container.subject.modelId) && this._container.subject.modelId !== {}) {
+    } else if (
+      this._isDefined(this._container.subject) &&
+      this._isDefined(this._container.subject.modelId) &&
+      this._container.subject.modelId !== {}
+    ) {
       result.push(this._container.subject)
-    } else if (this._isDefined(this._container.extendedSubject) && this._container.extendedSubject !== {}) {
+    } else if (
+      this._isDefined(this._container.extendedSubject) &&
+      this._container.extendedSubject !== {}
+    ) {
       result.push(this._container.extendedSubject)
     }
     if (this.onSelection) {
@@ -887,7 +922,12 @@ export class SubjectSearchButton extends LitElement {
    */
   _tooltipUser(user) {
     const userAttrs = this.config.userDisplayedAttrs || []
-    if (!this._isDefined(userAttrs) || !this._isDefined(user) || !this._isDefined(user.attributes)) return
+    if (
+      !this._isDefined(userAttrs) ||
+      !this._isDefined(user) ||
+      !this._isDefined(user.attributes)
+    )
+      return
     var index
     var attrs = user.attributes
     var html = ''
@@ -895,16 +935,23 @@ export class SubjectSearchButton extends LitElement {
       if (index > 0 && this._isDefined(attrs[userAttrs[index]])) {
         html += ' - '
       }
-      if (this._isDefined(attrs[userAttrs[index]]) && this._isArray(attrs[userAttrs[index]])) {
+      if (
+        this._isDefined(attrs[userAttrs[index]]) &&
+        this._isArray(attrs[userAttrs[index]])
+      ) {
         var subIndex
-        for (subIndex = 0; subIndex < attrs[userAttrs[index]].length; ++subIndex) {
+        for (
+          subIndex = 0;
+          subIndex < attrs[userAttrs[index]].length;
+          ++subIndex
+        ) {
           if (subIndex > 0) {
             html += ', '
           }
           html += attrs[userAttrs[index]][subIndex]
         }
       } else if (this._isDefined(attrs[userAttrs[index]])) {
-        html +=  attrs[userAttrs[index]]
+        html += attrs[userAttrs[index]]
       }
     }
     return html
@@ -918,7 +965,9 @@ export class SubjectSearchButton extends LitElement {
   _onTreeGroupSelection(selectedGroups) {
     this._container.subjects = selectedGroups.map(group => group.a_attr.model)
     // Activation/désactivation du bouton de validation de la modale
-    this.shadowRoot.querySelector('#groupListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#groupListModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
   }
 
   /**
@@ -933,19 +982,26 @@ export class SubjectSearchButton extends LitElement {
     this._currentPage = 1
     this._nbTotalItems = 0
     if (this.config.getGroupMembers && selectedGroups.length > 0) {
-      this.config.getGroupMembers(selectedGroups[0].a_attr.model.modelId.keyId).then(result => {
-        if (result.length > 0) {
-          this._userResult = result
-          this._userResult.sort((user1, user2) => user1.displayName.localeCompare(user2.displayName))
-          this._nbTotalItems = this._userResult.length
-          this._resultsArr = this._userResult.slice(0, this._numPerPage)
-        }
-      })
+      this.config
+        .getGroupMembers(selectedGroups[0].a_attr.model.modelId.keyId)
+        .then(result => {
+          if (result.length > 0) {
+            this._userResult = result
+            this._userResult.sort((user1, user2) =>
+              user1.displayName.localeCompare(user2.displayName)
+            )
+            this._nbTotalItems = this._userResult.length
+            this._resultsArr = this._userResult.slice(0, this._numPerPage)
+            this.requestUpdate()
+          }
+        })
     }
     this._container.subject = undefined
     this._container.subjects = []
     // Activation/désactivation du bouton de validation de la modale
-    this.shadowRoot.querySelector('#userFromGroupListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#userFromGroupListModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
   }
 
   /**
@@ -957,7 +1013,10 @@ export class SubjectSearchButton extends LitElement {
     if (!this.multiSelection) {
       this._container.subject = selectedUser
     } else {
-      if (this._isDefined(this._container.subjects) && this._container.subjects.length > 0) {
+      if (
+        this._isDefined(this._container.subjects) &&
+        this._container.subjects.length > 0
+      ) {
         let index = -1
         for (let i = 0; i < this._container.subjects.length; i++) {
           if (this._container.subjects[i] === selectedUser) {
@@ -975,7 +1034,9 @@ export class SubjectSearchButton extends LitElement {
       }
     }
     // Activation/désactivation du bouton de validation de la modale
-    this.shadowRoot.querySelector('#userFromGroupListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#userFromGroupListModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
   }
 
   /**
@@ -986,7 +1047,9 @@ export class SubjectSearchButton extends LitElement {
   _onInputUserTerm(val) {
     this._search.queryUserTerm = val
     // Activation/désactivation du bouton de recherche
-    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' button.search').disabled = this._search.queryUserTerm.length < 3
+    this.shadowRoot.querySelector(
+      '#userListModal' + this.searchId + ' button.search'
+    ).disabled = this._search.queryUserTerm.length < 3
   }
 
   /**
@@ -1001,7 +1064,8 @@ export class SubjectSearchButton extends LitElement {
       var tmpArray = this._filterOnDisplayName(this._userResult, val)
       this._resultsArr = tmpArray.slice(0, this._numPerPage)
       this._nbTotalItems = tmpArray.length
-    } 
+      this.requestUpdate()
+    }
   }
 
   /**
@@ -1010,10 +1074,15 @@ export class SubjectSearchButton extends LitElement {
    * @param {Numer} val Taille des pages
    */
   _onChangeNumPerPage(val) {
-    if (this._numPerPage !== val) {
-      this._numPerPage = val
+    const _val = Number(val)
+    if (this._numPerPage !== _val) {
+      this._numPerPage = _val
       this._currentPage = 1
-      this._resultsArr = this._filterOnDisplayName(this._userResult, this._search.filter).slice(0, this._numPerPage)
+      this._resultsArr = this._filterOnDisplayName(
+        this._userResult,
+        this._search.filter
+      ).slice(0, this._numPerPage)
+      this.requestUpdate()
     }
   }
 
@@ -1030,14 +1099,25 @@ export class SubjectSearchButton extends LitElement {
    * Navigation à une page.
    *
    * @param {Object} event Evenement
-   * @param {Number} page Page à afficher 
+   * @param {Number} page Page à afficher
    */
   _goToPage(event, page) {
     event.preventDefault()
     event.stopPropagation()
-    if (page > 0 && page <= this._getTotalPage() && page !== this._currentPage) {
+    if (
+      page > 0 &&
+      page <= this._getTotalPage() &&
+      page !== this._currentPage
+    ) {
       this._currentPage = page
-      this._resultsArr = this._filterOnDisplayName(this._userResult, this._search.filter).slice(this._numPerPage * (this._currentPage - 1), (this._numPerPage * (this._currentPage - 1)) + this._numPerPage)
+      this._resultsArr = this._filterOnDisplayName(
+        this._userResult,
+        this._search.filter
+      ).slice(
+        this._numPerPage * (this._currentPage - 1),
+        this._numPerPage * (this._currentPage - 1) + this._numPerPage
+      )
+      this.requestUpdate()
     }
   }
 
@@ -1050,7 +1130,7 @@ export class SubjectSearchButton extends LitElement {
     const startPage = Math.max(1, this._currentPage - 2)
     const endPage = Math.min(this._getTotalPage(), this._currentPage + 2)
     const pages = []
-    for(let i = startPage; i <= endPage; i++) {
+    for (let i = startPage; i <= endPage; i++) {
       pages.push(i)
     }
     if (pages.length < this._getTotalPage()) {
@@ -1075,7 +1155,10 @@ export class SubjectSearchButton extends LitElement {
     if (!this.multiSelection) {
       this._container.subject = selectedUser
     } else {
-      if (this._isDefined(this._container.subjects) && this._container.subjects.length > 0) {
+      if (
+        this._isDefined(this._container.subjects) &&
+        this._container.subjects.length > 0
+      ) {
         let index = -1
         for (let i = 0; i < this._container.subjects.length; i++) {
           if (this._container.subjects[i] === selectedUser) {
@@ -1093,7 +1176,9 @@ export class SubjectSearchButton extends LitElement {
       }
     }
     // Activation/désactivation du bouton de validation de la modale
-    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#userListModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
   }
 
   /**
@@ -1104,12 +1189,14 @@ export class SubjectSearchButton extends LitElement {
    * @returns Tableau filtré
    */
   _filterOnDisplayName(inputArray, criteria) {
-    if(!this._isDefined(criteria) || criteria === '') {
-        return inputArray
+    if (!this._isDefined(criteria) || criteria === '') {
+      return inputArray
     }
-    var data=[]
-    inputArray.forEach((item) => {
-      if(item.displayName.toLowerCase().indexOf(criteria.toLowerCase()) !== -1) {
+    var data = []
+    inputArray.forEach(item => {
+      if (
+        item.displayName.toLowerCase().indexOf(criteria.toLowerCase()) !== -1
+      ) {
         data.push(item)
       }
     })
@@ -1126,19 +1213,24 @@ export class SubjectSearchButton extends LitElement {
     this._currentPage = 1
     this._nbTotalItems = 0
     if (this.config.searchUsers) {
-      this.config.searchUsers(this._search.queryUserTerm).then((result) => {
+      this.config.searchUsers(this._search.queryUserTerm).then(result => {
         if (result.length > 0) {
           this._userResult = result
-          this._userResult.sort((user1, user2) => user1.displayName.localeCompare(user2.displayName))
+          this._userResult.sort((user1, user2) =>
+            user1.displayName.localeCompare(user2.displayName)
+          )
           this._nbTotalItems = this._userResult.length
           this._resultsArr = this._userResult.slice(0, this._numPerPage)
+          this.requestUpdate()
         }
       })
     }
     this._container.subject = undefined
     this._container.subjects = []
     // Activation/désactivation du bouton de validation de la modale
-    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#userListModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
   }
 
   /**
@@ -1149,7 +1241,9 @@ export class SubjectSearchButton extends LitElement {
   _onChangeUserAttribute(val) {
     this._container.extendedSubject.keyAttribute = val
     // Activation/désactivation du bouton de validation
-    this.shadowRoot.querySelector('#userAttributeModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#userAttributeModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
   }
 
   /**
@@ -1160,7 +1254,9 @@ export class SubjectSearchButton extends LitElement {
   _onInputUserAttrValue(val) {
     this._container.extendedSubject.keyValue = val
     // Activation/désactivation du bouton de validation
-    this.shadowRoot.querySelector('#userAttributeModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#userAttributeModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
   }
 
   /**
@@ -1171,7 +1267,9 @@ export class SubjectSearchButton extends LitElement {
   _onChangeUserRegexAttribute(val) {
     this._container.extendedSubject.keyAttribute = val
     // Activation/désactivation du bouton de validation
-    this.shadowRoot.querySelector('#userAttributeRegexModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#userAttributeRegexModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
   }
 
   /**
@@ -1182,21 +1280,25 @@ export class SubjectSearchButton extends LitElement {
   _onInputUserRegexAttrValue(val) {
     this._container.extendedSubject.keyValue = val
     // Activation/désactivation du bouton de validation
-    this.shadowRoot.querySelector('#userAttributeRegexModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
+    this.shadowRoot.querySelector(
+      '#userAttributeRegexModal' + this.searchId + ' button.validate'
+    ).disabled = !this._canSubmit()
   }
 
   /**
    * Nettoyages des données.
    */
-  _clearSubject () {
+  _clearSubject() {
     this._container.subject = undefined
     this._container.extendedSubject = undefined
     this._container.subjects = []
-    this._search = { queryUserTerm: '', filter:'' }
+    this._search = { queryUserTerm: '', filter: '' }
     this._resultsArr = []
     this._userResult = []
     this._currentPage = 1
     this._numPerPage = 10
+
+    this.requestUpdate()
   }
 
   /**
@@ -1224,7 +1326,7 @@ export class SubjectSearchButton extends LitElement {
    * @param {Object} arr Objet à traiter
    * @returns True si l'objet est un tableau, False sinon
    */
-  _isArray (arr) {
+  _isArray(arr) {
     return Array.isArray(arr) || arr instanceof Array
   }
 }

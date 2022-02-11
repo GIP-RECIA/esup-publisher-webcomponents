@@ -7,17 +7,12 @@ import { bootstrapStyle } from './bootstrap-style.js'
  * Color Palette Picker component.
  */
 export class ColorPalettePicker extends LitElement {
-
   static get styles() {
-    return [
-      colorPaletteStyle,
-      bootstrapStyle
-    ]
+    return [colorPaletteStyle, bootstrapStyle]
   }
 
   static get properties() {
     return {
-
       /**
        * Couleur sélectionnée initialement.
        * @type {String}
@@ -34,37 +29,7 @@ export class ColorPalettePicker extends LitElement {
        * Fonction appelée au changement de couleur.
        * @type {Function}
        */
-      onColorChanged: { attribute: false },
-
-      /**
-       * Propriété interne pour stocker la modal.
-       * @type {Object}
-       */
-      _colorModal : { state: true },
-
-      /**
-       * Propriété interne pour stocker la couleur sélectionnée.
-       * @type {String}
-       */
-      _color: { state: true },
-
-      /**
-       * Propriété interne pour stocker la couleur sélectionnée initialement.
-       * @type {String}
-       */
-      _originalColor: { state: true },
-
-      /**
-       * Propriété interne pour stocker les labels affichés par le composant.
-       * @type {Object}
-       */
-      _labels : { state: true },
-
-      /**
-       * Propriété interne pour stocker la langue.
-       * @type {String}
-       */
-      _lang: { state: true }
+      onColorChanged: { attribute: false }
     }
   }
 
@@ -79,6 +44,7 @@ export class ColorPalettePicker extends LitElement {
   }
 
   render() {
+    // prettier-ignore
     return html`
       <div class="color-palette-picker">
         <div class="selected-color" tabindex="0" style="background-color: ${this._originalColor}" @click="${() => this._showModal()}"
@@ -118,10 +84,10 @@ export class ColorPalettePicker extends LitElement {
     `
   }
 
-  updated(changedProperties){
-    super.updated(changedProperties)
+  willUpdate(changedProperties) {
+    super.willUpdate(changedProperties)
 
-    // Si les propriétés datas ou config sont modifiés, on initialise les éléments
+    // Si les propriétés color ou config sont modifiés, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
       changedProperties.forEach((value, key) => {
@@ -136,7 +102,8 @@ export class ColorPalettePicker extends LitElement {
       this._color = this.color
       this._originalColor = this.color
       this._labels = colorPaletteLabel
-      this._lang = this.config && this.config.lang ? this.config.lang : this._lang
+      this._lang =
+        this.config && this.config.lang ? this.config.lang : this._lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         Object.keys(this.config.labels).forEach(lang => {
@@ -149,12 +116,14 @@ export class ColorPalettePicker extends LitElement {
           }
         })
       }
+    }
+  }
 
-      this.requestUpdate()
-    } else {
-      if (!this._colorModal) {
-        this._colorModal = this.shadowRoot.querySelector('#colorPaletteModal')
-      }
+  updated(changedProperties) {
+    super.updated(changedProperties)
+
+    if (!this._colorModal) {
+      this._colorModal = this.shadowRoot.querySelector('#colorPaletteModal')
     }
   }
 
@@ -221,7 +190,7 @@ export class ColorPalettePicker extends LitElement {
    * @param {Object} event Evènement
    */
   _onKeyDownSelectedColor(event) {
-    if( event.keyCode === 13 || event.keyCode === 32 ) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
       // Touche Entrée ou Espace
       this._showModal()
       event.stopPropagation()
@@ -234,7 +203,7 @@ export class ColorPalettePicker extends LitElement {
    * @param {Object} event Evènement
    */
   _onKeyDownColor(event, color) {
-    if( event.keyCode === 13 || event.keyCode === 32 ) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
       // Touche Entrée ou Espace
       this._onClickColor(event, color)
     }
@@ -242,35 +211,40 @@ export class ColorPalettePicker extends LitElement {
 
   /**
    * Méthode appelé au clic sur une couleur.
-   * 
+   *
    * @param {Object} event Evènement
    * @param {Object} color Couleur cliquée
    */
   _onClickColor(event, color) {
     event.stopPropagation()
     this._color = color
+    this.requestUpdate()
   }
 
   /**
    * Méthode appelé au clic sur le bouton annuler et de fermeture de la modal.
-   * 
+   *
    * @param {Object} event Evènement
    */
   _onClickCancel(event) {
     event.stopPropagation()
     this._hideModal()
     this._color = this._originalColor
+    this.requestUpdate()
   }
 
   /**
    * Méthode appelé au clic sur le bouton valider.
-   * 
+   *
    * @param {Object} event Evènement
    */
   _onClickValidate(event) {
     event.stopPropagation()
     this._hideModal()
     this._originalColor = this._color
+
+    this.requestUpdate()
+
     if (this.onColorChanged) {
       this.onColorChanged(this._color)
     }

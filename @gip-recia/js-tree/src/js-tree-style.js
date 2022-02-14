@@ -28,6 +28,7 @@ export const jsTreeStyle = css`
   }
   .root-tree .row-data span {
     margin-right: 3px;
+    margin-left: 3px;
   }
   .root-tree .subtree {
     display: none;

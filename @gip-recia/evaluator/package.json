@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/evaluator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Evaluator",
   "main": "src/index.js",
   "module": "src/index.js",
@@ -31,7 +31,7 @@
   "dependencies": {
     "lit": "^2.1.3",
     "@gip-recia/subject-infos": "^0.0.5",
-    "@gip-recia/subject-search-button": "^0.0.3"
+    "@gip-recia/subject-search-button": "^0.0.4"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.5.3",

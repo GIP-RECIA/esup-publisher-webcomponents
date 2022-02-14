@@ -11,6 +11,7 @@ export class SimpleEvaluators extends LitElement {
       css`
         :host > ul {
           padding: 0;
+          margin: 0;
         }
       `
     ]

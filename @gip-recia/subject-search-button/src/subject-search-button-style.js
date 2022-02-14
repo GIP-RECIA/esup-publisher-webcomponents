@@ -46,7 +46,19 @@ export const subjectSearchButtonStyle = css`
   .icon-search:before {
     content: var(--icon-search-content, '\\f002');
   }
-
+  ul.pagination li .page-link{
+    color: var(--text-color-pagination, #25b2f3);
+    border-color: #D0D0D0;
+  }
+  ul.pagination li.page-item.active .page-link{
+    color: var(--selected-text-color-pagination, #fff);
+    background-color: var(--selected-background-color-pagination, #25b2f3);
+    border-color: #D0D0D0;
+  }
+  button.validate:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+  }
   [data-tooltip] {
     position: relative;
   }

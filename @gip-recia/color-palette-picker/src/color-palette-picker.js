@@ -144,11 +144,10 @@ export class ColorPalettePicker extends LitElement {
     // Add backdrop
     let backdrop = this.shadowRoot.querySelector('.modal-backdrop')
     if (!backdrop) {
-      const backdrop = document.createElement('div')
-      backdrop.className = 'modal-backdrop fade'
-      this.shadowRoot.append(backdrop)
-      backdrop.offsetHeight
-      backdrop.classList.add('show')
+      const newBackdrop = document.createElement('div')
+      newBackdrop.className = 'modal-backdrop fade'
+      this.shadowRoot.append(newBackdrop)
+      newBackdrop.classList.add('show')
     }
 
     // Show modal
@@ -158,7 +157,6 @@ export class ColorPalettePicker extends LitElement {
     this._colorModal.setAttribute('role', 'dialog')
     this._colorModal.scrollTop = 0
     this._colorModal.querySelector('.modal-body').scrollTop = 0
-    this._colorModal.offsetHeight
     this._colorModal.classList.add('show')
     this._colorModal.focus()
   }

@@ -241,8 +241,8 @@ export class SubjectSearchButton extends LitElement {
               <button type="button" class="btn-close" @click="${() => this._hideUserListModal()}" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-              <form name="searchUserForm" role="form" novalidate>
-                <div class="row g-3 align-items-center mb-3">
+              <form name="searchUserForm" role="form" novalidate @keydown="${(e) => { if (e.keyCode === 13) { e.preventDefault();this._searchUser() } }}">
+                <div class="row g-3 align-items-center">
                   <div class="col-auto">
                     <label for="search" class="col-form-label fw-bold">
                       <span>${this._getLabel('user.search.label')}</span>
@@ -255,7 +255,7 @@ export class SubjectSearchButton extends LitElement {
                     <div class="input-group">
                       <input class="form-control" type="text" id="search" name="search" placeholder="${this._getLabel('user.search.placeholder')}"
                         value="${this._search.queryUserTerm}" required minlength="3" @keyup="${(e) => this._onInputUserTerm(e.target.value)}">
-                      <button type="button" class="btn search" .disabled="${this._search.queryUserTerm.length < 3}" @click="${() => this._searchUser()}">
+                      <button type="button" class="btn btn-outline-secondary search" .disabled="${this._search.queryUserTerm.length < 3}" @click="${() => this._searchUser()}">
                         <i class="icon icon-search"></i>
                       </button>
                     </div>
@@ -264,7 +264,7 @@ export class SubjectSearchButton extends LitElement {
               </form>
 
               ${this._userResult.length > 0 ? html`
-                <div class="card">
+                <div class="card mt-3">
                   <div class="card-header">
                     <div class="row g-3 align-items-center">
                       <div class="col-auto">
@@ -311,13 +311,21 @@ export class SubjectSearchButton extends LitElement {
                   <div class="card-footer">
                     <nav>
                       <ul class="pagination" aria-label="Navigation par page">
-                        <li @click="${(e) => this._goToPage(e, 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}"><a class="page-link" href="">&lt;&lt;</a></li>
-                        <li @click="${(e) => this._goToPage(e, this._currentPage - 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}"><a class="page-link" href="">&lt;</a></li>
+                        <li @click="${(e) => this._goToPage(e, 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}">
+                          <a class="page-link" href="" tabindex="${this._currentPage <= 1 ? -1 : 0}" aria-disabled="${this._currentPage <= 1}">&lt;&lt;</a>
+                        </li>
+                        <li @click="${(e) => this._goToPage(e, this._currentPage - 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}">
+                          <a class="page-link" href="" tabindex="${this._currentPage <= 1 ? -1 : 0}" aria-disabled="${this._currentPage <= 1}">&lt;</a>
+                        </li>
                         ${this._getVisiblePages().map(page =>  html`
                           <li class="page-item ${this._currentPage === page ? 'active' : ''}" @click="${(e) => this._goToPage(e, page)}"><a class="page-link" href="">${page}</a></li>
                         `)}
-                        <li @click="${(e) => this._goToPage(e, this._currentPage + 1)}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}"><a class="page-link" href="">&gt;</a></li>
-                        <li @click="${(e) => this._goToPage(e, this._getTotalPage())}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}"><a class="page-link" href="">&gt;&gt;</a></li>
+                        <li @click="${(e) => this._goToPage(e, this._currentPage + 1)}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}">
+                          <a class="page-link" href="" tabindex="${this._currentPage >= this._getTotalPage() ? -1 : 0}" aria-disabled="${this._currentPage >= this._getTotalPage()}">&gt;</a>
+                        </li>
+                        <li @click="${(e) => this._goToPage(e, this._getTotalPage())}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}">
+                          <a class="page-link" href="" tabindex="${this._currentPage >= this._getTotalPage() ? -1 : 0}" aria-disabled="${this._currentPage >= this._getTotalPage()}">&gt;&gt;</a>
+                        </li>
                       </ul>
                     </nav>
                   </div>
@@ -359,7 +367,7 @@ export class SubjectSearchButton extends LitElement {
               </div>
 
               ${this._userResult.length > 0 ? html`
-                <div class="card">
+                <div class="card mt-2">
                   <div class="card-header">
                     <div class="row g-3 align-items-center">
                       <div class="col-auto">
@@ -406,13 +414,21 @@ export class SubjectSearchButton extends LitElement {
                   <div class="card-footer">
                     <nav>
                       <ul class="pagination" aria-label="Navigation par page">
-                        <li @click="${(e) => this._goToPage(e, 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}"><a class="page-link" href="">&lt;&lt;</a></li>
-                        <li @click="${(e) => this._goToPage(e, this._currentPage - 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}"><a class="page-link" href="">&lt;</a></li>
+                        <li @click="${(e) => this._goToPage(e, 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}">
+                          <a class="page-link" href="" tabindex="${this._currentPage <= 1 ? -1 : 0}" aria-disabled="${this._currentPage <= 1}">&lt;&lt;</a>
+                        </li>
+                        <li @click="${(e) => this._goToPage(e, this._currentPage - 1)}" class="page-item ${this._currentPage <= 1 ? 'disabled' : ''}">
+                          <a class="page-link" href="" tabindex="${this._currentPage <= 1 ? -1 : 0}" aria-disabled="${this._currentPage <= 1}">&lt;</a>
+                        </li>
                         ${this._getVisiblePages().map(page =>  html`
                           <li class="page-item ${this._currentPage === page ? 'active' : ''}" @click="${(e) => this._goToPage(e, page)}"><a class="page-link" href="">${page}</a></li>
                         `)}
-                        <li @click="${(e) => this._goToPage(e, this._currentPage + 1)}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}"><a class="page-link" href="">&gt;</a></li>
-                        <li @click="${(e) => this._goToPage(e, this._getTotalPage())}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}"><a class="page-link" href="">&gt;&gt;</a></li>
+                        <li @click="${(e) => this._goToPage(e, this._currentPage + 1)}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}">
+                          <a class="page-link" href="" tabindex="${this._currentPage >= this._getTotalPage() ? -1 : 0}" aria-disabled="${this._currentPage >= this._getTotalPage()}">&gt;</a>
+                        </li>
+                        <li @click="${(e) => this._goToPage(e, this._getTotalPage())}" class="page-item ${this._currentPage >= this._getTotalPage() ? 'disabled' : ''}">
+                          <a class="page-link" href="" tabindex="${this._currentPage >= this._getTotalPage() ? -1 : 0}" aria-disabled="${this._currentPage >= this._getTotalPage()}">&gt;&gt;</a>
+                        </li>
                       </ul>
                     </nav>
                   </div>
@@ -445,14 +461,14 @@ export class SubjectSearchButton extends LitElement {
               <button type="button" class="btn-close" @click="${() => this._hideUserAttributeModal()}" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-              <label class="control-label fw-bold" for="userAttribute">${this._getLabel('userAttr.attribute.label')}</label>
+              <label class="form-label fw-bold" for="userAttribute">${this._getLabel('userAttr.attribute.label')}</label>
               <select id="userAttribute" name="userAttribute" class="form-select" @change="${(e) => this._onChangeUserAttribute(e.target.value)}" required>
                 <option value="" selected></option>
                 ${(this.config.extendedAttrs || []).sort((a, b) => a.localeCompare(b)).map(attr => html`
                   <option value="${attr}">${attr}</option>
                 `)}
               </select>
-              <label class="control-label fw-bold" for="userValue">${this._getLabel('userAttr.value.label')}</label>
+              <label class="form-label fw-bold mt-3" for="userValue">${this._getLabel('userAttr.value.label')}</label>
               <input type="text" class="form-control" id="userValue" name="userValue" required minlength="3" maxlength="512"
                 @keyup="${(e) => this._onInputUserAttrValue(e.target.value)}">
             </div>
@@ -482,14 +498,14 @@ export class SubjectSearchButton extends LitElement {
               <button type="button" class="btn-close" @click="${() => this._hideUserAttributeRegexModal()}" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-              <label class="control-label fw-bold" for="userRegexAttribute">${this._getLabel('userRegexAttr.attribute.label')}</label>
+              <label class="form-label fw-bold" for="userRegexAttribute">${this._getLabel('userRegexAttr.attribute.label')}</label>
               <select id="userRegexAttribute" name="userRegexAttribute" class="form-select" @change="${(e) => this._onChangeUserRegexAttribute(e.target.value)}" required>
                 <option value="" selected></option>
                 ${(this.config.extendedAttrs || []).sort((a, b) => a.localeCompare(b)).map(attr => html`
                   <option value="${attr}">${attr}</option>
                 `)}
               </select>
-              <label class="control-label fw-bold" for="userRegexValue">${this._getLabel('userRegexAttr.value.label')}</label>
+              <label class="form-label fw-bold mt-3" for="userRegexValue">${this._getLabel('userRegexAttr.value.label')}</label>
               <input type="text" class="form-control" id="userRegexValue" name="userRegexValue" required minlength="3" maxlength="512"
                 @keyup="${(e) => this._onInputUserRegexAttrValue(e.target.value)}">
             </div>
@@ -868,11 +884,10 @@ export class SubjectSearchButton extends LitElement {
       // Add backdrop
       let backdrop = this.shadowRoot.querySelector('.modal-backdrop')
       if (!backdrop) {
-        const backdrop = document.createElement('div')
-        backdrop.className = 'modal-backdrop fade'
-        this.shadowRoot.append(backdrop)
-        backdrop.offsetHeight
-        backdrop.classList.add('show')
+        const newBackdrop = document.createElement('div')
+        newBackdrop.className = 'modal-backdrop fade'
+        this.shadowRoot.append(newBackdrop)
+        newBackdrop.classList.add('show')
       }
 
       // Show modal
@@ -882,7 +897,6 @@ export class SubjectSearchButton extends LitElement {
       modal.setAttribute('role', 'dialog')
       modal.scrollTop = 0
       modal.querySelector('.modal-body').scrollTop = 0
-      modal.offsetHeight
       modal.classList.add('show')
       modal.focus()
     }
@@ -930,10 +944,10 @@ export class SubjectSearchButton extends LitElement {
       return
     var index
     var attrs = user.attributes
-    var html = ''
+    var resHtml = ''
     for (index = 0; index < userAttrs.length; ++index) {
       if (index > 0 && this._isDefined(attrs[userAttrs[index]])) {
-        html += ' - '
+        resHtml += ' - '
       }
       if (
         this._isDefined(attrs[userAttrs[index]]) &&
@@ -946,15 +960,15 @@ export class SubjectSearchButton extends LitElement {
           ++subIndex
         ) {
           if (subIndex > 0) {
-            html += ', '
+            resHtml += ', '
           }
-          html += attrs[userAttrs[index]][subIndex]
+          resHtml += attrs[userAttrs[index]][subIndex]
         }
       } else if (this._isDefined(attrs[userAttrs[index]])) {
-        html += attrs[userAttrs[index]]
+        resHtml += attrs[userAttrs[index]]
       }
     }
-    return html
+    return resHtml
   }
 
   /**
@@ -1207,30 +1221,32 @@ export class SubjectSearchButton extends LitElement {
    * Recherche des utilisateurs.
    */
   _searchUser() {
-    this._resultsArr = []
-    this._userResult = []
-    this._search.filter = ''
-    this._currentPage = 1
-    this._nbTotalItems = 0
-    if (this.config.searchUsers) {
-      this.config.searchUsers(this._search.queryUserTerm).then(result => {
-        if (result.length > 0) {
-          this._userResult = result
-          this._userResult.sort((user1, user2) =>
-            user1.displayName.localeCompare(user2.displayName)
-          )
-          this._nbTotalItems = this._userResult.length
-          this._resultsArr = this._userResult.slice(0, this._numPerPage)
-          this.requestUpdate()
-        }
-      })
+    if (this._search.queryUserTerm && this._search.queryUserTerm.length >= 3) {
+      this._resultsArr = []
+      this._userResult = []
+      this._search.filter = ''
+      this._currentPage = 1
+      this._nbTotalItems = 0
+      if (this.config.searchUsers) {
+        this.config.searchUsers(this._search.queryUserTerm).then(result => {
+          if (result.length > 0) {
+            this._userResult = result
+            this._userResult.sort((user1, user2) =>
+              user1.displayName.localeCompare(user2.displayName)
+            )
+            this._nbTotalItems = this._userResult.length
+            this._resultsArr = this._userResult.slice(0, this._numPerPage)
+            this.requestUpdate()
+          }
+        })
+      }
+      this._container.subject = undefined
+      this._container.subjects = []
+      // Activation/désactivation du bouton de validation de la modale
+      this.shadowRoot.querySelector(
+        '#userListModal' + this.searchId + ' button.validate'
+      ).disabled = !this._canSubmit()
     }
-    this._container.subject = undefined
-    this._container.subjects = []
-    // Activation/désactivation du bouton de validation de la modale
-    this.shadowRoot.querySelector(
-      '#userListModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
   }
 
   /**

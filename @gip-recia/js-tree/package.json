@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/js-tree",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Js Tree",
   "main": "src/js-tree.js",
   "module": "src/js-tree.js",
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
   "dependencies": {
-    "lit": "^2.1.3"
+    "lit": "^2.2.0"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.5.3",
@@ -46,7 +46,7 @@
     "babel-eslint": "^10.1.0",
     "deepmerge": "^4.2.2",
     "eslint": "^7.32.0",
-    "lit-analyzer": "^1.1.10",
+    "lit-analyzer": "^1.2.1",
     "mocha": "^9.1.1",
     "prettier": "^2.3.2",
     "@fortawesome/fontawesome-free": "^5.15.4"

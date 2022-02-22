@@ -137,7 +137,7 @@ export class EditEvaluator extends LitElement {
           break
         case 'USERATTRIBUTES':
         case 'USERMULTIVALUEDATTRIBUTES':
-          var userRendering = html``
+          var userRendering = null
           if (
             this._evaluator.value &&
             this._evaluator.attribute === 'uid' &&
@@ -200,7 +200,7 @@ export class EditEvaluator extends LitElement {
           `
           break
         case 'USERGROUP':
-          var groupRendering = html``
+          var groupRendering = null
           if (this._evaluator.group && this._evaluator.group !== '') {
             const userModelId = {
               keyType: 'GROUP',

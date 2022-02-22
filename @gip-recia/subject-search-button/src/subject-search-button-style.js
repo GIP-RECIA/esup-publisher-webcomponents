@@ -55,7 +55,7 @@ export const subjectSearchButtonStyle = css`
     background-color: var(--selected-background-color-pagination, #25b2f3);
     border-color: #D0D0D0;
   }
-  button.validate:disabled {
+  button:disabled {
     cursor: not-allowed;
     pointer-events: all !important;
   }

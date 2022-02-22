@@ -235,7 +235,7 @@ export class SubjectInfos extends LitElement {
         css = 'icon-user subject-infos'
         break
       default:
-        throw 'Subject Type not managed and should not be tested :' + type
+        throw new Error('Subject Type not managed and should not be tested :' + type)
     }
     if (css) {
       // prettier-ignore
@@ -260,7 +260,7 @@ export class SubjectInfos extends LitElement {
   _htmlFromExtendedKey(subject) {
     var css = 'icon-users subject-infos'
     // prettier-ignore
-    var elem = html`<span class="icon-question subject-infos"></span>`
+    var elem = null
     var type = subject.keyType
     var id = subject.keyValue
     var attr = subject.keyAttribute
@@ -282,7 +282,7 @@ export class SubjectInfos extends LitElement {
         elem = html`<span class="${css}" data-subject-id="${id}"> ${attr + ' = "' + id + '"'}</span>`
         break
       default:
-        throw 'Subject Type not managed :' + type
+        throw new Error('Subject Type not managed :' + type)
     }
     return elem
   }
@@ -402,14 +402,14 @@ export class SubjectInfos extends LitElement {
     if (!this._isDefined(subject.attributes)) return subject.modelId.keyId
     var index
     var attrs = subject.attributes
-    var html = ''
+    var resHtml = ''
     for (index = 0; index < userAttrs.length; ++index) {
       if (
         index > 0 &&
         this._isDefined(attrs[userAttrs[index]]) &&
-        html !== ''
+        resHtml !== ''
       ) {
-        html += ' - '
+        resHtml += ' - '
       }
       if (
         this._isDefined(attrs[userAttrs[index]]) &&
@@ -422,15 +422,15 @@ export class SubjectInfos extends LitElement {
           ++subIndex
         ) {
           if (subIndex > 0) {
-            html += ', '
+            resHtml += ', '
           }
-          html += attrs[userAttrs[index]][subIndex]
+          resHtml += attrs[userAttrs[index]][subIndex]
         }
       } else if (this._isDefined(attrs[userAttrs[index]])) {
-        html += attrs[userAttrs[index]]
+        resHtml += attrs[userAttrs[index]]
       }
     }
-    return html
+    return resHtml
   }
 
   /**

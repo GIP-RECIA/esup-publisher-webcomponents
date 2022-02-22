@@ -4873,4 +4873,12 @@ export const bootstrapStyle = css`
   .fw-bold {
     font-weight: 700 !important;
   }
+
+  .mt-2 {
+    margin-top: 0.5rem !important;
+  }
+
+  .mt-3 {
+    margin-top: 1rem !important;
+  }
 `

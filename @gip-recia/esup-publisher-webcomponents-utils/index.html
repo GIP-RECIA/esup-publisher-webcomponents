@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <title>Esup-Publisher - Webcomponents Utils</title>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../node_modules/lit/polyfill-support.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Esup-Publisher - Webcomponents Utils</h1>
+    </header>
+  </body>
+  <script type="module">
+    import { LitElement, html, css } from 'lit'
+    import { Localization, ToolTip, bootstrapToolTipStyle } from './src/index.js'
+
+    class LitElementTest extends LitElement {
+      static get styles() {
+        return [
+          bootstrapToolTipStyle,
+          css`
+            [data-tooltip] {
+              position: relative;
+            }
+          `
+        ]
+      }
+
+      constructor() {
+        super()
+        this.localization = new Localization({
+          fr: {
+            msg: 'Mon message'
+          }
+        }, 'fr')
+        this.localization.mergeLabels({
+          fr: {
+            msg: 'Mon message modifié'
+          },
+          en: {
+            msg: 'My message'
+          }
+        })
+
+        this.toolTip = new ToolTip()
+      }
+
+      render() {
+        return html`
+          <p>
+            <select @change=${(e) => {
+                this.localization.lang = e.target.value
+                this.requestUpdate()
+              }}>
+              <option value="fr" ?selected=${this.localization.lang === 'fr'}>fr</option>
+              <option value="en" ?selected=${this.localization.lang === 'en'}>en</option>
+            </select>
+            <span data-tooltip aria-describedby="tooltip" @mouseenter="${() => this.toolTip.showToolTip()}" @mouseleave="${() => this.toolTip.hideToolTip()}">
+              ${this.localization.getLabel('msg')}
+              ${this.toolTip.renderToolTip(this.localization.getLabel('msg'))}
+            </span>
+          </p>
+        `
+      }
+
+      updated(changedProperties) {
+        super.updated(changedProperties)
+
+        this.toolTip.updateToolTip(this.shadowRoot)
+      }
+    }
+    customElements.define('lit-element-test', LitElementTest)
+  </script>
+  <script>
+    const component = document.createElement('lit-element-test')
+    document.body.appendChild(component)
+  </script>
+</html>

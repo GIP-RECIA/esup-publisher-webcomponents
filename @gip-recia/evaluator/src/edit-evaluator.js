@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit'
 import { editEvaluatorStyle } from './edit-evaluator-style.js'
 import { editEvaluatorLabel } from './edit-evaluator-label.js'
 import { bootstrapStyle } from './bootstrap-style.js'
+import { Localization, ToolTip, Utils, bootstrapToolTipStyle } from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Edit Evaluator component.
@@ -11,6 +12,7 @@ export class EditEvaluator extends LitElement {
     return [
       editEvaluatorStyle,
       bootstrapStyle,
+      bootstrapToolTipStyle,
       css`
         :host > ul {
           padding: 0;
@@ -50,10 +52,8 @@ export class EditEvaluator extends LitElement {
   constructor() {
     super()
     this._evaluator = undefined
-    this._labels = editEvaluatorLabel
-    this._lang = 'fr'
-    this._tooltip = null
-    this._tooltipClosing = false
+    this._localization = new Localization(editEvaluatorLabel, 'fr')
+    this._tooltip = new ToolTip()
     this._dropdown = null
     this._userAttributes = []
   }
@@ -61,11 +61,11 @@ export class EditEvaluator extends LitElement {
   render() {
     var rendering = html``
     if (
-      this._isDefined(this.config.operators) &&
-      this._isDefined(this.config.stringEvaluators) &&
-      this._isDefined(this._userAttributes) &&
-      this._isDefined(this._evaluator) &&
-      this._isDefined(this._evaluator.class)
+      Utils.isDefined(this.config.operators) &&
+      Utils.isDefined(this.config.stringEvaluators) &&
+      Utils.isDefined(this._userAttributes) &&
+      Utils.isDefined(this._evaluator) &&
+      Utils.isDefined(this._evaluator.class)
     ) {
       switch (this._evaluator.class) {
         case 'OPERATOR':
@@ -127,7 +127,7 @@ export class EditEvaluator extends LitElement {
           rendering = html`
             <div class="row g-1 align-items-center">
               <div class="col-auto">
-                <span>${this._getLabel('authenticatedUsers.text')}</span>
+                <span>${this._localization.getLabel('authenticatedUsers.text')}</span>
               </div>
               <div class="col-auto">
                 ${this._renderDeleteEvaluator()}
@@ -150,7 +150,7 @@ export class EditEvaluator extends LitElement {
             // prettier-ignore
             userRendering = html`
               <esup-subject-infos .subject="${userModelId}" .config="${this.config}">
-                <span>${this._getLabel('userAttribute.subjetIs')}</span>
+                <span>${this._localization.getLabel('userAttribute.subjetIs')}</span>
               </esup-subject-infos>
             `
           } else if (
@@ -209,7 +209,7 @@ export class EditEvaluator extends LitElement {
             // prettier-ignore
             groupRendering = html`
               <esup-subject-infos .subject="${userModelId}" .config="${this.config}">
-                <span>${this._getLabel('userGroup.memberOf')}</span>
+                <span>${this._localization.getLabel('userGroup.memberOf')}</span>
               </esup-subject-infos>
             `
           } else {
@@ -237,7 +237,7 @@ export class EditEvaluator extends LitElement {
           rendering = html`
             <div class="row g-1 align-items-center">
               <div class="col-auto">
-                <span>${this._getLabel('unknown.text')}</span>
+                <span>${this._localization.getLabel('unknown.text')}</span>
               </div>
               <div class="col-auto">
                 ${this._renderDeleteEvaluator()}
@@ -256,31 +256,18 @@ export class EditEvaluator extends LitElement {
     // Si les propriétés evaluator ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      changedProperties.forEach((value, key) => {
-        if (key === 'evaluator' || key === 'config') {
-          initDatas = true
-        }
-      })
+      initDatas = changedProperties.has('evaluator') || changedProperties.has('config')
     }
     if (initDatas) {
       this._evaluator = this.evaluator
       this._userAttributes = this.config.userAttributes.filter(
         attr => attr !== 'uid'
       )
-      this._labels = editEvaluatorLabel
-      this._lang =
-        this.config && this.config.lang ? this.config.lang : this._lang
+      this._localization.labels = editEvaluatorLabel
+      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
-        Object.keys(this.config.labels).forEach(lang => {
-          if (!Object.keys(this._labels).includes(lang)) {
-            this._labels[lang] = this.config.labels[lang]
-          } else {
-            Object.keys(this.config.labels[lang]).forEach(key => {
-              this._labels[lang][key] = this.config.labels[lang][key]
-            })
-          }
-        })
+        this._localization.mergeLabels(this.config.labels)
       }
     }
   }
@@ -288,8 +275,7 @@ export class EditEvaluator extends LitElement {
   updated(changedProperties) {
     super.updated(changedProperties)
 
-    this._tooltip = this.shadowRoot.querySelector('#tooltip')
-    this._tooltipClosing = false
+    this._tooltip.updateToolTip(this.shadowRoot)
     this._dropdown = this.shadowRoot.querySelector('#dropdown')
   }
 
@@ -314,19 +300,19 @@ export class EditEvaluator extends LitElement {
         <div class="btn-group" role="group" id="dropdown" @focusout="${(e) => this._onDropDownFocusOut(e)}" @keydown="${(e) => this._onDropDownKeyDown(e)}">
           <button type="button" id="dropdown-btn" class="btn btn-default btn-outline-dark dropdown-toggle" aria-expanded="false"
             @click="${() => this._toggleDropDown()}" >
-            ${this._getLabel('add.button')}
+            ${this._localization.getLabel('add.button')}
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdown-btn">
-            <li><a class="dropdown-item" href="" @click="${(e) => this._addEvaluator(e, 'OPERATOR')}">${this._getLabel('add.operator')}</a></li>
-            <li><a class="dropdown-item" href="" @click="${(e) => this._addEvaluator(e, 'USER')}">${this._getLabel('add.user')}</a></li>
-            <li><a class="dropdown-item" href="" @click="${(e) => this._addEvaluator(e, 'GROUP')}">${this._getLabel('add.group')}</a></li>
-            <li><a class="dropdown-item" href="" @click="${(e) => this._addEvaluator(e, 'AUTH')}">${this._getLabel('add.authenticatedUsers')}</a></li>
-            <li><a class="dropdown-item" href="" @click="${(e) => this._addEvaluator(e, 'ATTRIBUTE')}">${this._getLabel('add.userAttribute')}</a></li>
+            <li><a class="dropdown-item" href="" @click="${(e) => this._addEvaluator(e, 'OPERATOR')}">${this._localization.getLabel('add.operator')}</a></li>
+            <li><a class="dropdown-item" href="" @click="${(e) => this._addEvaluator(e, 'USER')}">${this._localization.getLabel('add.user')}</a></li>
+            <li><a class="dropdown-item" href="" @click="${(e) => this._addEvaluator(e, 'GROUP')}">${this._localization.getLabel('add.group')}</a></li>
+            <li><a class="dropdown-item" href="" @click="${(e) => this._addEvaluator(e, 'AUTH')}">${this._localization.getLabel('add.authenticatedUsers')}</a></li>
+            <li><a class="dropdown-item" href="" @click="${(e) => this._addEvaluator(e, 'ATTRIBUTE')}">${this._localization.getLabel('add.userAttribute')}</a></li>
           </ul>
         </div>
         ${this._evaluator.evaluators && this._evaluator.evaluators.length > 0 ? html`
           <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._deleteEvaluators()}">
-            <span>${this._getLabel('operator.removeChilds')}</span>
+            <span>${this._localization.getLabel('operator.removeChilds')}</span>
           </button>
         ` : ''}
       </div>
@@ -341,21 +327,11 @@ export class EditEvaluator extends LitElement {
   _renderDeleteEvaluator() {
     // prettier-ignore
     return html`
-      <a class="text-danger" href="" @click="${(e) => this._deleteEvaluator(e)}" data-tooltip aria-describedby="tooltip" @mouseenter="${() => this._showToolTip()}" @mouseleave="${() => this._hideToolTip()}">
+      <a class="text-danger" href="" @click="${(e) => this._deleteEvaluator(e)}" data-tooltip aria-describedby="tooltip" @mouseenter="${() => this._tooltip.showToolTip()}" @mouseleave="${() => this._tooltip.hideToolTip()}">
         <i class="icon icon-remove"></i>
-        ${this._renderToolTip(this._getLabel('delete.button'))}
+        ${this._tooltip.renderToolTip(this._localization.getLabel('delete.button'))}
       </a>
     `
-  }
-
-  /**
-   * Retourne un label dans la langue actuelle.
-   *
-   * @param {String} key Clé du label
-   * @returns Label dans la langue actuelle
-   */
-  _getLabel(key) {
-    return this._labels[this._lang][key]
   }
 
   /**
@@ -374,7 +350,7 @@ export class EditEvaluator extends LitElement {
    * @returns Booléen
    */
   _isValidEvaluator(evaluator) {
-    if (this._isDefined(evaluator) && this._isDefined(evaluator.class)) {
+    if (Utils.isDefined(evaluator) && Utils.isDefined(evaluator.class)) {
       switch (evaluator.class) {
         case 'OPERATOR':
           if (evaluator.evaluators.length > 0) {
@@ -391,9 +367,9 @@ export class EditEvaluator extends LitElement {
         case 'USERATTRIBUTES':
         case 'USERMULTIVALUEDATTRIBUTES':
           return (
-            this._isDefined(evaluator.value) &&
-            this._isDefined(evaluator.attribute) &&
-            this._isDefined(evaluator.mode) &&
+            Utils.isDefined(evaluator.value) &&
+            Utils.isDefined(evaluator.attribute) &&
+            Utils.isDefined(evaluator.mode) &&
             evaluator.value !== '' &&
             evaluator.attribute !== '' &&
             evaluator.mode !== '' &&
@@ -403,7 +379,7 @@ export class EditEvaluator extends LitElement {
           )
         case 'USERGROUP':
           return (
-            this._isDefined(evaluator.group) &&
+            Utils.isDefined(evaluator.group) &&
             evaluator.group !== '' &&
             evaluator.group !== null
           )
@@ -635,83 +611,6 @@ export class EditEvaluator extends LitElement {
   }
 
   /**
-   * Retourne le code HTML du tooltip.
-   *
-   * @param {String} tooltip Texte du tooltip
-   * @returns Code HTML
-   */
-  _renderToolTip(tooltip) {
-    if (tooltip && tooltip.length > 0) {
-      // prettier-ignore
-      return  html`
-        <div class="tooltip fade bs-tooltip-top" id="tooltip" role="tooltip" style="display: none"
-          @mouseover="${() => { this._hideToolTip() }}">
-          <div class="tooltip-arrow"></div>
-          <div class="tooltip-inner">${tooltip}</div>
-        </div>
-      `
-    } else {
-      return html``
-    }
-  }
-
-  /**
-   * Méthode affichant le tooltip.
-   */
-  _showToolTip() {
-    if (this._tooltip) {
-      if (this._tooltipClosing) {
-        setTimeout(() => this._showToolTip(), 50)
-      } else {
-        // Affichage et positionnement du tooltip
-        this._tooltip.style.display = 'block'
-        this._tooltip.style.width = 'max-content'
-        if (this._tooltip.offsetWidth >= this._tooltip.parentNode.offsetWidth) {
-          this._tooltip.style.left = '0px'
-        } else {
-          this._tooltip.style.left =
-            Math.round(this._tooltip.parentNode.offsetWidth / 2) + 'px'
-          this._tooltip.style.transform = 'translateX(-50%)'
-        }
-        this._tooltip.style.top = -(this._tooltip.offsetHeight + 1) + 'px'
-        this._tooltip.classList.add('show')
-
-        // Positionnement de la flèche
-        const arrow = this._tooltip.querySelector('.tooltip-arrow')
-        arrow.style.position = 'absolute'
-        arrow.style.transform = 'translateX(-50%)'
-        const left = Math.round(
-          Math.min(
-            this._tooltip.offsetWidth,
-            this._tooltip.parentNode.offsetWidth
-          ) / 2
-        )
-        arrow.style.left = left + 'px'
-      }
-    }
-  }
-
-  /**
-   * Méthode masquant le tooltip.
-   */
-  _hideToolTip() {
-    if (
-      this._tooltip &&
-      !this._tooltipClosing &&
-      this._tooltip.classList.contains('show')
-    ) {
-      // Masquage du tooltip
-      this._tooltip.classList.remove('show')
-
-      this._tooltipClosing = true
-      setTimeout(() => {
-        this._tooltip.style.display = 'none'
-        this._tooltipClosing = false
-      }, 100)
-    }
-  }
-
-  /**
    * Méthode affichant ou masquant le dropdown.
    */
   _toggleDropDown() {
@@ -813,16 +712,6 @@ export class EditEvaluator extends LitElement {
     ) {
       this._hideDropDown()
     }
-  }
-
-  /**
-   * Retourne true si la valeur fournit est défini.
-   *
-   * @param {Object} value Objet à traiter
-   * @returns True si l'objet est défini, False sinon
-   */
-  _isDefined(value) {
-    return typeof value !== 'undefined'
   }
 
   /**

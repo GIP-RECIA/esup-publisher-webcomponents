@@ -2,6 +2,7 @@ import { LitElement, html } from 'lit'
 import { colorPaletteStyle } from './color-palette-style.js'
 import { colorPaletteLabel } from './color-palette-label.js'
 import { bootstrapStyle } from './bootstrap-style.js'
+import { Localization } from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Color Palette Picker component.
@@ -39,8 +40,7 @@ export class ColorPalettePicker extends LitElement {
     this._colorModal = null
     this._color = null
     this._originalColor = null
-    this._labels = colorPaletteLabel
-    this._lang = 'fr'
+    this._localization = new Localization(colorPaletteLabel, 'fr')
   }
 
   render() {
@@ -55,7 +55,7 @@ export class ColorPalettePicker extends LitElement {
           <div class="modal-dialog">
             <div class="modal-content" @click="${(e) => e.stopPropagation()}">
               <div class="modal-header">
-                <h4 class="modal-title" id="modalTitle">${this._getLabel('select.color')}</h4>
+                <h4 class="modal-title" id="modalTitle">${this._localization.getLabel('select.color')}</h4>
                 <button type="button" class="btn-close" aria-hidden="true" @click="${(e) => this._onClickCancel(e)}"></button>
               </div>
               <div class="modal-body">
@@ -71,10 +71,10 @@ export class ColorPalettePicker extends LitElement {
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-outline-dark" @click="${(e) => this._onClickCancel(e)}" >
-                  <span class="icon icon-cancel" aria-hidden="true"></span>&nbsp;<span>${this._getLabel('cancel')}</span>
+                  <span class="icon icon-cancel" aria-hidden="true"></span>&nbsp;<span>${this._localization.getLabel('cancel')}</span>
                 </button>
                 <button type="button" class="btn btn-primary" @click="${(e) => this._onClickValidate(e)}">
-                  <span class="icon icon-validate" aria-hidden="true"></span>&nbsp;<span>${this._getLabel('validate')}</span>
+                  <span class="icon icon-validate" aria-hidden="true"></span>&nbsp;<span>${this._localization.getLabel('validate')}</span>
                 </button>
               </div>
             </div>
@@ -87,34 +87,21 @@ export class ColorPalettePicker extends LitElement {
   willUpdate(changedProperties) {
     super.willUpdate(changedProperties)
 
-    // Si les propriétés color ou config sont modifiés, on initialise les éléments
+    // Si les propriétés color ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      changedProperties.forEach((value, key) => {
-        if (key === 'color' || key === 'config') {
-          initDatas = true
-        }
-      })
+      initDatas = changedProperties.has('color') || changedProperties.has('config')
     }
 
     if (initDatas) {
       // Initialisation des données
       this._color = this.color
       this._originalColor = this.color
-      this._labels = colorPaletteLabel
-      this._lang =
-        this.config && this.config.lang ? this.config.lang : this._lang
+      this._localization.labels = colorPaletteLabel
+      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
-        Object.keys(this.config.labels).forEach(lang => {
-          if (!Object.keys(this._labels).includes(lang)) {
-            this._labels[lang] = this.config.labels[lang]
-          } else {
-            Object.keys(this.config.labels[lang]).forEach(key => {
-              this._labels[lang][key] = this.config.labels[lang][key]
-            })
-          }
-        })
+        this._localization.mergeLabels(this.config.labels)
       }
     }
   }
@@ -125,16 +112,6 @@ export class ColorPalettePicker extends LitElement {
     if (!this._colorModal) {
       this._colorModal = this.shadowRoot.querySelector('#colorPaletteModal')
     }
-  }
-
-  /**
-   * Retourne un label dans la langue actuelle.
-   *
-   * @param {String} key Clé du label
-   * @returns Label dans la langue actuelle
-   */
-  _getLabel(key) {
-    return this._labels[this._lang][key]
   }
 
   /**

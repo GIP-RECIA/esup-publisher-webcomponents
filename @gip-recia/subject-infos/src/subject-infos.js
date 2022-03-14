@@ -1,14 +1,15 @@
 import { LitElement, html } from 'lit'
+import { classMap } from 'lit/directives/class-map.js'
 import { subjectInfosStyle } from './subject-infos-style.js'
 import { subjectInfoLabel } from './subject-infos-label.js'
-import { bootstrapStyle } from './bootstrap-style.js'
+import { Localization, ToolTip, Utils, bootstrapToolTipStyle } from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Subject Infos component.
  */
 export class SubjectInfos extends LitElement {
   static get styles() {
-    return [subjectInfosStyle, bootstrapStyle]
+    return [subjectInfosStyle, bootstrapToolTipStyle]
   }
 
   static get properties() {
@@ -36,10 +37,8 @@ export class SubjectInfos extends LitElement {
   constructor() {
     super()
     this._subject = null
-    this._labels = subjectInfoLabel
-    this._lang = 'fr'
-    this._tooltip = null
-    this._tooltipClosing = false
+    this._localization = new Localization(subjectInfoLabel, 'fr')
+    this._tooltip = new ToolTip()
   }
 
   render() {
@@ -69,47 +68,35 @@ export class SubjectInfos extends LitElement {
   willUpdate(changedProperties) {
     super.willUpdate(changedProperties)
 
-    // Si les propriétés subject ou config sont modifiés, on initialise les éléments
+    // Si les propriétés subject ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      changedProperties.forEach((value, key) => {
-        if (key === 'subject' || key === 'config') {
-          initDatas = true
-        }
-      })
+      initDatas =
+        changedProperties.has('subject') || changedProperties.has('config')
     }
     if (initDatas) {
-      this._labels = subjectInfoLabel
-      this._lang =
-        this.config && this.config.lang ? this.config.lang : this._lang
+      this._localization.labels = subjectInfoLabel
+      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
-        Object.keys(this.config.labels).forEach(lang => {
-          if (!Object.keys(this._labels).includes(lang)) {
-            this._labels[lang] = this.config.labels[lang]
-          } else {
-            Object.keys(this.config.labels[lang]).forEach(key => {
-              this._labels[lang][key] = this.config.labels[lang][key]
-            })
-          }
-        })
+        this._localization.mergeLabels(this.config.labels)
       }
       // to resolve and complete subject
       if (
         this.config.getSubjectInfos &&
-        (!this._isDefined(this.config.resolveKey) || this.config.resolveKey)
+        (!Utils.isDefined(this.config.resolveKey) || this.config.resolveKey)
       ) {
         if (
-          this._isDefined(this.subject) &&
-          this._isDefined(this.subject.modelId) &&
-          !this._isDefined(this.subject.attributes) &&
+          Utils.isDefined(this.subject) &&
+          Utils.isDefined(this.subject.modelId) &&
+          !Utils.isDefined(this.subject.attributes) &&
           'GROUP' !== this.subject.modelId.keyType
         ) {
           // is DTO
           // On teste si on n'a pas déjà récupéré les infos
           if (
             this._subject === null ||
-            !this._isDefined(this._subject) ||
+            !Utils.isDefined(this._subject) ||
             this.subject.modelId.keyType !== this._subject.modelId.keyType ||
             this.subject.modelId.keyId !== this._subject.modelId.keyId
           ) {
@@ -124,7 +111,7 @@ export class SubjectInfos extends LitElement {
               })
           }
         } else if (
-          this._isDefined(this.subject) &&
+          Utils.isDefined(this.subject) &&
           'keyType' in this.subject &&
           'keyId' in this.subject
         ) {
@@ -132,7 +119,7 @@ export class SubjectInfos extends LitElement {
           // On teste si on n'a pas déjà récupéré les infos
           if (
             this._subject === null ||
-            !this._isDefined(this._subject) ||
+            !Utils.isDefined(this._subject) ||
             this.subject.keyType !== this._subject.modelId.keyType ||
             this.subject.keyId !== this._subject.modelId.keyId
           ) {
@@ -155,18 +142,7 @@ export class SubjectInfos extends LitElement {
   updated(changedProperties) {
     super.updated(changedProperties)
 
-    this._tooltip = this.shadowRoot.querySelector('#tooltip')
-    this._tooltipClosing = false
-  }
-
-  /**
-   * Retourne un label dans la langue actuelle.
-   *
-   * @param {String} key Clé du label
-   * @returns Label dans la langue actuelle
-   */
-  _getLabel(key) {
-    return this._labels[this._lang][key]
+    this._tooltip.updateToolTip(this.shadowRoot)
   }
 
   /**
@@ -177,41 +153,31 @@ export class SubjectInfos extends LitElement {
    * @returns Html à afficher
    */
   _htmlFromDTO(subject) {
-    var displayName = ''
-    var css
-    // prettier-ignore
-    var elem = html`<span class="icon-question subject-infos"></span>`
-    var type = subject.modelId.keyType
-    var id = subject.modelId.keyId
-    var cssnotfound = ''
-    switch (type) {
-      case 'GROUP':
-        css = 'icon-users subject-infos'
-        break
-      case 'PERSON':
-        css = 'icon-user subject-infos'
-        break
-    }
-    if (
-      subject.foundOnExternalSource === true ||
-      (subject.displayName && subject.displayName.length > 0)
-    ) {
-      displayName = subject.displayName
-    } else {
-      cssnotfound = 'icon-question'
-    }
-    if (css) {
+    const type = subject.modelId.keyType
+    if (['PERSON', 'GROUP'].includes(type)) {
+      const isFound =
+        subject.foundOnExternalSource === true ||
+        (subject.displayName && subject.displayName.length > 0)
+      const cssLink = {
+        'icon-users': type === 'GROUP',
+        'icon-user': type === 'PERSON'
+      }
+      const cssSpan = {
+        'icon-question': !isFound
+      }
       // prettier-ignore
-      elem = html`
-        <a href="" class="${css}" data-subject-id="${id}" @click="${(e) => this._onClick(e)}">
-          <span class="${cssnotfound}" data-tooltip aria-describedby="tooltip" @mouseenter="${() => this._showToolTip()}" @mouseleave="${() => this._hideToolTip()}">
-            ${displayName}
-            ${this._renderToolTip(this._tooltipSubject(subject))}
+      return html`
+        <a href="" class="subject-infos ${classMap(cssLink)}" data-subject-id="${subject.modelId.keyId}" @click="${(e) => this._onClick(e)}">
+          <span class="${classMap(cssSpan)}" data-tooltip aria-describedby="tooltip" @mouseenter="${() => this._tooltip.showToolTip()}" @mouseleave="${() => this._tooltip.hideToolTip()}">
+            ${isFound ? subject.displayName : ''}
+            ${this._tooltip.renderToolTip(this._tooltipSubject(subject))}
           </span>
         </a>
       `
+    } else {
+      // prettier-ignore
+      return html`<span class="icon-question subject-infos"></span>`
     }
-    return elem
   }
 
   /**
@@ -222,32 +188,25 @@ export class SubjectInfos extends LitElement {
    * @returns Html à afficher
    */
   _htmlFromKey(subject) {
-    var css
-    // prettier-ignore
-    var elem = html`<span class="icon-question subject-infos"></span>`
-    var type = subject.keyType
-    var id = subject.keyId
-    switch (type) {
-      case 'GROUP':
-        css = 'icon-users subject-infos'
-        break
-      case 'PERSON':
-        css = 'icon-user subject-infos'
-        break
-      default:
-        throw new Error('Subject Type not managed and should not be tested :' + type)
-    }
-    if (css) {
+    const type = subject.keyType
+    if (['PERSON', 'GROUP'].includes(type)) {
+      const cssLink = {
+        'icon-users': type === 'GROUP',
+        'icon-user': type === 'PERSON'
+      }
       // prettier-ignore
-      elem = html`
-        <a href="" class="${css}" data-subject-id="${id}" @click="${(e) => this._onClick(e)}">
-          <span class="icon-question" data-tooltip aria-describedby="tooltip" @mouseenter="${() => this._showToolTip()}" @mouseleave="${() => this._hideToolTip()}">
-            ${this._renderToolTip(this._tooltipSubject(subject))}
+      return html`
+        <a href="" class="subject-infos ${classMap(cssLink)}" data-subject-id="${subject.keyId}" @click="${(e) => this._onClick(e)}">
+          <span class="icon-question" data-tooltip aria-describedby="tooltip" @mouseenter="${() => this._tooltip.showToolTip()}" @mouseleave="${() => this._tooltip.hideToolTip()}">
+            ${this._tooltip.renderToolTip(this._tooltipSubject(subject))}
           </span>
         </a>
       `
+    } else {
+      throw new Error(
+        'Subject Type not managed and should not be tested :' + type
+      )
     }
-    return elem
   }
 
   /**
@@ -258,54 +217,30 @@ export class SubjectInfos extends LitElement {
    * @returns Html à afficher
    */
   _htmlFromExtendedKey(subject) {
-    var css = 'icon-users subject-infos'
-    // prettier-ignore
     var elem = null
-    var type = subject.keyType
-    var id = subject.keyValue
-    var attr = subject.keyAttribute
+    const type = subject.keyType
+    const id = subject.keyValue
+    const attr = subject.keyAttribute
     switch (type) {
       case 'GROUP':
       case 'PERSON':
-        css = 'icon-user subject-infos'
         // prettier-ignore
         elem = html`
-          <a href="" class="${css}" data-subject-id="${id}" @click="${(e) => this._onClick(e)}">
-            <span class="icon-question" data-tooltip aria-describedby="tooltip" @mouseenter="${() => this._showToolTip()}" @mouseleave="${() => this._hideToolTip()}">
-              ${this._renderToolTip(this._tooltipSubject(subject))}
+          <a href="" class="subject-infos icon-user" data-subject-id="${id}" @click="${(e) => this._onClick(e)}">
+            <span class="icon-question" data-tooltip aria-describedby="tooltip" @mouseenter="${() => this._tooltip.showToolTip()}" @mouseleave="${() => this._tooltip.hideToolTip()}">
+              ${this._tooltip.renderToolTip(this._tooltipSubject(subject))}
             </span>
           </a>`
         break
       case 'PERSON_ATTR':
       case 'PERSON_ATTR_REGEX':
         // prettier-ignore
-        elem = html`<span class="${css}" data-subject-id="${id}"> ${attr + ' = "' + id + '"'}</span>`
+        elem = html`<span class="subject-infos icon-users" data-subject-id="${id}"> ${attr + ' = "' + id + '"'}</span>`
         break
       default:
         throw new Error('Subject Type not managed :' + type)
     }
     return elem
-  }
-
-  /**
-   * Retourne le code HTML du tooltip.
-   *
-   * @param {String} tooltip Texte du tooltip
-   * @returns Code HTML
-   */
-  _renderToolTip(tooltip) {
-    if (tooltip && tooltip.length > 0) {
-      // prettier-ignore
-      return  html`
-        <div class="tooltip fade bs-tooltip-top" id="tooltip" role="tooltip" style="display: none"
-          @mouseover="${() => { this._hideToolTip() }}">
-          <div class="tooltip-arrow"></div>
-          <div class="tooltip-inner">${tooltip}</div>
-        </div>
-      `
-    } else {
-      return html``
-    }
   }
 
   /**
@@ -322,62 +257,6 @@ export class SubjectInfos extends LitElement {
   }
 
   /**
-   * Méthode affichant le tooltip.
-   */
-  _showToolTip() {
-    if (this._tooltip) {
-      if (this._tooltipClosing) {
-        setTimeout(() => this._showToolTip(), 50)
-      } else {
-        // Affichage et positionnement du tooltip
-        this._tooltip.style.display = 'block'
-        this._tooltip.style.width = 'max-content'
-        if (this._tooltip.offsetWidth >= this._tooltip.parentNode.offsetWidth) {
-          this._tooltip.style.left = '0px'
-        } else {
-          this._tooltip.style.left =
-            Math.round(this._tooltip.parentNode.offsetWidth / 2) + 'px'
-          this._tooltip.style.transform = 'translateX(-50%)'
-        }
-        this._tooltip.style.top = -(this._tooltip.offsetHeight + 1) + 'px'
-        this._tooltip.classList.add('show')
-
-        // Positionnement de la flèche
-        const arrow = this._tooltip.querySelector('.tooltip-arrow')
-        arrow.style.position = 'absolute'
-        arrow.style.transform = 'translateX(-50%)'
-        const left = Math.round(
-          Math.min(
-            this._tooltip.offsetWidth,
-            this._tooltip.parentNode.offsetWidth
-          ) / 2
-        )
-        arrow.style.left = left + 'px'
-      }
-    }
-  }
-
-  /**
-   * Méthode masquant le tooltip.
-   */
-  _hideToolTip() {
-    if (
-      this._tooltip &&
-      !this._tooltipClosing &&
-      this._tooltip.classList.contains('show')
-    ) {
-      // Masquage du tooltip
-      this._tooltip.classList.remove('show')
-
-      this._tooltipClosing = true
-      setTimeout(() => {
-        this._tooltip.style.display = 'none'
-        this._tooltipClosing = false
-      }, 100)
-    }
-  }
-
-  /**
    * Retourne le label à afficher dans le tooltip.
    *
    * @param {Object} subject Objet contenant les valeurs nécessaire à l'affichage
@@ -385,34 +264,34 @@ export class SubjectInfos extends LitElement {
    */
   _tooltipSubject(subject) {
     const userAttrs = this.config.userDisplayedAttrs || []
-    if (!this._isDefined(userAttrs) || !this._isDefined(subject)) return ''
-    if (this._isDefined(subject.keyId)) {
-      return "'" + subject.keyId + "'" + this._getLabel('disappear')
+    if (!Utils.isDefined(userAttrs) || !Utils.isDefined(subject)) return ''
+    if (Utils.isDefined(subject.keyId)) {
+      return "'" + subject.keyId + "'" + this._localization.getLabel('disappear')
     }
-    if (!this._isDefined(subject.modelId)) return ''
+    if (!Utils.isDefined(subject.modelId)) return ''
     if (
-      this._isDefined(subject.modelId) &&
+      Utils.isDefined(subject.modelId) &&
       subject.foundOnExternalSource !== true
     ) {
-      return "'" + subject.modelId.keyId + "'" + this._getLabel('disappear')
+      return "'" + subject.modelId.keyId + "'" + this._localization.getLabel('disappear')
     }
     if (subject.modelId.keyType === 'GROUP') {
       return subject.modelId.keyId
     }
-    if (!this._isDefined(subject.attributes)) return subject.modelId.keyId
+    if (!Utils.isDefined(subject.attributes)) return subject.modelId.keyId
     var index
     var attrs = subject.attributes
     var resHtml = ''
     for (index = 0; index < userAttrs.length; ++index) {
       if (
         index > 0 &&
-        this._isDefined(attrs[userAttrs[index]]) &&
+        Utils.isDefined(attrs[userAttrs[index]]) &&
         resHtml !== ''
       ) {
         resHtml += ' - '
       }
       if (
-        this._isDefined(attrs[userAttrs[index]]) &&
+        Utils.isDefined(attrs[userAttrs[index]]) &&
         Array.isArray(attrs[userAttrs[index]])
       ) {
         var subIndex
@@ -426,21 +305,11 @@ export class SubjectInfos extends LitElement {
           }
           resHtml += attrs[userAttrs[index]][subIndex]
         }
-      } else if (this._isDefined(attrs[userAttrs[index]])) {
+      } else if (Utils.isDefined(attrs[userAttrs[index]])) {
         resHtml += attrs[userAttrs[index]]
       }
     }
     return resHtml
-  }
-
-  /**
-   * Retourne true si la valeur fournit est défini.
-   *
-   * @param {Object} value Objet à traiter
-   * @returns True si l'objet est défini, False sinon
-   */
-  _isDefined(value) {
-    return typeof value !== 'undefined'
   }
 }
 

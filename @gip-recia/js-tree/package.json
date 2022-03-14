@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/js-tree",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Js Tree",
   "main": "src/js-tree.js",
   "module": "src/js-tree.js",
@@ -15,14 +15,15 @@
     "serve": "wds --watch",
     "test": "npm run test:dev",
     "test:dev": "wtr",
-    "test:watch": "wtr --watch"
+    "test:watch": "wtr --watch",
+    "start": "npm run serve"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GIP-RECIA/esup-publisher-webcomponents.git"
   },
   "keywords": [],
-  "author": "GIT-RECIA",
+  "author": "GIP-RECIA",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/GIP-RECIA/esup-publisher-webcomponents/issues"

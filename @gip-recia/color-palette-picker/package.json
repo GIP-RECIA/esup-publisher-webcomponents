@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/color-palette-picker",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Color Palette Picker",
   "main": "src/color-palette-picker.js",
   "module": "src/color-palette-picker.js",
@@ -15,21 +15,23 @@
     "serve": "wds --watch",
     "test": "npm run test:dev",
     "test:dev": "wtr",
-    "test:watch": "wtr --watch"
+    "test:watch": "wtr --watch",
+    "start": "npm run serve"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GIP-RECIA/esup-publisher-webcomponents.git"
   },
   "keywords": [],
-  "author": "GIT-RECIA",
+  "author": "GIP-RECIA",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/GIP-RECIA/esup-publisher-webcomponents/issues"
   },
   "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
   "dependencies": {
-    "lit": "^2.2.0"
+    "lit": "^2.2.0",
+    "@gip-recia/esup-publisher-webcomponents-utils": "^0.0.1"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.5.3",

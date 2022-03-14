@@ -156,7 +156,7 @@ esup-js-tree {
 Pour tester le webcomponent, exécuter la commande suivante :
 
 ```shell
-npm run serve
+npm start
 ```
 
 Une page avec le webcomponent est alors disponible à l'adresse http://localhost:8000.

@@ -156,7 +156,7 @@ esup-edit-evaluator {
 Pour tester les webcomponents, exécuter la commande suivante :
 
 ```shell
-npm run serve
+npm start
 ```
 
 Une page avec les webcomponents est alors disponible à l'adresse http://localhost:8000.

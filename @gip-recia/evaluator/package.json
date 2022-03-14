@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/evaluator",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Evaluator",
   "main": "src/index.js",
   "module": "src/index.js",
@@ -15,14 +15,15 @@
     "serve": "wds --watch",
     "test": "npm run test:dev",
     "test:dev": "wtr",
-    "test:watch": "wtr --watch"
+    "test:watch": "wtr --watch",
+    "start": "npm run serve"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GIP-RECIA/esup-publisher-webcomponents.git"
   },
   "keywords": [],
-  "author": "GIT-RECIA",
+  "author": "GIP-RECIA",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/GIP-RECIA/esup-publisher-webcomponents/issues"
@@ -30,8 +31,9 @@
   "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
   "dependencies": {
     "lit": "^2.2.0",
-    "@gip-recia/subject-infos": "^0.0.6",
-    "@gip-recia/subject-search-button": "^0.0.5"
+    "@gip-recia/subject-infos": "^0.0.7",
+    "@gip-recia/subject-search-button": "^0.0.6",
+    "@gip-recia/esup-publisher-webcomponents-utils": "^0.0.1"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.5.3",

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="">
   <head>
     <meta charset="utf-8" />
     <title>Esup-Publisher - Subject Infos</title>
@@ -20,26 +20,67 @@
     const datas = [
       {
         modelId: {
-          keyId: 'id:Reference:Props:Prof1',
+          keyId: 'id:Reference:Props:DtoGroup1',
           keyType: 'GROUP'
         },
-        displayName: 'Prof 1',
+        displayName: 'Group 1',
         foundOnExternalSource: true
       },
       {
         modelId: {
-          keyId: 'id:Reference:Props:Eleve1',
+          keyId: 'id:Reference:Props:DtoPerson1',
           keyType: 'PERSON'
         },
-        displayName: 'Eleve 1',
+        displayName: 'Person 1',
+        foundOnExternalSource: true
+      },
+      {
+        modelId: {
+          keyId: 'id:Reference:Props:DtoPerson2',
+          keyType: 'PERSON'
+        },
+        displayName: 'Person 2',
         foundOnExternalSource: false
+      },
+      {
+        modelId: {
+          keyId: 'id:Reference:Props:DtoPerson3',
+          keyType: 'PERSON'
+        },
+        foundOnExternalSource: false
+      },
+      {
+        modelId: {
+          keyId: 'id:Reference:Props:DtoUnknown',
+          keyType: 'UNKNOWN'
+        },
+        displayName: 'Unknown subjet',
+        foundOnExternalSource: false
+      },
+      {
+        keyId: 'id:Reference:Props:KeyGroup1',
+        keyType: 'GROUP'
+      },
+      {
+        keyId: 'id:Reference:Props:KeyPerson1',
+        keyType: 'PERSON'
+      },
+      {
+        keyType: 'PERSON_ATTR',
+        keyValue: 'keyValue',
+        keyAttribute: 'keyAttributePersonAttr'
+      },
+      {
+        keyType: 'PERSON_ATTR_REGEX',
+        keyValue: 'keyValue',
+        keyAttribute: 'keyAttributePersonAttrRegex'
       }
     ]
     const config = {
       lang: 'en',
       labels: {
         en: {
-          disappear: "don't exists anymore !"
+          disappear: " don't exists anymore !"
         }
       }
     }

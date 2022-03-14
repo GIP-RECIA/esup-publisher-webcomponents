@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit'
 import { evaluatorStyle } from './evaluator-style.js'
 import { evaluatorLabel } from './evaluator-label.js'
+import { Localization } from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Evaluator component.
@@ -48,8 +49,7 @@ export class Evaluator extends LitElement {
 
   constructor() {
     super()
-    this._labels = evaluatorLabel
-    this._lang = 'fr'
+    this._localization = new Localization(evaluatorLabel, 'fr')
   }
 
   render() {
@@ -62,7 +62,7 @@ export class Evaluator extends LitElement {
             rendering = html`<esup-simple-evaluators .collection="${this.evaluator.evaluators}" .config="${this.config}"></esup-simple-evaluators>`
             if (this.isChild || this.evaluator.type !== 'OR') {
               // prettier-ignore
-              rendering = html`<span>${this._getLabel('forAdvancedOnly')}</span>`
+              rendering = html`<span>${this._localization.getLabel('forAdvancedOnly')}</span>`
             }
           } else {
             // prettier-ignore
@@ -76,10 +76,10 @@ export class Evaluator extends LitElement {
         case 'AUTHENTICATED':
           if (!this.simple) {
             // prettier-ignore
-            rendering = html`<span>${this._getLabel('authenticatedUsers.text')}</span>`
+            rendering = html`<span>${this._localization.getLabel('authenticatedUsers.text')}</span>`
           } else {
             // prettier-ignore
-            rendering = html`<span>${this._getLabel('forAdvancedOnly')}</span>`
+            rendering = html`<span>${this._localization.getLabel('forAdvancedOnly')}</span>`
           }
           break
         case 'USERATTRIBUTES':
@@ -94,7 +94,7 @@ export class Evaluator extends LitElement {
             }
             if (!this.simple) {
               // prettier-ignore
-              rendering = html`<esup-subject-infos .subject="${userModelId}" .config="${this.config}"><span>${this._getLabel('userAttribute.subjetIs')}</span></esup-subject-infos>`
+              rendering = html`<esup-subject-infos .subject="${userModelId}" .config="${this.config}"><span>${this._localization.getLabel('userAttribute.subjetIs')}</span></esup-subject-infos>`
             } else {
               // prettier-ignore
               rendering = html`<esup-subject-infos .subject="${userModelId}" .config="${this.config}"></esup-subject-infos>`
@@ -103,13 +103,13 @@ export class Evaluator extends LitElement {
             if (!this.simple) {
               // prettier-ignore
               rendering = html`
-                <span>${this._getLabel('userAttribute.attribute', { attribute: this.evaluator.attribute })}</span>
-                <span>${this._getLabel('userAttribute.mode', { mode: this.evaluator.mode })}</span>
-                <span>${this._getLabel('userAttribute.value', { value: this.evaluator.value })}</span>
+                <span>${this._localization.getLabel('userAttribute.attribute', { attribute: this.evaluator.attribute })}</span>
+                <span>${this._localization.getLabel('userAttribute.mode', { mode: this.evaluator.mode })}</span>
+                <span>${this._localization.getLabel('userAttribute.value', { value: this.evaluator.value })}</span>
               `
             } else {
               // prettier-ignore
-              rendering = html`<span>${this._getLabel('forAdvancedOnly')}</span>`
+              rendering = html`<span>${this._localization.getLabel('forAdvancedOnly')}</span>`
             }
           }
           break
@@ -117,7 +117,7 @@ export class Evaluator extends LitElement {
           const groupModelId = { keyType: 'GROUP', keyId: this.evaluator.group }
           if (!this.simple) {
             // prettier-ignore
-            rendering = html`<esup-subject-infos .subject="${groupModelId}" .config="${this.config}"><span>${this._getLabel('userGroup.memberOf')}</span></esup-subject-infos>`
+            rendering = html`<esup-subject-infos .subject="${groupModelId}" .config="${this.config}"><span>${this._localization.getLabel('userGroup.memberOf')}</span></esup-subject-infos>`
           } else {
             // prettier-ignore
             rendering = html`<esup-subject-infos .subject="${groupModelId}" .config="${this.config}"></esup-subject-infos>`
@@ -137,47 +137,18 @@ export class Evaluator extends LitElement {
     // Si la propriété config est modifiée, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      changedProperties.forEach((value, key) => {
-        if (key === 'config') {
-          initDatas = true
-        }
-      })
+      initDatas = changedProperties.has('config')
     }
 
     if (initDatas) {
       // Initialisation des données
-      this._labels = evaluatorLabel
-      this._lang =
-        this.config && this.config.lang ? this.config.lang : this._lang
+      this._localization.labels = evaluatorLabel
+      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
-        Object.keys(this.config.labels).forEach(lang => {
-          if (!Object.keys(this._labels).includes(lang)) {
-            this._labels[lang] = this.config.labels[lang]
-          } else {
-            Object.keys(this.config.labels[lang]).forEach(key => {
-              this._labels[lang][key] = this.config.labels[lang][key]
-            })
-          }
-        })
+        this._localization.mergeLabels(this.config.labels)
       }
     }
-  }
-
-  /**
-   * Retourne un label dans la langue actuelle.
-   *
-   * @param {String} key Clé du label
-   * @returns Label dans la langue actuelle
-   */
-  _getLabel(key, params) {
-    var label = this._labels[this._lang][key]
-    if (params) {
-      label = label.replace(/{(.+)}/g, function (match, param) {
-        return typeof params[param] != 'undefined' ? params[param] : match
-      })
-    }
-    return label
   }
 }
 

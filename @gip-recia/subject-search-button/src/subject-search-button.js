@@ -3,13 +3,14 @@ import { subjectSearchButtonStyle } from './subject-search-button-style.js'
 import { subjectSearchButtonLabel } from './subject-search-button-label.js'
 import { bootstrapStyle } from './bootstrap-style.js'
 import '@gip-recia/js-tree'
+import { Localization, ToolTip, Utils, bootstrapToolTipStyle } from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Subject Search Button component.
  */
 export class SubjectSearchButton extends LitElement {
   static get styles() {
-    return [subjectSearchButtonStyle, bootstrapStyle]
+    return [subjectSearchButtonStyle, bootstrapStyle, bootstrapToolTipStyle]
   }
 
   static get properties() {
@@ -54,10 +55,9 @@ export class SubjectSearchButton extends LitElement {
 
   constructor() {
     super()
-    this._labels = subjectSearchButtonLabel
-    this._lang = 'fr'
+    this._localization = new Localization(subjectSearchButtonLabel, 'fr')
     this._container = { subjects: [] }
-    this._tooltipClosing = []
+    this._tooltips = []
     this._search = { queryUserTerm: '', filter: '' }
     this._resultsArr = []
     this._userResult = []
@@ -75,7 +75,7 @@ export class SubjectSearchButton extends LitElement {
       rendering = html`
         ${rendering}
         <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._showGroupListModal()}">
-          <i class="icon icon-plus"></i><span>&nbsp;${this._getLabel('type.group')}</span>
+          <i class="icon icon-plus"></i><span>&nbsp;${this._localization.getLabel('type.group')}</span>
         </button>
       `
       modals = html` ${modals} ${this._renderGroupListModal()} `
@@ -85,10 +85,10 @@ export class SubjectSearchButton extends LitElement {
       rendering = html`
         ${rendering}
         <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._showUserListModal()}">
-          <i class="icon icon-plus"></i><span>&nbsp;${this._getLabel('type.user')}</span>
+          <i class="icon icon-plus"></i><span>&nbsp;${this._localization.getLabel('type.user')}</span>
         </button>
         <button type="button" class="btn btn-default btn-outline-dark"  @click="${() => this._showUserFromGroupListModal()}">
-          <i class="icon icon-plus"></i><span>&nbsp;${this._getLabel('type.userfromgroup')}</span>
+          <i class="icon icon-plus"></i><span>&nbsp;${this._localization.getLabel('type.userfromgroup')}</span>
         </button>
       `
       modals = html`
@@ -108,10 +108,10 @@ export class SubjectSearchButton extends LitElement {
         ${rendering}
         <div class="btn-group" role="group" aria-label="SearchOnUserType">
           <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._showUserAttributeModal()}">
-            <i class="icon icon-plus"></i><span>&nbsp;${this._getLabel('type.userfromattr')}</span>
+            <i class="icon icon-plus"></i><span>&nbsp;${this._localization.getLabel('type.userfromattr')}</span>
           </button>
           <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._showUserAttributeRegexModal()}">
-            <i class="icon icon-plus"></i><span>&nbsp;${this._getLabel('type.userfromregexattr')}</span>
+            <i class="icon icon-plus"></i><span>&nbsp;${this._localization.getLabel('type.userfromregexattr')}</span>
           </button>
         </div>
       `
@@ -135,29 +135,18 @@ export class SubjectSearchButton extends LitElement {
     // Si la propriété config est modifiée, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      changedProperties.forEach((value, key) => {
-        if (key === 'config') {
-          initDatas = true
-        }
-      })
+      initDatas = changedProperties.has('config')
     }
     if (initDatas) {
-      this._labels = subjectSearchButtonLabel
-      this._lang =
-        this.config && this.config.lang ? this.config.lang : this._lang
+      this._localization.labels = subjectSearchButtonLabel
+      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
-        Object.keys(this.config.labels).forEach(lang => {
-          if (!Object.keys(this._labels).includes(lang)) {
-            this._labels[lang] = this.config.labels[lang]
-          } else {
-            Object.keys(this.config.labels[lang]).forEach(key => {
-              this._labels[lang][key] = this.config.labels[lang][key]
-            })
-          }
-        })
+        this._localization.mergeLabels(this.config.labels)
       }
     }
+
+    this._tooltips.length = 0
   }
 
   updated(changedProperties) {
@@ -200,6 +189,8 @@ export class SubjectSearchButton extends LitElement {
           this._resultsArr[el.dataset.index]
         )
       })
+
+    this._tooltips.forEach(tt => tt.updateToolTip(this.shadowRoot))
   }
 
   _renderGroupListModal() {
@@ -210,17 +201,17 @@ export class SubjectSearchButton extends LitElement {
         <div class="modal-dialog modal-lg">
           <div class="modal-content" @click="${(e) => e.stopPropagation()}">
             <div class="modal-header">
-              <h4 id="myGroupListLabel" class="modal-title">${this._getLabel('search.targets.group')}</h4>
+              <h4 id="myGroupListLabel" class="modal-title">${this._localization.getLabel('search.targets.group')}</h4>
               <button type="button" class="btn-close" @click="${() => this._hideGroupListModal()}" aria-hidden="true"></button>
             </div>
             <div class="modal-body tree">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._hideGroupListModal()}">
-                <span class="icon icon-cancel"></span>&nbsp;<span>${this._getLabel('cancel')}</span>
+                <span class="icon icon-cancel"></span>&nbsp;<span>${this._localization.getLabel('cancel')}</span>
               </button>
               <button type="button" class="btn btn-primary validate" @click="${() => this._submitGroupListModal()}" .disabled="${!this._canSubmit()}">
-                <span class="icon icon-validate"></span>&nbsp;<span>${this._getLabel('validate')}</span>
+                <span class="icon icon-validate"></span>&nbsp;<span>${this._localization.getLabel('validate')}</span>
               </button>
             </div>
           </div>
@@ -237,7 +228,7 @@ export class SubjectSearchButton extends LitElement {
         <div class="modal-dialog modal-lg">
           <div class="modal-content" @click="${(e) => e.stopPropagation()}">
             <div class="modal-header">
-              <h4 id="myUserListLabel" class="modal-title">${this._getLabel('search.targets.user')}</h4>
+              <h4 id="myUserListLabel" class="modal-title">${this._localization.getLabel('search.targets.user')}</h4>
               <button type="button" class="btn-close" @click="${() => this._hideUserListModal()}" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
@@ -245,15 +236,15 @@ export class SubjectSearchButton extends LitElement {
                 <div class="row g-3 align-items-center">
                   <div class="col-auto">
                     <label for="search" class="col-form-label fw-bold">
-                      <span>${this._getLabel('user.search.label')}</span>
+                      <span>${this._localization.getLabel('user.search.label')}</span>
                       <span class="icon icon-question" data-tooltip aria-describedby="tooltipuserListModal" @mouseenter="${() => this._showToolTip('userListModal')}" @mouseleave="${() => this._hideToolTip('userListModal')}">
-                        ${this._renderToolTip('userListModal', this._getLabel('user.search.desc'))}
+                        ${this._renderToolTip('userListModal', this._localization.getLabel('user.search.desc'))}
                       </span>
                     </label>
                   </div>
                   <div class="col-auto">
                     <div class="input-group">
-                      <input class="form-control" type="text" id="search" name="search" placeholder="${this._getLabel('user.search.placeholder')}"
+                      <input class="form-control" type="text" id="search" name="search" placeholder="${this._localization.getLabel('user.search.placeholder')}"
                         value="${this._search.queryUserTerm}" required minlength="3" @keyup="${(e) => this._onInputUserTerm(e.target.value)}">
                       <button type="button" class="btn btn-outline-secondary search" .disabled="${this._search.queryUserTerm.length < 3}" @click="${() => this._searchUser()}">
                         <i class="icon icon-search"></i>
@@ -270,18 +261,18 @@ export class SubjectSearchButton extends LitElement {
                       <div class="col-auto">
                         <div class="row g-3 align-items-center">
                           <div class="col-auto">
-                            <label for="filter">${this._getLabel('filter.label')}</label>
+                            <label for="filter">${this._localization.getLabel('filter.label')}</label>
                           </div>
                           <div class="col-auto">
                             <input id="filter" type="text" @keyup="${(e) => this._onInputFilter(e.target.value)}"
-                              class="form-control" placeholder="${this._getLabel('filter.placeholder')}">
+                              class="form-control" placeholder="${this._localization.getLabel('filter.placeholder')}">
                           </div>
                         </div>
                       </div>
                       <div class="col-auto">
                         <div class="row g-3 align-items-center">
                           <div class="col-auto">
-                            <label for="nbItems">${this._getLabel('pager.nbItems')}</label>
+                            <label for="nbItems">${this._localization.getLabel('pager.nbItems')}</label>
                           </div>
                           <div class="col-auto">
                             <select id="nbItems" class="form-select" @change="${(e) => this._onChangeNumPerPage(e.target.value)}">
@@ -334,10 +325,10 @@ export class SubjectSearchButton extends LitElement {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._hideUserListModal()}">
-                <span class="icon icon-cancel"></span>&nbsp;<span>${this._getLabel('cancel')}</span>
+                <span class="icon icon-cancel"></span>&nbsp;<span>${this._localization.getLabel('cancel')}</span>
               </button>
               <button type="button" class="btn btn-primary validate" @click="${() => this._submitUserListModal()}" .disabled="${!this._canSubmit()}">
-                <span class="icon icon-validate"></span>&nbsp;<span>${this._getLabel('validate')}</span>
+                <span class="icon icon-validate"></span>&nbsp;<span>${this._localization.getLabel('validate')}</span>
               </button>
             </div>
           </div>
@@ -354,13 +345,13 @@ export class SubjectSearchButton extends LitElement {
         <div class="modal-dialog modal-lg">
           <div class="modal-content" @click="${(e) => e.stopPropagation()}">
             <div class="modal-header">
-              <h4 id="myUserFromGroupListLabel" class="modal-title">${this._getLabel('search.targets.userFromGroup')}</h4>
+              <h4 id="myUserFromGroupListLabel" class="modal-title">${this._localization.getLabel('search.targets.userFromGroup')}</h4>
               <button type="button" class="btn-close" @click="${() => this._hideUserFromGroupListModal()}" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
               <div class="card">
                 <div class="card-header">
-                  <span>${this._getLabel('userFromGroup.label')}</span>
+                  <span>${this._localization.getLabel('userFromGroup.label')}</span>
                 </div>
                 <div class="card-body tree">
                 </div>
@@ -373,18 +364,18 @@ export class SubjectSearchButton extends LitElement {
                       <div class="col-auto">
                         <div class="row g-3 align-items-center">
                           <div class="col-auto">
-                            <label for="grpFilter">${this._getLabel('filter.label')}</label>
+                            <label for="grpFilter">${this._localization.getLabel('filter.label')}</label>
                           </div>
                           <div class="col-auto">
                             <input id="grpFilter" type="text" @keyup="${(e) => this._onInputFilter(e.target.value)}"
-                              class="form-control" placeholder="${this._getLabel('filter.placeholder')}">
+                              class="form-control" placeholder="${this._localization.getLabel('filter.placeholder')}">
                           </div>
                         </div>
                       </div>
                       <div class="col-auto">
                         <div class="row g-3 align-items-center">
                           <div class="col-auto">
-                            <label for="grpNbItems">${this._getLabel('pager.nbItems')}</label>
+                            <label for="grpNbItems">${this._localization.getLabel('pager.nbItems')}</label>
                           </div>
                           <div class="col-auto">
                             <select id="grpNbItems" class="form-select" @change="${(e) => this._onChangeNumPerPage(e.target.value)}">
@@ -437,10 +428,10 @@ export class SubjectSearchButton extends LitElement {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._hideUserFromGroupListModal()}">
-                <span class="icon icon-cancel"></span>&nbsp;<span>${this._getLabel('cancel')}</span>
+                <span class="icon icon-cancel"></span>&nbsp;<span>${this._localization.getLabel('cancel')}</span>
               </button>
               <button type="button" class="btn btn-primary validate" @click="${() => this._submitUserFromGroupListModal()}" .disabled="${!this._canSubmit()}">
-                <span class="icon icon-validate"></span>&nbsp;<span>${this._getLabel('validate')}</span>
+                <span class="icon icon-validate"></span>&nbsp;<span>${this._localization.getLabel('validate')}</span>
               </button>
             </div>
           </div>
@@ -457,27 +448,27 @@ export class SubjectSearchButton extends LitElement {
         <div class="modal-dialog modal-lg">
           <div class="modal-content" @click="${(e) => e.stopPropagation()}">
             <div class="modal-header">
-              <h4 class="modal-title" id="myUserAttributeLabel">${this._getLabel('search.targets.userAttrs')}</h4>
+              <h4 class="modal-title" id="myUserAttributeLabel">${this._localization.getLabel('search.targets.userAttrs')}</h4>
               <button type="button" class="btn-close" @click="${() => this._hideUserAttributeModal()}" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-              <label class="form-label fw-bold" for="userAttribute">${this._getLabel('userAttr.attribute.label')}</label>
+              <label class="form-label fw-bold" for="userAttribute">${this._localization.getLabel('userAttr.attribute.label')}</label>
               <select id="userAttribute" name="userAttribute" class="form-select" @change="${(e) => this._onChangeUserAttribute(e.target.value)}" required>
                 <option value="" selected></option>
                 ${(this.config.extendedAttrs || []).sort((a, b) => a.localeCompare(b)).map(attr => html`
                   <option value="${attr}">${attr}</option>
                 `)}
               </select>
-              <label class="form-label fw-bold mt-3" for="userValue">${this._getLabel('userAttr.value.label')}</label>
+              <label class="form-label fw-bold mt-3" for="userValue">${this._localization.getLabel('userAttr.value.label')}</label>
               <input type="text" class="form-control" id="userValue" name="userValue" required minlength="3" maxlength="512"
                 @keyup="${(e) => this._onInputUserAttrValue(e.target.value)}">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._hideUserAttributeModal()}">
-                <span class="icon icon-cancel"></span>&nbsp;<span>${this._getLabel('cancel')}</span>
+                <span class="icon icon-cancel"></span>&nbsp;<span>${this._localization.getLabel('cancel')}</span>
               </button>
               <button type="button" class="btn btn-primary validate" @click="${() => this._submitUserAttributeModal()}" .disabled="${!this._canSubmit()}">
-                <span class="icon icon-validate"></span>&nbsp;<span>${this._getLabel('validate')}</span>
+                <span class="icon icon-validate"></span>&nbsp;<span>${this._localization.getLabel('validate')}</span>
               </button>
             </div>
           </div>
@@ -494,27 +485,27 @@ export class SubjectSearchButton extends LitElement {
         <div class="modal-dialog modal-lg">
           <div class="modal-content" @click="${(e) => e.stopPropagation()}">
             <div class="modal-header">
-              <h4 id="myUserAttributeRegexLabel" class="modal-title">${this._getLabel('search.targets.userRegexAttr')}</h4>
+              <h4 id="myUserAttributeRegexLabel" class="modal-title">${this._localization.getLabel('search.targets.userRegexAttr')}</h4>
               <button type="button" class="btn-close" @click="${() => this._hideUserAttributeRegexModal()}" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-              <label class="form-label fw-bold" for="userRegexAttribute">${this._getLabel('userRegexAttr.attribute.label')}</label>
+              <label class="form-label fw-bold" for="userRegexAttribute">${this._localization.getLabel('userRegexAttr.attribute.label')}</label>
               <select id="userRegexAttribute" name="userRegexAttribute" class="form-select" @change="${(e) => this._onChangeUserRegexAttribute(e.target.value)}" required>
                 <option value="" selected></option>
                 ${(this.config.extendedAttrs || []).sort((a, b) => a.localeCompare(b)).map(attr => html`
                   <option value="${attr}">${attr}</option>
                 `)}
               </select>
-              <label class="form-label fw-bold mt-3" for="userRegexValue">${this._getLabel('userRegexAttr.value.label')}</label>
+              <label class="form-label fw-bold mt-3" for="userRegexValue">${this._localization.getLabel('userRegexAttr.value.label')}</label>
               <input type="text" class="form-control" id="userRegexValue" name="userRegexValue" required minlength="3" maxlength="512"
                 @keyup="${(e) => this._onInputUserRegexAttrValue(e.target.value)}">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default btn-outline-dark" @click="${() => this._hideUserAttributeRegexModal()}">
-                <span class="icon icon-cancel"></span>&nbsp;<span>${this._getLabel('cancel')}</span>
+                <span class="icon icon-cancel"></span>&nbsp;<span>${this._localization.getLabel('cancel')}</span>
               </button>
               <button type="button" class="btn btn-primary validate" @click="${() => this._submitUserAttributeRegexModal()}" .disabled="${!this._canSubmit()}">
-                <span class="icon icon-validate"></span>&nbsp;<span>${this._getLabel('validate')}</span>
+                <span class="icon icon-validate"></span>&nbsp;<span>${this._localization.getLabel('validate')}</span>
               </button>
             </div>
           </div>
@@ -531,18 +522,9 @@ export class SubjectSearchButton extends LitElement {
    * @returns Code HTML
    */
   _renderToolTip(id, tooltip) {
-    if (tooltip && tooltip.length > 0) {
-      // prettier-ignore
-      return  html`
-        <div class="tooltip fade bs-tooltip-top" id="${'tooltip' + id}" role="tooltip" style="display: none"
-          @mouseover="${() => { this._hideToolTip(id) }}">
-          <div class="tooltip-arrow"></div>
-          <div class="tooltip-inner">${tooltip}</div>
-        </div>
-      `
-    } else {
-      return html``
-    }
+    const newToolTip = new ToolTip('tooltip' + id)
+    this._tooltips.push(newToolTip)
+    return newToolTip.renderToolTip(tooltip)
   }
 
   /**
@@ -551,31 +533,9 @@ export class SubjectSearchButton extends LitElement {
    * @param {String} id Identifiant du tooltip
    */
   _showToolTip(id) {
-    let tooltip = this.shadowRoot.querySelector('#tooltip' + id)
+    const tooltip = this._tooltips.find(tt => tt.id === 'tooltip' + id)
     if (tooltip) {
-      if (!this._tooltipClosing[id]) {
-        // Affichage et positionnement du tooltip
-        tooltip.style.display = 'block'
-        tooltip.style.width = 'max-content'
-        if (tooltip.offsetWidth >= tooltip.parentNode.offsetWidth) {
-          tooltip.style.left = '0px'
-        } else {
-          tooltip.style.left =
-            Math.round(tooltip.parentNode.offsetWidth / 2) + 'px'
-          tooltip.style.transform = 'translateX(-50%)'
-        }
-        tooltip.style.top = -(tooltip.offsetHeight + 1) + 'px'
-        tooltip.classList.add('show')
-
-        // Positionnement de la flèche
-        const arrow = tooltip.querySelector('.tooltip-arrow')
-        arrow.style.position = 'absolute'
-        arrow.style.transform = 'translateX(-50%)'
-        const left = Math.round(
-          Math.min(tooltip.offsetWidth, tooltip.parentNode.offsetWidth) / 2
-        )
-        arrow.style.left = left + 'px'
-      }
+      tooltip.showToolTip()
     }
   }
 
@@ -585,20 +545,9 @@ export class SubjectSearchButton extends LitElement {
    * @param {String} id Identifiant du tooltip
    */
   _hideToolTip(id) {
-    let tooltip = this.shadowRoot.querySelector('#tooltip' + id)
-    if (
-      tooltip &&
-      !this._tooltipClosing[id] &&
-      tooltip.classList.contains('show')
-    ) {
-      // Masquage du tooltip
-      tooltip.classList.remove('show')
-
-      this._tooltipClosing[id] = true
-      setTimeout(() => {
-        tooltip.style.display = 'none'
-        this._tooltipClosing[id] = false
-      }, 100)
+    const tooltip = this._tooltips.find(tt => tt.id === 'tooltip' + id)
+    if (tooltip) {
+      tooltip.hideToolTip()
     }
   }
 
@@ -819,19 +768,19 @@ export class SubjectSearchButton extends LitElement {
    */
   _canSubmit() {
     return (
-      (this._isDefined(this._container.subject) &&
-        this._isDefined(this._container.subject.modelId) &&
+      (Utils.isDefined(this._container.subject) &&
+        Utils.isDefined(this._container.subject.modelId) &&
         this._container.subject.modelId !== {}) ||
-      (this._isDefined(this._container.extendedSubject) &&
+      (Utils.isDefined(this._container.extendedSubject) &&
         this._container.extendedSubject !== {} &&
         this._container.extendedSubject.keyAttribute !== null &&
         this._container.extendedSubject.keyAttribute !== '' &&
         this._container.extendedSubject.keyValue !== null &&
         this._container.extendedSubject.keyValue.length >= 3 &&
         this._container.extendedSubject.keyValue.length <= 512) ||
-      (this._isDefined(this._container.subjects) &&
+      (Utils.isDefined(this._container.subjects) &&
         this._container.subjects.length > 0 &&
-        this._isDefined(
+        Utils.isDefined(
           this._container.subjects[this._container.subjects.length - 1].modelId
         ) &&
         this._container.subjects[this._container.subjects.length - 1]
@@ -846,7 +795,7 @@ export class SubjectSearchButton extends LitElement {
     let result = []
     if (
       this._container.subjects &&
-      this._isArray(this._container.subjects) &&
+      Utils.isArray(this._container.subjects) &&
       this._container.subjects.length > 0
     ) {
       if (this.multiSelection) {
@@ -857,13 +806,13 @@ export class SubjectSearchButton extends LitElement {
         )
       }
     } else if (
-      this._isDefined(this._container.subject) &&
-      this._isDefined(this._container.subject.modelId) &&
+      Utils.isDefined(this._container.subject) &&
+      Utils.isDefined(this._container.subject.modelId) &&
       this._container.subject.modelId !== {}
     ) {
       result.push(this._container.subject)
     } else if (
-      this._isDefined(this._container.extendedSubject) &&
+      Utils.isDefined(this._container.extendedSubject) &&
       this._container.extendedSubject !== {}
     ) {
       result.push(this._container.extendedSubject)
@@ -937,21 +886,21 @@ export class SubjectSearchButton extends LitElement {
   _tooltipUser(user) {
     const userAttrs = this.config.userDisplayedAttrs || []
     if (
-      !this._isDefined(userAttrs) ||
-      !this._isDefined(user) ||
-      !this._isDefined(user.attributes)
+      !Utils.isDefined(userAttrs) ||
+      !Utils.isDefined(user) ||
+      !Utils.isDefined(user.attributes)
     )
       return
     var index
     var attrs = user.attributes
     var resHtml = ''
     for (index = 0; index < userAttrs.length; ++index) {
-      if (index > 0 && this._isDefined(attrs[userAttrs[index]])) {
+      if (index > 0 && Utils.isDefined(attrs[userAttrs[index]])) {
         resHtml += ' - '
       }
       if (
-        this._isDefined(attrs[userAttrs[index]]) &&
-        this._isArray(attrs[userAttrs[index]])
+        Utils.isDefined(attrs[userAttrs[index]]) &&
+        Utils.isArray(attrs[userAttrs[index]])
       ) {
         var subIndex
         for (
@@ -964,7 +913,7 @@ export class SubjectSearchButton extends LitElement {
           }
           resHtml += attrs[userAttrs[index]][subIndex]
         }
-      } else if (this._isDefined(attrs[userAttrs[index]])) {
+      } else if (Utils.isDefined(attrs[userAttrs[index]])) {
         resHtml += attrs[userAttrs[index]]
       }
     }
@@ -1028,7 +977,7 @@ export class SubjectSearchButton extends LitElement {
       this._container.subject = selectedUser
     } else {
       if (
-        this._isDefined(this._container.subjects) &&
+        Utils.isDefined(this._container.subjects) &&
         this._container.subjects.length > 0
       ) {
         let index = -1
@@ -1170,7 +1119,7 @@ export class SubjectSearchButton extends LitElement {
       this._container.subject = selectedUser
     } else {
       if (
-        this._isDefined(this._container.subjects) &&
+        Utils.isDefined(this._container.subjects) &&
         this._container.subjects.length > 0
       ) {
         let index = -1
@@ -1203,7 +1152,7 @@ export class SubjectSearchButton extends LitElement {
    * @returns Tableau filtré
    */
   _filterOnDisplayName(inputArray, criteria) {
-    if (!this._isDefined(criteria) || criteria === '') {
+    if (!Utils.isDefined(criteria) || criteria === '') {
       return inputArray
     }
     var data = []
@@ -1315,35 +1264,6 @@ export class SubjectSearchButton extends LitElement {
     this._numPerPage = 10
 
     this.requestUpdate()
-  }
-
-  /**
-   * Retourne un label dans la langue actuelle.
-   *
-   * @param {String} key Clé du label
-   * @returns Label dans la langue actuelle
-   */
-  _getLabel(key) {
-    return this._labels[this._lang][key]
-  }
-
-  /**
-   * Retourne true si la valeur fournit est défini.
-   *
-   * @param {Object} value Objet à traiter
-   * @returns True si l'objet est défini, False sinon
-   */
-  _isDefined(value) {
-    return typeof value !== 'undefined'
-  }
-
-  /**
-   * Retourne true si la valeur fournit est u tableau.
-   * @param {Object} arr Objet à traiter
-   * @returns True si l'objet est un tableau, False sinon
-   */
-  _isArray(arr) {
-    return Array.isArray(arr) || arr instanceof Array
   }
 }
 

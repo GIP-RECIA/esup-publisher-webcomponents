@@ -46,14 +46,10 @@ export class JsTree extends LitElement {
   willUpdate(changedProperties) {
     super.willUpdate(changedProperties)
 
-    // Si les propriétés datas ou config sont modifiés, on initialise les éléments
+    // Si les propriétés datas ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      changedProperties.forEach((value, key) => {
-        if (key === 'datas' || key === 'config') {
-          initDatas = true
-        }
-      })
+      initDatas = changedProperties.has('datas') || changedProperties.has('config')
     }
 
     if (initDatas) {

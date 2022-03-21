@@ -1,0 +1,59 @@
+{
+  "name": "@gip-recia/evaluator",
+  "version": "0.0.6",
+  "description": "Evaluator",
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
+    "lint:eslint": "eslint src/index.js",
+    "lint:lit-analyzer": "lit-analyzer src/index.js",
+    "format": "prettier \"**/*.{cjs,html,js,json,md,ts}\" --ignore-path ./.eslintignore --write",
+    "analyze": "cem analyze --litelement --globs \"**/*.js\"",
+    "analyze:watch": "cem analyze --litelement --globs \"**/*.js\" --watch",
+    "serve": "wds --watch",
+    "test": "npm run test:dev",
+    "test:dev": "wtr",
+    "test:watch": "wtr --watch",
+    "start": "npm run serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GIP-RECIA/esup-publisher-webcomponents.git"
+  },
+  "keywords": [],
+  "author": "GIP-RECIA",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/GIP-RECIA/esup-publisher-webcomponents/issues"
+  },
+  "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
+  "dependencies": {
+    "lit": "^2.2.0",
+    "@gip-recia/subject-infos": "^0.0.7",
+    "@gip-recia/subject-search-button": "^0.0.6",
+    "@gip-recia/esup-publisher-webcomponents-utils": "^0.0.1"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.5.3",
+    "@esm-bundle/chai": "^4.1.5",
+    "@open-wc/testing": "^3.0.0-next.1",
+    "@open-wc/testing-karma": "^4.0.9",
+    "@types/mocha": "^9.0.0",
+    "@web/dev-server": "^0.1.22",
+    "@web/dev-server-legacy": "^0.1.4",
+    "@web/test-runner": "^0.13.16",
+    "@web/test-runner-mocha": "^0.7.4",
+    "@web/test-runner-playwright": "^0.8.4",
+    "@webcomponents/webcomponentsjs": "^2.6.0",
+    "babel-eslint": "^10.1.0",
+    "deepmerge": "^4.2.2",
+    "eslint": "^7.32.0",
+    "lit-analyzer": "^1.2.1",
+    "mocha": "^9.1.1",
+    "prettier": "^2.3.2",
+    "@fortawesome/fontawesome-free": "^5.15.4"
+  },
+  "customElements": "custom-elements.json"
+}

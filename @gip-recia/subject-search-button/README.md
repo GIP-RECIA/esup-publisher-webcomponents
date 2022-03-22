@@ -68,13 +68,16 @@ Propriétés disponibles :
 
 ### **Modification de style**
 
-Plusieurs variables CSS peuvent être définis pour personnaliser la pagination :
+Plusieurs variables CSS peuvent être définis pour personnaliser le webcomponent :
 
-| Nom                                    | Description                                                        |
-| ---------------------------------------|------------------------------------------------------------------- |
-| --text-color-pagination                | Permet de modifier la couleur du texte des éléments de pagination  |
-| --selected-text-color-pagination       | Permet de modifier la couleur du texte de la page sélectionnée     |
-| --selected-background-color-pagination | Permet de modifier la couleur de fond de la page sélectionnée      |
+| Nom                                    | Description                                                       |
+| -------------------------------------- | ----------------------------------------------------------------- |
+| --text-color-pagination                | Permet de modifier la couleur du texte des éléments de pagination |
+| --selected-text-color-pagination       | Permet de modifier la couleur du texte de la page sélectionnée    |
+| --selected-background-color-pagination | Permet de modifier la couleur de fond de la page sélectionnée     |
+| --validate-button-text-color           | Permet de modifier la couleur du texte du bouton de validation    |
+| --validate-button-background-color     | Permet de modifier la couleur de fond du bouton de validation     |
+| --validate-button-border-color         | Permet de modifier la couleur de bordure du bouton de validation  |
 
 Par défaut le webcomponent Subject-Search-Button s'appuie sur les fonts Font-Awesome pour afficher des icônes (via des pseudo-elements). Il est cependant possible de personnaliser les icônes affichées via les propriétés suivantes :
 

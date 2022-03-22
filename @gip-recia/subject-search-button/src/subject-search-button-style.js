@@ -46,18 +46,28 @@ export const subjectSearchButtonStyle = css`
   .icon-search:before {
     content: var(--icon-search-content, '\\f002');
   }
-  ul.pagination li .page-link{
+  ul.pagination li .page-link,
+  ul.pagination li.disabled .page-link {
     color: var(--text-color-pagination, #25b2f3);
     border-color: #D0D0D0;
   }
-  ul.pagination li.page-item.active .page-link{
+  ul.pagination li.page-item.active .page-link {
     color: var(--selected-text-color-pagination, #fff);
     background-color: var(--selected-background-color-pagination, #25b2f3);
     border-color: #D0D0D0;
   }
-  button:disabled {
+  button:disabled,
+  .page-item.disabled {
     cursor: not-allowed;
     pointer-events: all !important;
+  }
+  button.btn-primary.validate {
+    color: var(--validate-button-text-color, #fff);
+    background-color: var(--validate-button-background-color, #0d6efd);
+    border-color: var(--validate-button-border-color, #0d6efd);
+  }
+  button.btn-primary.validate:not(:disabled):hover {
+    opacity: 0.75;
   }
   [data-tooltip] {
     position: relative;

@@ -6,7 +6,7 @@ export const subjectInfosStyle = css`
         outline: none;
     }
     a {
-        color: color: var(--subject-infos-text-color, #000)
+        color: var(--subject-infos-text-color, #000)
     }
     a:hover,
     a:focus,

@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/subject-search-button",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Subject Search Button",
   "main": "src/subject-search-button.js",
   "module": "src/subject-search-button.js",

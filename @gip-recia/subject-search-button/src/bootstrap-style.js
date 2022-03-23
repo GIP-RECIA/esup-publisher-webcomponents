@@ -4378,7 +4378,6 @@ export const bootstrapStyle = css`
     color: #0a58ca;
     background-color: #e9ecef;
     outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
   }
 
   .page-item:not(:first-child) .page-link {

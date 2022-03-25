@@ -260,7 +260,7 @@ export class JsTree extends LitElement {
    * @returns Code HTML
    */
   _renderIconIndicator(data) {
-    if (data.children) {
+    if (data.children && (!data.areChildrenLoaded || (data.loadedChildren && data.loadedChildren.length > 0))) {
       // prettier-ignore
       return  html`<i class="icon icon-indicator"></i>`
     } else {

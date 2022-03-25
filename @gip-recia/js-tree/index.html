@@ -54,7 +54,8 @@
               {
                 id: '8:PUBLISHER',
                 text: 'Enfant 2',
-                children: false
+                children: true,
+                getChildren: () => Promise.resolve([])
               }
             ])
           })

@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/subject-search-button",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Subject Search Button",
   "main": "src/subject-search-button.js",
   "module": "src/subject-search-button.js",
@@ -31,7 +31,7 @@
   "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
   "dependencies": {
     "lit": "^2.2.0",
-    "@gip-recia/js-tree": "^0.0.8",
+    "@gip-recia/js-tree": "^0.0.9",
     "@gip-recia/esup-publisher-webcomponents-utils": "^0.0.1"
   },
   "devDependencies": {

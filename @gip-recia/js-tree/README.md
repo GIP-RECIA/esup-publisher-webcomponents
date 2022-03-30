@@ -64,6 +64,7 @@ Propriétés disponibles :
 | showCheckbox        | Boolean | Non         | Permet d'afficher ou non une case à cocher sur chaque branche de l'arbre. Par défaut: false.     |
 | isMultipleSelection | Boolean | Non         | Permet la sélection multiple sur l'arborescence (avec ou sans case à cocher). Par défaut: false. |
 | allowDeselection    | Boolean | Non         | Permet dautoriser ou non la désélection dans l'arboresence. Par défaut: true.                    |
+| sort                | Boolean | Non         | Permet de trier les branches de l'arbre par ordre alphabétique. Par défaut: false.               |
 
 - `onSelection` - Fonction appelée lors de la sélection d'un élément de l'arbre.
 

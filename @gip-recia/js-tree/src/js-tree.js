@@ -227,6 +227,12 @@ export class JsTree extends LitElement {
    * @returns Code HTML
    */
   _renderTree(datas, level, parent) {
+    // Tri des noeuds si demandé
+    if (this.config.sort) {
+      datas.sort((node1, node2) =>
+        node1.text.localeCompare(node2.text)
+      )
+    }
     // prettier-ignore
     return html`
       <ul id="${this.config.identifier}" class="${level === 0 ? 'root-tree' : parent.ulClasses.join(' ')}"

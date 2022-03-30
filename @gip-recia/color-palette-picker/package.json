@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/color-palette-picker",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Color Palette Picker",
   "main": "src/color-palette-picker.js",
   "module": "src/color-palette-picker.js",

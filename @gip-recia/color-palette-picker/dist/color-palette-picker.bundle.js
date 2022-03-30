@@ -1,4 +1,4 @@
-!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"function"==typeof define&&define.amd?define(["exports"],e):e((t="undefined"!=typeof globalThis?globalThis:t||self).colorPalettePicker={})}(this,(function(t){"use strict";
+!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"function"==typeof define&&define.amd?define(["exports"],e):e((t="undefined"!=typeof globalThis?globalThis:t||self).esupColorPalettePicker={})}(this,(function(t){"use strict";
 /**
    * @license
    * Copyright 2019 Google LLC

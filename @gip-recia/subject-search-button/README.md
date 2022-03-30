@@ -30,6 +30,12 @@ Dans une page HTML :
 </script>
 ```
 
+Ou directement la verion minifiée :
+
+```html
+<script src="./path/to/subject-search-button.bundle.js"></script>
+```
+
 3. Ajout du composant dans l'application/composant :
 
 ```html

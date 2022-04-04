@@ -50,7 +50,8 @@ export default [
       {
         file: 'dist/subject-search-button.bundle.min.js',
         name: 'esupSubjectSearchButton',
-        format: 'umd'
+        format: 'umd',
+        sourcemap: true
       }
     ],
     preserveEntrySignatures: 'strict'

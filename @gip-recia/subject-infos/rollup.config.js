@@ -50,7 +50,8 @@ export default [
       {
         file: 'dist/subject-infos.bundle.min.js',
         name: 'esupSubjectInfos',
-        format: 'umd'
+        format: 'umd',
+        sourcemap: true
       }
     ],
     preserveEntrySignatures: 'strict'

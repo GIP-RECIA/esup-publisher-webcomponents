@@ -50,7 +50,8 @@ export default [
       {
         file: 'dist/color-palette-picker.bundle.min.js',
         name: 'esupColorPalettePicker',
-        format: 'umd'
+        format: 'umd',
+        sourcemap: true
       }
     ],
     preserveEntrySignatures: 'strict'

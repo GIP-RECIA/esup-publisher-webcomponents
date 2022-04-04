@@ -50,7 +50,8 @@ export default [
       {
         file: 'dist/js-tree.bundle.min.js',
         name: 'esupJsTree',
-        format: 'umd'
+        format: 'umd',
+        sourcemap: true
       }
     ],
     preserveEntrySignatures: 'strict'

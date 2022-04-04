@@ -50,7 +50,8 @@ export default [
       {
         file: 'dist/evaluator.bundle.min.js',
         name: 'esupEvaluator',
-        format: 'umd'
+        format: 'umd',
+        sourcemap: true
       }
     ],
     preserveEntrySignatures: 'strict'

@@ -16,7 +16,7 @@ export const subjectInfosStyle = css`
         background-color: var(--subject-infos-focus-background-color, transparent);
     }
 
-    .icon {
+    .icon:before {
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
         display: inline-block;
@@ -27,30 +27,22 @@ export const subjectInfosStyle = css`
         margin: 0px 2px;
         font-family: 'Font Awesome 5 Free';
         font-weight: 900;
-    }
-    .icon:before {
         content: '\\f128';
     }
 
-    .icon-question {
+    .icon-question:before {
         font-family: var(--icon-question-font-family, 'Font Awesome 5 Free');
         font-weight: var(--icon-question-font-weight, 900);
-    }
-    .icon-question:before {
         content: var(--icon-question-content, '\\f128');
     }
-    .icon-users {
+    .icon-users:before {
         font-family: var(--icon-users-font-family, 'Font Awesome 5 Free');
         font-weight: var(--icon-users-font-weight, 900);
-    }
-    .icon-users:before {
         content: var(--icon-users-content, '\\f0c0');
     }
-    .icon-user {
+    .icon-user:before {
         font-family: var(--icon-user-font-family, 'Font Awesome 5 Free');
         font-weight: var(--icon-user-font-weight, 900);
-    }
-    .icon-user:before {
         content: var(--icon-user-content, '\\f007');
     }
 

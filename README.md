@@ -26,18 +26,12 @@ Pour publier sur npm le composant ${nom-composant} dans la version ${numero-vers
 npm version ${numero-version}
 ```
 
-3. Construire la version minifiée du composant via la commande suivante :
-
-```shell
-npm run build
-```
-
-4. Déployer sur npm la version du composant via la commande suivante :
+3. Déployer sur npm la version du composant via la commande suivante :
 
 ```shell
 npm publish --access public
 ```
 
-5. Vérifier la présence de la nouvelle version sur npm à l'adresse suivante : https://www.npmjs.com/package/${nom-composant}. Attention, l'apparition de la nouvelle version sur npm peut prendre plusieurs minutes.
+4. Vérifier la présence de la nouvelle version sur npm à l'adresse suivante : https://www.npmjs.com/package/${nom-composant}. Attention, l'apparition de la nouvelle version sur npm peut prendre plusieurs minutes.
 
-6. Pusher sur GitHub le changement de version du composant (modification des fichiers package.json, package-lock.json et du bundle).
+5. Pusher sur GitHub le changement de version du composant (modification des fichiers package.json et package-lock.json).

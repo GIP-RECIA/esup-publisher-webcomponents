@@ -34,14 +34,21 @@ Dans une page HTML :
 Ou directement la verion minifiée :
 
 ```html
-<script src="./path/to/evaluator.bundle.js"></script>
+<script src="./path/to/evaluator.bundle.min.js"></script>
 ```
 
-3. Ajout du composant dans l'application/composant :
+3. Ajout des composants sur une page HTML :
 
-```html
-<esup-evaluator .evaluator="..."> </esup-evaluator>
-<esup-edit-evaluator .evaluator="..."> </esup-edit-evaluator>
+```js
+const evaluator = document.createElement('esup-evaluator');
+evaluator.evaluator = {...};
+evaluator.config = {...};
+document.body.appendChild(evaluator);
+
+const editEvaluator = document.createElement('esup-edit-evaluator');
+editEvaluator.evaluator = {...};
+editEvaluator.config = {...};
+document.body.appendChild(editEvaluator);
 ```
 
 ## **Webcomponent Evaluator**

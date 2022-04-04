@@ -29,13 +29,17 @@ Dans une page HTML :
 Ou directement la verion minifiée :
 
 ```html
-<script src="./path/to/js-tree.bundle.js"></script>
+<script src="./path/to/js-tree.bundle.min.js"></script>
 ```
 
-3. Ajout du composant dans l'application/composant :
+3. Ajout du composant sur une page HTML :
 
-```html
-<esup-js-tree .datas="..." .config="..." .onSelection="..."></esup-js-tree>
+```js
+const tree = document.createElement('esup-js-tree');
+tree.datas = [...];
+tree.config = {...};
+tree.onSelection = (data) => ...;
+document.body.appendChild(tree);
 ```
 
 ## **Paramètres**

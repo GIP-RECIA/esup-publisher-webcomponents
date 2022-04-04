@@ -29,13 +29,17 @@ Dans une page HTML :
 Ou directement la verion minifiée :
 
 ```html
-<script src="./path/to/subject-infos.bundle.js"></script>
+<script src="./path/to/subject-infos.bundle.min.js"></script>
 ```
 
-3. Ajout du composant dans l'application/composant :
+3. Ajout du composant sur une page HTML :
 
-```html
-<esup-subject-infos .subject="..."> </esup-subject-infos>
+```js
+const subjectInfos = document.createElement('esup-subject-infos');
+subjectInfos.subject = {...};
+subjectInfos.config = {...};
+subjectInfos.onSubjectClicked = () => ...;
+document.body.appendChild(subjectInfos);
 ```
 
 ## **Paramètres**

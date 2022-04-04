@@ -33,13 +33,16 @@ Dans une page HTML :
 Ou directement la verion minifiée :
 
 ```html
-<script src="./path/to/subject-search-button.bundle.js"></script>
+<script src="./path/to/subject-search-button.bundle.min.js"></script>
 ```
 
-3. Ajout du composant dans l'application/composant :
+3. Ajout du composant sur une page HTML :
 
-```html
-<esup-subject-search-button .searchId="..."> </esup-subject-search-button>
+```js
+const subjectSearchButton = document.createElement('esup-subject-search-button');
+subjectSearchButton.searchId = '...';
+subjectSearchButton.config = {...};
+document.body.appendChild(subjectSearchButton);
 ```
 
 ## **Paramètres**

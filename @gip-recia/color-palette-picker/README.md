@@ -26,13 +26,20 @@ Dans une page HTML :
 </script>
 ```
 
-3. Ajout du composant dans l'application/composant :
+Ou directement la verion minifiée :
 
 ```html
-<esup-color-palette-picker
-  .color="..."
-  .config="..."
-  .onColorChanged="..."></esup-color-palette-picker>
+<script src="./path/to/color-palette-picker.bundle.min.js"></script>
+```
+
+3. Ajout du composant sur une page HTML :
+
+```js
+const colorPicker = document.createElement('esup-color-palette-picker');
+colorPicker.color = '...';
+colorPicker.config = {...};
+colorPicker.onColorChanged = (color) => ...;
+document.body.appendChild(colorPicker);
 ```
 
 ## **Paramètres**

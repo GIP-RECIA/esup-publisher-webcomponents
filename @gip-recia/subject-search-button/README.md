@@ -30,10 +30,19 @@ Dans une page HTML :
 </script>
 ```
 
-3. Ajout du composant dans l'application/composant :
+Ou directement la verion minifiée :
 
 ```html
-<esup-subject-search-button .searchId="..."> </esup-subject-search-button>
+<script src="./path/to/subject-search-button.bundle.min.js"></script>
+```
+
+3. Ajout du composant sur une page HTML :
+
+```js
+const subjectSearchButton = document.createElement('esup-subject-search-button');
+subjectSearchButton.searchId = '...';
+subjectSearchButton.config = {...};
+document.body.appendChild(subjectSearchButton);
 ```
 
 ## **Paramètres**

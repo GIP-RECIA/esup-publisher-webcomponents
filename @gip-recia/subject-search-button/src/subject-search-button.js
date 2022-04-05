@@ -564,7 +564,8 @@ export class SubjectSearchButton extends LitElement {
       tree.config = Object.assign(
         {
           showCheckbox: true,
-          isMultipleSelection: this.multiSelection
+          isMultipleSelection: this.multiSelection,
+          sort: true
         },
         this.config
       )
@@ -648,7 +649,8 @@ export class SubjectSearchButton extends LitElement {
         {
           showCheckbox: false,
           isMultipleSelection: false,
-          allowDeselection: false
+          allowDeselection: false,
+          sort: true
         },
         this.config
       )

@@ -26,10 +26,20 @@ Dans une page HTML :
 </script>
 ```
 
-3. Ajout du composant dans l'application/composant :
+Ou directement la verion minifiée :
 
 ```html
-<esup-subject-infos .subject="..."> </esup-subject-infos>
+<script src="./path/to/subject-infos.bundle.min.js"></script>
+```
+
+3. Ajout du composant sur une page HTML :
+
+```js
+const subjectInfos = document.createElement('esup-subject-infos');
+subjectInfos.subject = {...};
+subjectInfos.config = {...};
+subjectInfos.onSubjectClicked = () => ...;
+document.body.appendChild(subjectInfos);
 ```
 
 ## **Paramètres**

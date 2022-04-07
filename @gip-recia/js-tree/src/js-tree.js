@@ -1,4 +1,5 @@
 import { LitElement, html } from 'lit'
+import { ifDefined } from 'lit-html/directives/if-defined.js'
 import { jsTreeStyle } from './js-tree-style.js'
 
 /**
@@ -59,8 +60,16 @@ export class JsTree extends LitElement {
       this._initDataList(this._datas, this.config.identifier)
 
       // Initialisation de la navigation au clavier
-      this._activeElement =
-        this._datas && this._datas.length > 0 ? this._datas[0] : null
+      this._activeElement = null
+      if (this._datas && this._datas.length > 0) {
+        if (this.config.sort) {
+          this._activeElement =  this._datas.sort((node1, node2) =>
+            node1.text.localeCompare(node2.text)
+          )[0]
+        } else {
+          this._activeElement = this._datas[0]
+        }
+      }
     }
   }
 
@@ -80,9 +89,9 @@ export class JsTree extends LitElement {
     })
 
     // Focus sur l'élément actif
-    if (this._initKeyboardNavigation && this.activeElement) {
+    if (this._initKeyboardNavigation && this._activeElement) {
       this.shadowRoot.querySelectorAll('li').forEach(el => {
-        if (el.id === this.activeElement.idHtml) {
+        if (el.id === this._activeElement.idHtml) {
           el.focus()
         }
       })
@@ -235,15 +244,15 @@ export class JsTree extends LitElement {
     }
     // prettier-ignore
     return html`
-      <ul id="${this.config.identifier}" class="${level === 0 ? 'root-tree' : parent.ulClasses.join(' ')}"
-          role="${level === 0 ? (this.config.isMultipleSelection ? 'listbox' : 'tree') : 'group'}"
-          aria-multiselectable="${level === 0 && this.config.isMultipleSelection ? 'true' : 'false'}" tabindex="${level === 0 ? '0' : '-1'}"
-          aria-activedescendant="${level === 0 && this.activeElement ? this.activeElement.idHtml : ''}"
-          aria-labelledby="${parent ? parent.idHtml + '-text' : ''}" @keydown="${(e) => this._onKeyDown(e)}">
+      <ul id="${parent ? parent.idHtml + '-children' : this.config.identifier}" class="${level === 0 ? 'root-tree' : parent.ulClasses.join(' ')}"
+          role="${level === 0 ? 'tree' : 'group'}"
+          aria-multiselectable="${ifDefined(level === 0 && this.config.isMultipleSelection ? 'true' : undefined)}" tabindex="${level === 0 ? '0' : '-1'}"
+          aria-activedescendant="${ifDefined(level === 0 && this._activeElement ? this._activeElement.idHtml : undefined)}"
+          aria-labelledby="${ifDefined(parent ? parent.idHtml + '-text' : undefined)}" @keydown="${(e) => this._onKeyDown(e)}">
         ${(datas || []).map((data) => {
           return html`
             <li id ="${data.idHtml}" class="${data.liClasses.join(' ')}" tabindex="-1" aria-expanded="${data.expanded}" 
-                role="${this.config.showCheckbox ? 'option' : 'treeitem'}" aria-selected="${data.selected}">
+                role="treeitem" aria-selected="${data.selected}" aria-owns="${ifDefined(data.loadedChildren ? data.idHtml + '-children' : undefined)}">
                 <div class="row" @click="${(e) => this._onClickRow(e, data)}">
                   ${this._renderIconIndicator(data)}
                   <div class="row-data d-flex align-items-center ${data.selected ? 'jstree-clicked' : ''}" @click="${(e) => this._onClickItem(e, data)}">
@@ -284,7 +293,7 @@ export class JsTree extends LitElement {
     if (this.config.showCheckbox) {
       // prettier-ignore
       return  html`<input type="checkbox" id ="${data.idHtml}-checkbox"
-        tabindex="-1" ?checked="${data.selected}" aria-checked="${data.selected}" aria-labelledby="${data.idHtml}-text"
+        tabindex="-1" ?checked="${data.selected}" aria-labelledby="${data.idHtml}-text"
         ?disabled="${this.config.allowDeselection === false && data.selected}">`
     } else {
       return html``
@@ -301,7 +310,7 @@ export class JsTree extends LitElement {
     if (event) {
       event.stopPropagation()
     }
-    this.activeElement = data
+    this._activeElement = data
 
     if (this.config.allowDeselection !== false || !data.selected) {
       const oldValue = data.selected
@@ -326,7 +335,7 @@ export class JsTree extends LitElement {
    */
   _onClickRow(event, data) {
     event.stopPropagation()
-    this.activeElement = data
+    this._activeElement = data
     if (data.children) {
       if (data.expanded) {
         // On replie l'élément
@@ -362,29 +371,29 @@ export class JsTree extends LitElement {
   _onKeyDown(event) {
     if (event.keyCode === 13 || event.keyCode === 32) {
       // Touche entrée ou Espace
-      this._onClickItem(event, this.activeElement)
+      this._onClickItem(event, this._activeElement)
     } else if (event.keyCode === 37) {
       // Touche gauche
       // On replie l'élément actif
-      if (this.activeElement.expanded) {
-        this.activeElement.expanded = false
-        if (this.activeElement.ulClasses.includes('subtree-active')) {
-          this.activeElement.ulClasses.splice(
-            this.activeElement.ulClasses.indexOf('subtree-active'),
+      if (this._activeElement.expanded) {
+        this._activeElement.expanded = false
+        if (this._activeElement.ulClasses.includes('subtree-active')) {
+          this._activeElement.ulClasses.splice(
+            this._activeElement.ulClasses.indexOf('subtree-active'),
             1
           )
         }
-        if (this.activeElement.liClasses.includes('item-active')) {
-          this.activeElement.liClasses.splice(
-            this.activeElement.liClasses.indexOf('item-active'),
+        if (this._activeElement.liClasses.includes('item-active')) {
+          this._activeElement.liClasses.splice(
+            this._activeElement.liClasses.indexOf('item-active'),
             1
           )
         }
       } else if (
-        this.activeElement.parent &&
-        this.activeElement.parent.expanded
+        this._activeElement.parent &&
+        this._activeElement.parent.expanded
       ) {
-        this.activeElement = this.activeElement.parent
+        this._activeElement = this._activeElement.parent
       }
       event.preventDefault()
       event.stopPropagation()
@@ -392,9 +401,9 @@ export class JsTree extends LitElement {
     } else if (event.keyCode === 38) {
       // Touche haut
       // On se déplace sur l'élement au dessus
-      const sibbling = this._getUpVisibleSiblingElement(this.activeElement)
+      const sibbling = this._getUpVisibleSiblingElement(this._activeElement)
       if (sibbling != null) {
-        this.activeElement = sibbling
+        this._activeElement = sibbling
       }
       event.preventDefault()
       event.stopPropagation()
@@ -402,26 +411,32 @@ export class JsTree extends LitElement {
     } else if (event.keyCode === 39) {
       // Touche droite
       // On déplie l'élément actif
-      if (this.activeElement.children) {
-        if (this.activeElement.expanded) {
+      if (this._activeElement.children) {
+        if (this._activeElement.expanded) {
           if (
-            this.activeElement.loadedChildren &&
-            this.activeElement.loadedChildren.length > 0
+            this._activeElement.loadedChildren &&
+            this._activeElement.loadedChildren.length > 0
           ) {
-            this.activeElement = this.activeElement.loadedChildren[0]
+            this._activeElement = this._activeElement.loadedChildren[0]
           }
           event.preventDefault()
           event.stopPropagation()
           this.requestUpdate()
         } else {
-          this.activeElement.expanded = true
-          this.activeElement.ulClasses.push('subtree-active')
-          this.activeElement.liClasses.push('item-active')
-          this._loadDataChildren(this.activeElement, () => {
+          this._activeElement.expanded = true
+          this._activeElement.ulClasses.push('subtree-active')
+          this._activeElement.liClasses.push('item-active')
+          if (!this._activeElement.areChildrenLoaded) {
+            this._loadDataChildren(this._activeElement, () => {
+              event.preventDefault()
+              event.stopPropagation()
+              this.requestUpdate()
+            })
+          } else {
             event.preventDefault()
             event.stopPropagation()
             this.requestUpdate()
-          })
+          }
         }
       } else {
         event.preventDefault()
@@ -432,17 +447,17 @@ export class JsTree extends LitElement {
       // On se déplace sur l'élement en dessus
       if (this._initKeyboardNavigation) {
         if (
-          this.activeElement.expanded &&
-          this.activeElement.loadedChildren &&
-          this.activeElement.loadedChildren.length > 0
+          this._activeElement.expanded &&
+          this._activeElement.loadedChildren &&
+          this._activeElement.loadedChildren.length > 0
         ) {
-          this.activeElement = this.activeElement.loadedChildren[0]
+          this._activeElement = this._activeElement.loadedChildren[0]
         } else {
           const sibbling = this._getDownVisibleSiblingElement(
-            this.activeElement
+            this._activeElement
           )
           if (sibbling != null) {
-            this.activeElement = sibbling
+            this._activeElement = sibbling
           }
         }
       }

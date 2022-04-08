@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/evaluator",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Evaluator",
   "main": "src/index.js",
   "module": "src/index.js",
@@ -33,7 +33,7 @@
   "dependencies": {
     "@gip-recia/esup-publisher-webcomponents-utils": "^0.0.2",
     "@gip-recia/subject-infos": "^0.0.10",
-    "@gip-recia/subject-search-button": "^0.0.12",
+    "@gip-recia/subject-search-button": "^0.0.13",
     "lit": "^2.2.0"
   },
   "devDependencies": {

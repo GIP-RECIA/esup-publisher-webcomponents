@@ -587,7 +587,7 @@ export class SubjectSearchButton extends LitElement {
     this._clearSubject()
     const tree = this.shadowRoot.querySelector('#jsTreeGroup' + this.searchId)
     if (tree) {
-      tree.remove()
+      tree.deselectAllNodes()
     }
     this._hideModal('groupListModal' + this.searchId)
   }
@@ -674,7 +674,7 @@ export class SubjectSearchButton extends LitElement {
       '#jsTreeUserFromGroup' + this.searchId
     )
     if (tree) {
-      tree.remove()
+      tree.deselectAllNodes()
     }
     this._hideModal('userFromGroupListModal' + this.searchId)
   }

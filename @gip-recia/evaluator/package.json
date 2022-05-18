@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/evaluator",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Evaluator",
   "main": "src/index.js",
   "module": "src/index.js",
@@ -31,9 +31,9 @@
   },
   "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
   "dependencies": {
-    "@gip-recia/esup-publisher-webcomponents-utils": "0.0.2",
-    "@gip-recia/subject-infos": "0.0.10",
-    "@gip-recia/subject-search-button": "0.0.14",
+    "@gip-recia/esup-publisher-webcomponents-utils": "0.0.3",
+    "@gip-recia/subject-infos": "0.0.11",
+    "@gip-recia/subject-search-button": "0.0.15",
     "lit": "2.2.4"
   },
   "devDependencies": {

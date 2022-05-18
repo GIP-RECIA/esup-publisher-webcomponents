@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/subject-infos",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Subject Infos",
   "main": "src/subject-infos.js",
   "module": "src/subject-infos.js",
@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
   "dependencies": {
-    "@gip-recia/esup-publisher-webcomponents-utils": "0.0.2",
+    "@gip-recia/esup-publisher-webcomponents-utils": "0.0.3",
     "lit": "2.2.4"
   },
   "devDependencies": {

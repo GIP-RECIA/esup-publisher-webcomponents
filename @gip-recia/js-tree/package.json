@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/js-tree",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Js Tree",
   "main": "src/js-tree.js",
   "module": "src/js-tree.js",

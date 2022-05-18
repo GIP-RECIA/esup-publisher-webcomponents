@@ -8,7 +8,7 @@
     <script src="../node_modules/lit/polyfill-support.js"></script>
     <link
       rel="stylesheet"
-      href="../node_modules/@fortawesome/fontawesome-free/css/solid.css" />
+      href="../node_modules/@fortawesome/fontawesome-free/css/all.css" />
     <script type="module" src="./src/index.js"></script>
   </head>
   <body>
@@ -748,6 +748,7 @@
     evaluator.evaluator = data
     evaluator.config = config
     evaluator.simple = false
+    evaluator.onSubjectClicked = subjectInfos => console.log('Subject clicked', subjectInfos)
     document.body.appendChild(evaluator)
 
     const editEvaluator = document.createElement('esup-edit-evaluator')
@@ -768,6 +769,7 @@
       console.log('Evaluator modified : ', evaluator)
       console.log('Evaluator is valid : ', editEvaluator.isValid())
     }
+    editEvaluator.onSubjectClicked = subjectInfos => console.log('Subject clicked', subjectInfos)
     document.body.appendChild(editEvaluator)
   </script>
 </html>

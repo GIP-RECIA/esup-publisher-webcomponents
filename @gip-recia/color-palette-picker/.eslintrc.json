@@ -1,12 +1,13 @@
 {
   "root": true,
   "extends": ["eslint:recommended"],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "globals": {
     "chai": "readonly"
   },
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "requireConfigFile": false
   },
   "env": {
     "browser": true,

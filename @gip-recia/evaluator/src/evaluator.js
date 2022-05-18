@@ -43,7 +43,13 @@ export class Evaluator extends LitElement {
        * Configuration de l'évaluateur.
        * @type {Object}
        */
-      config: { attribute: false }
+      config: { attribute: false },
+
+      /**
+       * Fonction appelée au clic sur un subject-infos.
+       * @type {Function}
+       */
+      onSubjectClicked: { attribute: false }
     }
   }
 
@@ -59,14 +65,14 @@ export class Evaluator extends LitElement {
         case 'OPERATOR':
           if (this.simple) {
             // prettier-ignore
-            rendering = html`<esup-simple-evaluators .collection="${this.evaluator.evaluators}" .config="${this.config}"></esup-simple-evaluators>`
+            rendering = html`<esup-simple-evaluators .collection="${this.evaluator.evaluators}" .config="${this.config}" @subjectClick="${(e) => this._onSubjectClickedEvent(e, e.detail.subject)}"></esup-simple-evaluators>`
             if (this.isChild || this.evaluator.type !== 'OR') {
               // prettier-ignore
               rendering = html`<span>${this._localization.getLabel('forAdvancedOnly')}</span>`
             }
           } else {
             // prettier-ignore
-            rendering = html`<span>${this.evaluator.type}</span><esup-evaluators .collection="${this.evaluator.evaluators}" .config="${this.config}"></esup-evaluators>`
+            rendering = html`<span>${this.evaluator.type}</span><esup-evaluators .collection="${this.evaluator.evaluators}" .config="${this.config}" @subjectClick="${(e) => this._onSubjectClickedEvent(e, e.detail.subject)}"></esup-evaluators>`
           }
           if (!(this.isChild || this.simple)) {
             // prettier-ignore
@@ -94,10 +100,10 @@ export class Evaluator extends LitElement {
             }
             if (!this.simple) {
               // prettier-ignore
-              rendering = html`<esup-subject-infos .subject="${userModelId}" .config="${this.config}"><span>${this._localization.getLabel('userAttribute.subjetIs')}</span></esup-subject-infos>`
+              rendering = html`<esup-subject-infos .subject="${userModelId}" .config="${this.config}" .onSubjectClicked="${() => this._onSubjectClickedEvent(null, userModelId)}"><span>${this._localization.getLabel('userAttribute.subjetIs')}</span></esup-subject-infos>`
             } else {
               // prettier-ignore
-              rendering = html`<esup-subject-infos .subject="${userModelId}" .config="${this.config}"></esup-subject-infos>`
+              rendering = html`<esup-subject-infos .subject="${userModelId}" .config="${this.config}" .onSubjectClicked="${() => this._onSubjectClickedEvent(null, userModelId)}"></esup-subject-infos>`
             }
           } else {
             if (!this.simple) {
@@ -117,10 +123,10 @@ export class Evaluator extends LitElement {
           const groupModelId = { keyType: 'GROUP', keyId: this.evaluator.group }
           if (!this.simple) {
             // prettier-ignore
-            rendering = html`<esup-subject-infos .subject="${groupModelId}" .config="${this.config}"><span>${this._localization.getLabel('userGroup.memberOf')}</span></esup-subject-infos>`
+            rendering = html`<esup-subject-infos .subject="${groupModelId}" .config="${this.config}" .onSubjectClicked="${() => this._onSubjectClickedEvent(null, groupModelId)}"><span>${this._localization.getLabel('userGroup.memberOf')}</span></esup-subject-infos>`
           } else {
             // prettier-ignore
-            rendering = html`<esup-subject-infos .subject="${groupModelId}" .config="${this.config}"></esup-subject-infos>`
+            rendering = html`<esup-subject-infos .subject="${groupModelId}" .config="${this.config}" .onSubjectClicked="${() => this._onSubjectClickedEvent(null, groupModelId)}"></esup-subject-infos>`
           }
           break
         }
@@ -148,6 +154,41 @@ export class Evaluator extends LitElement {
       if (this.config && this.config.labels) {
         this._localization.mergeLabels(this.config.labels)
       }
+    }
+  }
+
+  /**
+   * Méthode appelée au clic sur un subject-infos.
+   *
+   * @param {Object} event Evènement
+   * @param {Object} subject Subject-infos cliqué
+   */
+   _onSubjectClickedEvent(event, subject) {
+    if (event) {
+      event.stopPropagation()
+    }
+    this._sendEvent('subjectClick', {subject: subject})
+  }
+
+  /**
+   * Envoi un évènement au composant parent.
+   *
+   * @param {String} eventName Nom de l'évènement
+   * @param {Object} detail Détail envoyé avec l'évènement
+   */
+   _sendEvent(eventName, detail) {
+    if (!this.isChild && eventName === 'subjectClick') {
+      // Si on est sur l'évaluateur racine et qu'il s'agit d'un clic sur un subject-infos, appel à la méthode callBack
+      if (this.onSubjectClicked && detail.subject) {
+        this.onSubjectClicked(detail.subject)
+      }
+    } else {
+      const options = {
+        detail: detail,
+        bubbles: true,
+        composed: true
+      }
+      this.dispatchEvent(new CustomEvent(eventName, options))
     }
   }
 }

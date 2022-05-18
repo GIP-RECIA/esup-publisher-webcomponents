@@ -12,35 +12,35 @@ export const subjectSearchButtonStyle = css`
     margin: 0px 2px;
   }
   .icon-plus {
-    font-family: var(--icon-plus-font-family, 'Font Awesome 5 Free');
+    font-family: var(--icon-plus-font-family, 'Font Awesome 6 Free');
     font-weight: var(--icon-plus-font-weight, 900);
   }
   .icon-plus:before {
     content: var(--icon-plus-content, '\\f067');
   }
   .icon-cancel {
-    font-family: var(--icon-cancel-font-family, 'Font Awesome 5 Free');
+    font-family: var(--icon-cancel-font-family, 'Font Awesome 6 Free');
     font-weight: var(--icon-cancel-font-weight, 900);
   }
   .icon-cancel:before {
     content: var(--icon-cancel-content, '\\f05e');
   }
   .icon-validate {
-    font-family: var(--icon-validate-font-family, 'Font Awesome 5 Free');
+    font-family: var(--icon-validate-font-family, 'Font Awesome 6 Free');
     font-weight: var(--icon-validate-font-weight, 900);
   }
   .icon-validate:before {
     content: var(--icon-validate-content, '\\f019');
   }
   .icon-question {
-    font-family: var(--icon-question-font-family, 'Font Awesome 5 Free');
+    font-family: var(--icon-question-font-family, 'Font Awesome 6 Free');
     font-weight: var(--icon-question-font-weight, 900);
   }
   .icon-question:before {
     content: var(--icon-question-content, '\\f059');
   }
   .icon-search {
-    font-family: var(--icon-search-font-family, 'Font Awesome 5 Free');
+    font-family: var(--icon-search-font-family, 'Font Awesome 6 Free');
     font-weight: var(--icon-search-font-weight, 900);
   }
   .icon-search:before {

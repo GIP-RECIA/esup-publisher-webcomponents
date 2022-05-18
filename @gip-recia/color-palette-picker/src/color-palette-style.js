@@ -68,14 +68,14 @@ export const colorPaletteStyle = css`
     margin: 0px 2px;
   }
   .color-palette-picker .icon-cancel {
-    font-family: var(--icon-cancel-font-family, 'Font Awesome 5 Free');
+    font-family: var(--icon-cancel-font-family, 'Font Awesome 6 Free');
     font-weight: var(--icon-cancel-font-weight, 900);
   }
   .color-palette-picker .icon-cancel:before {
     content: var(--icon-cancel-content, '\\f05e');
   }
   .color-palette-picker .icon-validate {
-    font-family: var(--icon-validate-font-family, 'Font Awesome 5 Free');
+    font-family: var(--icon-validate-font-family, 'Font Awesome 6 Free');
     font-weight: var(--icon-validate-font-weight, 900);
   }
   .color-palette-picker .icon-validate:before {

@@ -85,6 +85,8 @@ Propriétés disponibles :
 | getSubjectInfos    | Function | Oui         | Fonction permettant de récupérer les données d'une personne/d'un groupe. Paramètres : keyType et keyId de la personne/du groupe. Retourne : une promise avec les infos de la personne/du groupe. |
 | userDisplayedAttrs | Array    | Oui         | Tableau des propriétés de la personne/du groupe à afficher.                                                                                                                                      |
 
+- `onSubjectClicked` - Fonction appelée lors du clic sur une personne/un groupe.
+
 ### **Variables CSS**
 
 #### **Modification de style**
@@ -131,6 +133,8 @@ Propriétés disponibles :
 | getGroupMembers    | Function | Oui         | Fonction retournant une promise permettant de rechercher les personnes appartenant à un groupe.                                                                                                                                                                                                  |
 
 - `onModification` - Fonction appelée lors de la modification de l'évaluateur.
+
+- `onSubjectClicked` - Fonction appelée lors du clic sur une personne/un groupe.
 
 ### **Fonctions**
 

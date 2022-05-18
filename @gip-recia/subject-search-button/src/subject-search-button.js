@@ -587,7 +587,7 @@ export class SubjectSearchButton extends LitElement {
     this._clearSubject()
     const tree = this.shadowRoot.querySelector('#jsTreeGroup' + this.searchId)
     if (tree) {
-      tree.remove()
+      tree.deselectAllNodes()
     }
     this._hideModal('groupListModal' + this.searchId)
   }
@@ -674,7 +674,7 @@ export class SubjectSearchButton extends LitElement {
       '#jsTreeUserFromGroup' + this.searchId
     )
     if (tree) {
-      tree.remove()
+      tree.deselectAllNodes()
     }
     this._hideModal('userFromGroupListModal' + this.searchId)
   }
@@ -957,8 +957,8 @@ export class SubjectSearchButton extends LitElement {
             )
             this._nbTotalItems = this._userResult.length
             this._resultsArr = this._userResult.slice(0, this._numPerPage)
-            this.requestUpdate()
           }
+          this.requestUpdate()
         })
     }
     this._container.subject = undefined
@@ -1187,8 +1187,8 @@ export class SubjectSearchButton extends LitElement {
             )
             this._nbTotalItems = this._userResult.length
             this._resultsArr = this._userResult.slice(0, this._numPerPage)
-            this.requestUpdate()
           }
+          this.requestUpdate()
         })
       }
       this._container.subject = undefined

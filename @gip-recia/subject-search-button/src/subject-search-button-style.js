@@ -23,14 +23,14 @@ export const subjectSearchButtonStyle = css`
     font-weight: var(--icon-cancel-font-weight, 900);
   }
   .icon-cancel:before {
-    content: var(--icon-cancel-content, '\\f05e');
+    content: var(--icon-cancel-content, '\\f00d');
   }
   .icon-validate {
     font-family: var(--icon-validate-font-family, 'Font Awesome 6 Free');
     font-weight: var(--icon-validate-font-weight, 900);
   }
   .icon-validate:before {
-    content: var(--icon-validate-content, '\\f019');
+    content: var(--icon-validate-content, '\\f00c');
   }
   .icon-question {
     font-family: var(--icon-question-font-family, 'Font Awesome 6 Free');
@@ -49,12 +49,12 @@ export const subjectSearchButtonStyle = css`
   ul.pagination li .page-link,
   ul.pagination li.disabled .page-link {
     color: var(--text-color-pagination, #25b2f3);
-    border-color: #D0D0D0;
+    border-color: #d0d0d0;
   }
   ul.pagination li.page-item.active .page-link {
     color: var(--selected-text-color-pagination, #fff);
     background-color: var(--selected-background-color-pagination, #25b2f3);
-    border-color: #D0D0D0;
+    border-color: #d0d0d0;
   }
   button:disabled,
   .page-item.disabled {

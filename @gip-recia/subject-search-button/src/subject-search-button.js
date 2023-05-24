@@ -3,7 +3,12 @@ import { subjectSearchButtonStyle } from './subject-search-button-style.js'
 import { subjectSearchButtonLabel } from './subject-search-button-label.js'
 import { bootstrapStyle } from './bootstrap-style.js'
 import '@gip-recia/js-tree'
-import { Localization, ToolTip, Utils, bootstrapToolTipStyle } from '@gip-recia/esup-publisher-webcomponents-utils'
+import {
+  Localization,
+  ToolTip,
+  Utils,
+  bootstrapToolTipStyle
+} from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Subject Search Button component.
@@ -139,7 +144,10 @@ export class SubjectSearchButton extends LitElement {
     }
     if (initDatas) {
       this._localization.labels = subjectSearchButtonLabel
-      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
+      this._localization.lang =
+        this.config && this.config.lang
+          ? this.config.lang
+          : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         this._localization.mergeLabels(this.config.labels)

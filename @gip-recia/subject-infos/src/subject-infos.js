@@ -2,7 +2,12 @@ import { LitElement, html } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
 import { subjectInfosStyle } from './subject-infos-style.js'
 import { subjectInfoLabel } from './subject-infos-label.js'
-import { Localization, ToolTip, Utils, bootstrapToolTipStyle } from '@gip-recia/esup-publisher-webcomponents-utils'
+import {
+  Localization,
+  ToolTip,
+  Utils,
+  bootstrapToolTipStyle
+} from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Subject Infos component.
@@ -76,7 +81,10 @@ export class SubjectInfos extends LitElement {
     }
     if (initDatas) {
       this._localization.labels = subjectInfoLabel
-      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
+      this._localization.lang =
+        this.config && this.config.lang
+          ? this.config.lang
+          : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         this._localization.mergeLabels(this.config.labels)
@@ -266,14 +274,21 @@ export class SubjectInfos extends LitElement {
     const userAttrs = this.config.userDisplayedAttrs || []
     if (!Utils.isDefined(userAttrs) || !Utils.isDefined(subject)) return ''
     if (Utils.isDefined(subject.keyId)) {
-      return "'" + subject.keyId + "'" + this._localization.getLabel('disappear')
+      return (
+        "'" + subject.keyId + "'" + this._localization.getLabel('disappear')
+      )
     }
     if (!Utils.isDefined(subject.modelId)) return ''
     if (
       Utils.isDefined(subject.modelId) &&
       subject.foundOnExternalSource !== true
     ) {
-      return "'" + subject.modelId.keyId + "'" + this._localization.getLabel('disappear')
+      return (
+        "'" +
+        subject.modelId.keyId +
+        "'" +
+        this._localization.getLabel('disappear')
+      )
     }
     if (subject.modelId.keyType === 'GROUP') {
       return subject.modelId.keyId

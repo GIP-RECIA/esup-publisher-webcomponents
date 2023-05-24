@@ -2,7 +2,6 @@
  * Classe permettant de récupérer un label selon la langue définie.
  */
 export class Localization {
-
   /**
    * Constructeur avec arguments.
    *

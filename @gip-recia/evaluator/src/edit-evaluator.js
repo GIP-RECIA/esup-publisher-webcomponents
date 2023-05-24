@@ -2,7 +2,12 @@ import { LitElement, html, css } from 'lit'
 import { editEvaluatorStyle } from './edit-evaluator-style.js'
 import { editEvaluatorLabel } from './edit-evaluator-label.js'
 import { bootstrapStyle } from './bootstrap-style.js'
-import { Localization, ToolTip, Utils, bootstrapToolTipStyle } from '@gip-recia/esup-publisher-webcomponents-utils'
+import {
+  Localization,
+  ToolTip,
+  Utils,
+  bootstrapToolTipStyle
+} from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Edit Evaluator component.
@@ -264,7 +269,8 @@ export class EditEvaluator extends LitElement {
     // Si les propriétés evaluator ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      initDatas = changedProperties.has('evaluator') || changedProperties.has('config')
+      initDatas =
+        changedProperties.has('evaluator') || changedProperties.has('config')
     }
     if (initDatas) {
       this._evaluator = this.evaluator
@@ -272,7 +278,10 @@ export class EditEvaluator extends LitElement {
         attr => attr !== 'uid'
       )
       this._localization.labels = editEvaluatorLabel
-      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
+      this._localization.lang =
+        this.config && this.config.lang
+          ? this.config.lang
+          : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         this._localization.mergeLabels(this.config.labels)

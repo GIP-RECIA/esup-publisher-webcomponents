@@ -149,7 +149,10 @@ export class Evaluator extends LitElement {
     if (initDatas) {
       // Initialisation des données
       this._localization.labels = evaluatorLabel
-      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
+      this._localization.lang =
+        this.config && this.config.lang
+          ? this.config.lang
+          : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         this._localization.mergeLabels(this.config.labels)

@@ -50,7 +50,8 @@ export class JsTree extends LitElement {
     // Si les propriétés datas ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      initDatas = changedProperties.has('datas') || changedProperties.has('config')
+      initDatas =
+        changedProperties.has('datas') || changedProperties.has('config')
     }
 
     if (initDatas) {
@@ -63,7 +64,7 @@ export class JsTree extends LitElement {
       this._activeElement = null
       if (this._datas && this._datas.length > 0) {
         if (this.config.sort) {
-          this._activeElement =  this._datas.sort((node1, node2) =>
+          this._activeElement = this._datas.sort((node1, node2) =>
             node1.text.localeCompare(node2.text)
           )[0]
         } else {
@@ -238,9 +239,7 @@ export class JsTree extends LitElement {
   _renderTree(datas, level, parent) {
     // Tri des noeuds si demandé
     if (this.config.sort) {
-      datas.sort((node1, node2) =>
-        node1.text.localeCompare(node2.text)
-      )
+      datas.sort((node1, node2) => node1.text.localeCompare(node2.text))
     }
     // prettier-ignore
     return html`
@@ -275,7 +274,11 @@ export class JsTree extends LitElement {
    * @returns Code HTML
    */
   _renderIconIndicator(data) {
-    if (data.children && (!data.areChildrenLoaded || (data.loadedChildren && data.loadedChildren.length > 0))) {
+    if (
+      data.children &&
+      (!data.areChildrenLoaded ||
+        (data.loadedChildren && data.loadedChildren.length > 0))
+    ) {
       // prettier-ignore
       return  html`<i class="icon icon-indicator"></i>`
     } else {

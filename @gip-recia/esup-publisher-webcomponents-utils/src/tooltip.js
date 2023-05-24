@@ -4,7 +4,6 @@ import { html } from 'lit'
  * Classe permettant de gérer l'affichage d'un ToolTip.
  */
 export class ToolTip {
-
   /**
    * Constructeur avec argument.
    *

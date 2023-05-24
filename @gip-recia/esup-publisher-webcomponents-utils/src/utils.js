@@ -2,7 +2,6 @@
  * Classe contenant des méthodes utilitaires.
  */
 export class Utils {
-
   /**
    * Retourne true si la valeur fournit est définie.
    *

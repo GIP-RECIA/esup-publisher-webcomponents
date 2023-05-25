@@ -25,23 +25,23 @@ export const subjectInfosStyle = css`
         text-rendering: auto;
         line-height: 1;
         margin: 0px 2px;
-        font-family: 'Font Awesome 5 Free';
+        font-family: 'Font Awesome 6 Free';
         font-weight: 900;
         content: '\\f128';
     }
 
     .icon-question:before {
-        font-family: var(--icon-question-font-family, 'Font Awesome 5 Free');
+        font-family: var(--icon-question-font-family, 'Font Awesome 6 Free');
         font-weight: var(--icon-question-font-weight, 900);
         content: var(--icon-question-content, '\\f128');
     }
     .icon-users:before {
-        font-family: var(--icon-users-font-family, 'Font Awesome 5 Free');
+        font-family: var(--icon-users-font-family, 'Font Awesome 6 Free');
         font-weight: var(--icon-users-font-weight, 900);
         content: var(--icon-users-content, '\\f0c0');
     }
     .icon-user:before {
-        font-family: var(--icon-user-font-family, 'Font Awesome 5 Free');
+        font-family: var(--icon-user-font-family, 'Font Awesome 6 Free');
         font-weight: var(--icon-user-font-weight, 900);
         content: var(--icon-user-content, '\\f007');
     }

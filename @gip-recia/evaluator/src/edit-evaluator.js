@@ -45,7 +45,13 @@ export class EditEvaluator extends LitElement {
        * Fonction appelée à la modification de l'évaluateur.
        * @type {Function}
        */
-      onModification: { attribute: false }
+      onModification: { attribute: false },
+
+      /**
+       * Fonction appelée au clic sur un subject-infos.
+       * @type {Function}
+       */
+      onSubjectClicked: { attribute: false }
     }
   }
 
@@ -93,7 +99,8 @@ export class EditEvaluator extends LitElement {
               </div>
               <esup-edit-evaluators .collection="${this._evaluator.evaluators}" .config="${this.config}"
                 @childDeletion="${(e) => this._onChildDeletionEvent(e)}"
-                @childUpdate="${(e) => this._onChildUpdateEvent(e)}">
+                @childUpdate="${(e) => this._onChildUpdateEvent(e)}"
+                @subjectClick="${(e) => this._onSubjectClickedEvent(e, e.detail.subject)}">
               </esup-edit-evaluators>
             `
           } else {
@@ -115,7 +122,8 @@ export class EditEvaluator extends LitElement {
                   </div>
                   <esup-edit-evaluators .collection="${this._evaluator.evaluators}" .config="${this.config}"
                     @childDeletion="${(e) => this._onChildDeletionEvent(e)}"
-                    @childUpdate="${(e) => this._onChildUpdateEvent(e)}">
+                    @childUpdate="${(e) => this._onChildUpdateEvent(e)}"
+                    @subjectClick="${(e) => this._onSubjectClickedEvent(e, e.detail.subject)}">
                   </esup-edit-evaluators>
                 </li>
               </ul>
@@ -149,7 +157,7 @@ export class EditEvaluator extends LitElement {
             }
             // prettier-ignore
             userRendering = html`
-              <esup-subject-infos .subject="${userModelId}" .config="${this.config}">
+              <esup-subject-infos .subject="${userModelId}" .config="${this.config}" .onSubjectClicked="${() => this._onSubjectClickedEvent(null, userModelId)}">
                 <span>${this._localization.getLabel('userAttribute.subjetIs')}</span>
               </esup-subject-infos>
             `
@@ -208,7 +216,7 @@ export class EditEvaluator extends LitElement {
             }
             // prettier-ignore
             groupRendering = html`
-              <esup-subject-infos .subject="${userModelId}" .config="${this.config}">
+              <esup-subject-infos .subject="${userModelId}" .config="${this.config}" .onSubjectClicked="${() => this._onSubjectClickedEvent(null, userModelId)}">
                 <span>${this._localization.getLabel('userGroup.memberOf')}</span>
               </esup-subject-infos>
             `
@@ -715,21 +723,38 @@ export class EditEvaluator extends LitElement {
   }
 
   /**
-   * Envoi un évènement au composant parrent.
+   * Méthode appelée au clic sur un subject-infos.
+   *
+   * @param {Object} event Evènement
+   * @param {Object} subject Subject-infos cliqué
+   */
+  _onSubjectClickedEvent(event, subject) {
+    if (event) {
+      event.stopPropagation()
+    }
+    this._sendEvent('subjectClick', {subject: subject})
+  }
+
+  /**
+   * Envoi un évènement au composant parent.
    *
    * @param {String} eventName Nom de l'évènement
+   * @param {Object} detail Détail envoyé avec l'évènement
    */
-  _sendEvent(eventName) {
+  _sendEvent(eventName, detail) {
     if (!this.isChild && eventName === 'childUpdate') {
-      // Si on est sur l'évaluateur racine et qu'il s'ait d'une mise à jour, appel à la méthode callBack
+      // Si on est sur l'évaluateur racine et qu'il s'agit d'une mise à jour, appel à la méthode callBack
       if (this.onModification) {
         this.onModification(this._evaluator)
       }
+    } else if (!this.isChild && eventName === 'subjectClick') {
+      // Si on est sur l'évaluateur racine et qu'il s'agit d'une mise à jour, appel à la méthode callBack
+      if (this.onSubjectClicked && detail.subject) {
+        this.onSubjectClicked(detail.subject)
+      }
     } else {
       const options = {
-        detail: {
-          evaluator: this._evaluator
-        },
+        detail: Object.assign(detail || {}, { evaluator: this._evaluator }),
         bubbles: true,
         composed: true
       }

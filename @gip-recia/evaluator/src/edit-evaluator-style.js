@@ -20,7 +20,7 @@ export const editEvaluatorStyle = css`
     margin: 0px 2px;
   }
   .icon-remove {
-    font-family: var(--icon-remove-font-family, 'Font Awesome 5 Free');
+    font-family: var(--icon-remove-font-family, 'Font Awesome 6 Free');
     font-weight: var(--icon-remove-font-weight, 900);
   }
   .icon-remove:before {

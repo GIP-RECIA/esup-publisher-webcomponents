@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/esup-publisher-webcomponents-utils",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Esup-Publisher Webcomponents Utils",
   "main": "src/index.js",
   "module": "src/index.js",
@@ -30,27 +30,27 @@
   },
   "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
   "dependencies": {
-    "lit": "2.2.4"
+    "lit": "2.7.4"
   },
   "devDependencies": {
-    "@babel/core": "7.17.12",
-    "@babel/eslint-parser": "7.17.0",
+    "@babel/core": "7.21.8",
+    "@babel/eslint-parser": "7.21.8",
     "@custom-elements-manifest/analyzer": "0.5.7",
     "@esm-bundle/chai": "4.3.4-fix.0",
-    "@open-wc/testing": "3.1.5",
+    "@open-wc/testing": "3.1.8",
     "@open-wc/testing-karma": "4.0.9",
     "@types/mocha": "9.1.1",
-    "@web/dev-server": "0.1.31",
-    "@web/dev-server-legacy": "1.0.0",
-    "@web/test-runner": "0.13.27",
+    "@web/dev-server": "0.1.38",
+    "@web/dev-server-legacy": "1.0.3",
+    "@web/test-runner": "0.13.31",
     "@web/test-runner-mocha": "0.7.5",
-    "@web/test-runner-playwright": "0.8.8",
-    "@webcomponents/webcomponentsjs": "2.6.0",
-    "deepmerge": "4.2.2",
-    "eslint": "8.15.0",
+    "@web/test-runner-playwright": "0.8.10",
+    "@webcomponents/webcomponentsjs": "2.8.0",
+    "deepmerge": "4.3.1",
+    "eslint": "8.41.0",
     "lit-analyzer": "1.2.1",
-    "mocha": "10.0.0",
-    "prettier": "2.6.2"
+    "mocha": "10.2.0",
+    "prettier": "2.8.8"
   },
   "customElements": "custom-elements.json"
 }

@@ -24,6 +24,6 @@ export const editEvaluatorStyle = css`
     font-weight: var(--icon-remove-font-weight, 900);
   }
   .icon-remove:before {
-    content: var(--icon-remove-content, '\\f057');
+    content: var(--icon-remove-content, '\\f2ed');
   }
 `

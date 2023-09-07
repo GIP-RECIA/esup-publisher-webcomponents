@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="">
   <head>
@@ -30,11 +30,14 @@
 
       constructor() {
         super()
-        this.localization = new Localization({
-          fr: {
-            msg: 'Mon message'
-          }
-        }, 'fr')
+        this.localization = new Localization(
+          {
+            fr: {
+              msg: 'Mon message'
+            }
+          },
+          'fr'
+        )
         this.localization.mergeLabels({
           fr: {
             msg: 'Mon message modifié'
@@ -50,16 +53,20 @@
       render() {
         return html`
           <p>
-            <select @change=${(e) => {
+            <select
+              @change=${e => {
                 this.localization.lang = e.target.value
                 this.requestUpdate()
               }}>
               <option value="fr" ?selected=${this.localization.lang === 'fr'}>fr</option>
               <option value="en" ?selected=${this.localization.lang === 'en'}>en</option>
             </select>
-            <span data-tooltip aria-describedby="tooltip" @mouseenter="${() => this.toolTip.showToolTip()}" @mouseleave="${() => this.toolTip.hideToolTip()}">
-              ${this.localization.getLabel('msg')}
-              ${this.toolTip.renderToolTip(this.localization.getLabel('msg'))}
+            <span
+              data-tooltip
+              aria-describedby="tooltip"
+              @mouseenter="${() => this.toolTip.showToolTip()}"
+              @mouseleave="${() => this.toolTip.hideToolTip()}">
+              ${this.localization.getLabel('msg')} ${this.toolTip.renderToolTip(this.localization.getLabel('msg'))}
             </span>
           </p>
         `

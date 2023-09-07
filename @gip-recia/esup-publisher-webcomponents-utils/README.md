@@ -14,7 +14,6 @@ npm install @gip-recia/esup-publisher-webcomponents-utils
 
 Le projet Esup-Publisher-Webcomponents-Utils met à disposition les éléments suvants :
 
-
 | Nom                   | Type   | Description                                                       |
 | --------------------- | ------ | ----------------------------------------------------------------- |
 | Localization          | Class  | Classe permettant d'afficher des labels selon une langue définie. |

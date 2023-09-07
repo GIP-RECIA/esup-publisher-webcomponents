@@ -2,12 +2,7 @@ import { LitElement, html, css } from 'lit'
 import { editEvaluatorStyle } from './edit-evaluator-style.js'
 import { editEvaluatorLabel } from './edit-evaluator-label.js'
 import { bootstrapStyle } from './bootstrap-style.js'
-import {
-  Localization,
-  ToolTip,
-  Utils,
-  bootstrapToolTipStyle
-} from '@gip-recia/esup-publisher-webcomponents-utils'
+import { Localization, ToolTip, Utils, bootstrapToolTipStyle } from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Edit Evaluator component.
@@ -151,11 +146,7 @@ export class EditEvaluator extends LitElement {
         case 'USERATTRIBUTES':
         case 'USERMULTIVALUEDATTRIBUTES':
           var userRendering = null
-          if (
-            this._evaluator.value &&
-            this._evaluator.attribute === 'uid' &&
-            this._evaluator.mode === 'EQUALS'
-          ) {
+          if (this._evaluator.value && this._evaluator.attribute === 'uid' && this._evaluator.mode === 'EQUALS') {
             const userModelId = {
               keyType: 'PERSON',
               keyId: this._evaluator.value
@@ -166,10 +157,7 @@ export class EditEvaluator extends LitElement {
                 <span>${this._localization.getLabel('userAttribute.subjetIs')}</span>
               </esup-subject-infos>
             `
-          } else if (
-            this._evaluator.attribute === 'uid' &&
-            this._evaluator.mode === 'EQUALS'
-          ) {
+          } else if (this._evaluator.attribute === 'uid' && this._evaluator.mode === 'EQUALS') {
             // prettier-ignore
             userRendering = html`
               <esup-subject-search-button .multiSelection="${false}" .searchType="${'PERSON'}" .searchId="${this._generateId()}"
@@ -269,19 +257,13 @@ export class EditEvaluator extends LitElement {
     // Si les propriétés evaluator ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      initDatas =
-        changedProperties.has('evaluator') || changedProperties.has('config')
+      initDatas = changedProperties.has('evaluator') || changedProperties.has('config')
     }
     if (initDatas) {
       this._evaluator = this.evaluator
-      this._userAttributes = this.config.userAttributes.filter(
-        attr => attr !== 'uid'
-      )
+      this._userAttributes = this.config.userAttributes.filter(attr => attr !== 'uid')
       this._localization.labels = editEvaluatorLabel
-      this._localization.lang =
-        this.config && this.config.lang
-          ? this.config.lang
-          : this._localization.lang
+      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         this._localization.mergeLabels(this.config.labels)
@@ -395,11 +377,7 @@ export class EditEvaluator extends LitElement {
             evaluator.mode !== null
           )
         case 'USERGROUP':
-          return (
-            Utils.isDefined(evaluator.group) &&
-            evaluator.group !== '' &&
-            evaluator.group !== null
-          )
+          return Utils.isDefined(evaluator.group) && evaluator.group !== '' && evaluator.group !== null
         default:
           return false
       }
@@ -593,9 +571,7 @@ export class EditEvaluator extends LitElement {
       if (persons[0].modelId) {
         this._evaluator.value = persons[0].modelId.keyId
       } else if (persons[0].extendedSubject) {
-        this._evaluator.value =
-          persons[0].extendedSubject.keyValue +
-          persons[0].extendedSubject.keyAttribute
+        this._evaluator.value = persons[0].extendedSubject.keyValue + persons[0].extendedSubject.keyAttribute
       }
 
       this.requestUpdate()
@@ -615,9 +591,7 @@ export class EditEvaluator extends LitElement {
       if (groups[0].modelId) {
         this._evaluator.group = groups[0].modelId.keyId
       } else if (groups[0].extendedSubject) {
-        this._evaluator.group =
-          groups[0].extendedSubject.keyValue +
-          groups[0].extendedSubject.keyAttribute
+        this._evaluator.group = groups[0].extendedSubject.keyValue + groups[0].extendedSubject.keyAttribute
       }
 
       this.requestUpdate()
@@ -704,9 +678,7 @@ export class EditEvaluator extends LitElement {
       } else {
         // On est sûr le bouton, on déplie le menu et on sélectionne la première entrée
         this._showDropDown()
-        this._dropdown
-          .querySelector('.dropdown-menu li:first-child')
-          .childNodes[0].focus()
+        this._dropdown.querySelector('.dropdown-menu li:first-child').childNodes[0].focus()
         event.preventDefault()
         event.stopPropagation()
       }
@@ -720,13 +692,8 @@ export class EditEvaluator extends LitElement {
    */
   _onDropDownFocusOut(event) {
     const dropdownBtn = this._dropdown.querySelector('.dropdown-toggle')
-    const dropDownItems = Array.from(
-      this._dropdown.querySelectorAll('.dropdown-item')
-    )
-    if (
-      event.relatedTarget !== dropdownBtn &&
-      !dropDownItems.includes(event.relatedTarget)
-    ) {
+    const dropDownItems = Array.from(this._dropdown.querySelectorAll('.dropdown-item'))
+    if (event.relatedTarget !== dropdownBtn && !dropDownItems.includes(event.relatedTarget)) {
       this._hideDropDown()
     }
   }
@@ -741,7 +708,7 @@ export class EditEvaluator extends LitElement {
     if (event) {
       event.stopPropagation()
     }
-    this._sendEvent('subjectClick', {subject: subject})
+    this._sendEvent('subjectClick', { subject: subject })
   }
 
   /**

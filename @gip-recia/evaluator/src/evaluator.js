@@ -90,10 +90,7 @@ export class Evaluator extends LitElement {
           break
         case 'USERATTRIBUTES':
         case 'USERMULTIVALUEDATTRIBUTES':
-          if (
-            this.evaluator.attribute === 'uid' &&
-            this.evaluator.mode === 'EQUALS'
-          ) {
+          if (this.evaluator.attribute === 'uid' && this.evaluator.mode === 'EQUALS') {
             const userModelId = {
               keyType: 'PERSON',
               keyId: this.evaluator.value
@@ -149,10 +146,7 @@ export class Evaluator extends LitElement {
     if (initDatas) {
       // Initialisation des données
       this._localization.labels = evaluatorLabel
-      this._localization.lang =
-        this.config && this.config.lang
-          ? this.config.lang
-          : this._localization.lang
+      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         this._localization.mergeLabels(this.config.labels)
@@ -166,11 +160,11 @@ export class Evaluator extends LitElement {
    * @param {Object} event Evènement
    * @param {Object} subject Subject-infos cliqué
    */
-   _onSubjectClickedEvent(event, subject) {
+  _onSubjectClickedEvent(event, subject) {
     if (event) {
       event.stopPropagation()
     }
-    this._sendEvent('subjectClick', {subject: subject})
+    this._sendEvent('subjectClick', { subject: subject })
   }
 
   /**
@@ -179,7 +173,7 @@ export class Evaluator extends LitElement {
    * @param {String} eventName Nom de l'évènement
    * @param {Object} detail Détail envoyé avec l'évènement
    */
-   _sendEvent(eventName, detail) {
+  _sendEvent(eventName, detail) {
     if (!this.isChild && eventName === 'subjectClick') {
       // Si on est sur l'évaluateur racine et qu'il s'agit d'un clic sur un subject-infos, appel à la méthode callBack
       if (this.onSubjectClicked && detail.subject) {

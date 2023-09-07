@@ -1,7 +1,6 @@
 export const evaluatorLabel = {
   fr: {
-    forAdvancedOnly:
-      'Vous devez être en mode avancé pour voir ces informations !',
+    forAdvancedOnly: 'Vous devez être en mode avancé pour voir ces informations !',
     'authenticatedUsers.text': 'Tous les utilisateurs authentifiés',
     'userAttribute.subjetIs': 'Utilisateur ',
     'userAttribute.attribute': "Utilisateurs avec l'attribut '{attribute}'",

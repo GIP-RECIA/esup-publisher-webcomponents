@@ -130,7 +130,9 @@ export const bootstrapStyle = css`
     -moz-appearance: none;
     appearance: none;
     border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition:
+      border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
   }
   @media (prefers-reduced-motion: reduce) {
     .form-control {
@@ -174,7 +176,9 @@ export const bootstrapStyle = css`
     background-size: 16px 12px;
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition:
+      border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -210,20 +214,20 @@ export const bootstrapStyle = css`
     width: 100%;
   }
 
-  .input-group:not(.has-validation)
-    > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),
+  .input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),
   .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n + 3) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  .input-group.has-validation
-    > :nth-last-child(n + 3):not(.dropdown-toggle):not(.dropdown-menu),
+  .input-group.has-validation > :nth-last-child(n + 3):not(.dropdown-toggle):not(.dropdown-menu),
   .input-group.has-validation > .dropdown-toggle:nth-last-child(n + 4) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
   .input-group
-    > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(
+      .invalid-feedback
+    ) {
     margin-left: -1px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -246,8 +250,11 @@ export const bootstrapStyle = css`
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
     border-radius: 0.25rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition:
+      color 0.15s ease-in-out,
+      background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out,
+      box-shadow 0.15s ease-in-out;
   }
   @media (prefers-reduced-motion: reduce) {
     .btn {

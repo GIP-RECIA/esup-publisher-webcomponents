@@ -90,8 +90,7 @@ export class ColorPalettePicker extends LitElement {
     // Si les propriétés color ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      initDatas =
-        changedProperties.has('color') || changedProperties.has('config')
+      initDatas = changedProperties.has('color') || changedProperties.has('config')
     }
 
     if (initDatas) {
@@ -99,10 +98,7 @@ export class ColorPalettePicker extends LitElement {
       this._color = this.color
       this._originalColor = this.color
       this._localization.labels = colorPaletteLabel
-      this._localization.lang =
-        this.config && this.config.lang
-          ? this.config.lang
-          : this._localization.lang
+      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         this._localization.mergeLabels(this.config.labels)

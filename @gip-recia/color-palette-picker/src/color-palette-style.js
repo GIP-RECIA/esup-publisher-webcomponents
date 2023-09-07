@@ -51,9 +51,7 @@ export const colorPaletteStyle = css`
     margin-left: -10px;
   }
 
-  .color-palette-picker
-    .color-palette
-    div.transparent-color.palette-selected-color:after {
+  .color-palette-picker .color-palette div.transparent-color.palette-selected-color:after {
     color: black;
   }
 

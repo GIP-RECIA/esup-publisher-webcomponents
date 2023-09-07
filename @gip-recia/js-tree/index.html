@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="">
   <head>
@@ -6,9 +6,7 @@
     <title>Esup-Publisher - Js-Tree</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
-    <link
-      rel="stylesheet"
-      href="../node_modules/@fortawesome/fontawesome-free/css/all.css" />
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css" />
     <script type="module" src="./src/js-tree.js"></script>
   </head>
   <body>
@@ -17,18 +15,10 @@
     </header>
     <div>
       <button type="button" onclick="addNode()">Add node</button>
-      <button type="button" onclick="selectNode('6:PUBLISHER')">
-        Select "Direction" node
-      </button>
-      <button type="button" onclick="deleteNode('5:PUBLISHER')">
-        Delete "Pédagogie" node
-      </button>
-      <button type="button" onclick="refreshNode()">
-        Refresh "Actualités" children (delete last children)
-      </button>
-      <button type="button" onclick="deselectNodes()">
-        Deselect all nodes
-      </button>
+      <button type="button" onclick="selectNode('6:PUBLISHER')">Select "Direction" node</button>
+      <button type="button" onclick="deleteNode('5:PUBLISHER')">Delete "Pédagogie" node</button>
+      <button type="button" onclick="refreshNode()">Refresh "Actualités" children (delete last children)</button>
+      <button type="button" onclick="deselectNodes()">Deselect all nodes</button>
     </div>
   </body>
   <script>

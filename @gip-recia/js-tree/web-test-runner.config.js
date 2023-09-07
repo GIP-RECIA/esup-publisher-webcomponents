@@ -75,9 +75,7 @@ const noBrowser = b => {
 }
 let commandLineBrowsers
 try {
-  commandLineBrowsers = process.env.BROWSERS?.split(',').map(
-    b => browsers[b] ?? noBrowser(b)
-  )
+  commandLineBrowsers = process.env.BROWSERS?.split(',').map(b => browsers[b] ?? noBrowser(b))
 } catch (e) {
   console.warn(e)
 }

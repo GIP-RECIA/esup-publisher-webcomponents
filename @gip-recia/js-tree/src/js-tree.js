@@ -50,8 +50,7 @@ export class JsTree extends LitElement {
     // Si les propriétés datas ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      initDatas =
-        changedProperties.has('datas') || changedProperties.has('config')
+      initDatas = changedProperties.has('datas') || changedProperties.has('config')
     }
 
     if (initDatas) {
@@ -64,9 +63,7 @@ export class JsTree extends LitElement {
       this._activeElement = null
       if (this._datas && this._datas.length > 0) {
         if (this.config.sort) {
-          this._activeElement = this._datas.sort((node1, node2) =>
-            node1.text.localeCompare(node2.text)
-          )[0]
+          this._activeElement = this._datas.sort((node1, node2) => node1.text.localeCompare(node2.text))[0]
         } else {
           this._activeElement = this._datas[0]
         }
@@ -79,11 +76,7 @@ export class JsTree extends LitElement {
 
     // Cochage des checkbox des éléments sélectionnés
     this.shadowRoot.querySelectorAll('input[type="checkbox"]').forEach(el => {
-      const data = this._findDatasByProperty(
-        this._datas,
-        'idHtml',
-        el.id.replace('-checkbox', '')
-      )
+      const data = this._findDatasByProperty(this._datas, 'idHtml', el.id.replace('-checkbox', ''))
       if (data && data.length === 1) {
         el.checked = data[0].selected
       }
@@ -117,11 +110,7 @@ export class JsTree extends LitElement {
    * Méthode permettant de désélectionner tous les noeuds.
    */
   deselectAllNodes() {
-    const previousSelectedDatas = this._findDatasByProperty(
-      this._datas,
-      'selected',
-      true
-    )
+    const previousSelectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
     if (previousSelectedDatas && previousSelectedDatas.length > 0) {
       this._unSelectDatas(this._datas)
 
@@ -166,26 +155,16 @@ export class JsTree extends LitElement {
     if (id) {
       const data = this._findDatasByProperty(this._datas, 'id', id)
       if (data && data.length > 0) {
-        const previousSelectedDatas = this._findDatasByProperty(
-          this._datas,
-          'selected',
-          true
-        )
+        const previousSelectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
         if (data[0].parent) {
-          data[0].parent.loadedChildren = data[0].parent.loadedChildren.filter(
-            child => child.id !== data[0].id
-          )
+          data[0].parent.loadedChildren = data[0].parent.loadedChildren.filter(child => child.id !== data[0].id)
         } else {
           this._datas = this._datas.filter(child => child.id !== data[0].id)
         }
 
         this.requestUpdate()
 
-        const nextSelectedDatas = this._findDatasByProperty(
-          this._datas,
-          'selected',
-          true
-        )
+        const nextSelectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
         if (previousSelectedDatas.length !== nextSelectedDatas.length) {
           // Information d'une désélection
           this._sendSelection()
@@ -205,20 +184,12 @@ export class JsTree extends LitElement {
     if (id) {
       const data = this._findDatasByProperty(this._datas, 'id', id)
       if (data && data.length > 0) {
-        const previousSelectedDatas = this._findDatasByProperty(
-          this._datas,
-          'selected',
-          true
-        )
+        const previousSelectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
 
         this._refreshNodes(data[0], properties, refreshChildren).then(() => {
           this.requestUpdate()
 
-          const nextSelectedDatas = this._findDatasByProperty(
-            this._datas,
-            'selected',
-            true
-          )
+          const nextSelectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
           if (previousSelectedDatas.length !== nextSelectedDatas.length) {
             // Information d'une désélection
             this._sendSelection()
@@ -274,11 +245,7 @@ export class JsTree extends LitElement {
    * @returns Code HTML
    */
   _renderIconIndicator(data) {
-    if (
-      data.children &&
-      (!data.areChildrenLoaded ||
-        (data.loadedChildren && data.loadedChildren.length > 0))
-    ) {
+    if (data.children && (!data.areChildrenLoaded || (data.loadedChildren && data.loadedChildren.length > 0))) {
       // prettier-ignore
       return  html`<i class="icon icon-indicator"></i>`
     } else {
@@ -381,21 +348,12 @@ export class JsTree extends LitElement {
       if (this._activeElement.expanded) {
         this._activeElement.expanded = false
         if (this._activeElement.ulClasses.includes('subtree-active')) {
-          this._activeElement.ulClasses.splice(
-            this._activeElement.ulClasses.indexOf('subtree-active'),
-            1
-          )
+          this._activeElement.ulClasses.splice(this._activeElement.ulClasses.indexOf('subtree-active'), 1)
         }
         if (this._activeElement.liClasses.includes('item-active')) {
-          this._activeElement.liClasses.splice(
-            this._activeElement.liClasses.indexOf('item-active'),
-            1
-          )
+          this._activeElement.liClasses.splice(this._activeElement.liClasses.indexOf('item-active'), 1)
         }
-      } else if (
-        this._activeElement.parent &&
-        this._activeElement.parent.expanded
-      ) {
+      } else if (this._activeElement.parent && this._activeElement.parent.expanded) {
         this._activeElement = this._activeElement.parent
       }
       event.preventDefault()
@@ -416,10 +374,7 @@ export class JsTree extends LitElement {
       // On déplie l'élément actif
       if (this._activeElement.children) {
         if (this._activeElement.expanded) {
-          if (
-            this._activeElement.loadedChildren &&
-            this._activeElement.loadedChildren.length > 0
-          ) {
+          if (this._activeElement.loadedChildren && this._activeElement.loadedChildren.length > 0) {
             this._activeElement = this._activeElement.loadedChildren[0]
           }
           event.preventDefault()
@@ -456,9 +411,7 @@ export class JsTree extends LitElement {
         ) {
           this._activeElement = this._activeElement.loadedChildren[0]
         } else {
-          const sibbling = this._getDownVisibleSiblingElement(
-            this._activeElement
-          )
+          const sibbling = this._getDownVisibleSiblingElement(this._activeElement)
           if (sibbling != null) {
             this._activeElement = sibbling
           }
@@ -524,13 +477,7 @@ export class JsTree extends LitElement {
         result.push(data)
       }
       if (data.children && data.loadedChildren) {
-        result = result.concat(
-          this._findDatasByProperty(
-            data.loadedChildren,
-            propertyName,
-            propertyValue
-          )
-        )
+        result = result.concat(this._findDatasByProperty(data.loadedChildren, propertyName, propertyValue))
       }
     })
     return result
@@ -565,10 +512,7 @@ export class JsTree extends LitElement {
       data.getChildren().then(children => {
         callback(children)
       })
-    } else if (
-      Array.isArray(data.getChildren) ||
-      data.getChildren instanceof Array
-    ) {
+    } else if (Array.isArray(data.getChildren) || data.getChildren instanceof Array) {
       callback(data.getChildren)
     }
   }
@@ -613,9 +557,7 @@ export class JsTree extends LitElement {
       for (let i = 0; i < element.parent.loadedChildren.length; i++) {
         if (element.parent.loadedChildren[i].id === element.id) {
           if (i > 0) {
-            return this._getLastVisibleChild(
-              element.parent.loadedChildren[i - 1]
-            )
+            return this._getLastVisibleChild(element.parent.loadedChildren[i - 1])
           } else {
             return element.parent
           }
@@ -640,14 +582,8 @@ export class JsTree extends LitElement {
    * @returns Elément le plus bas
    */
   _getLastVisibleChild(element) {
-    if (
-      element.expanded &&
-      element.loadedChildren &&
-      element.loadedChildren.length > 0
-    ) {
-      return this._getLastVisibleChild(
-        element.loadedChildren[element.loadedChildren.length - 1]
-      )
+    if (element.expanded && element.loadedChildren && element.loadedChildren.length > 0) {
+      return this._getLastVisibleChild(element.loadedChildren[element.loadedChildren.length - 1])
     } else {
       return element
     }
@@ -659,11 +595,7 @@ export class JsTree extends LitElement {
   _sendSelection() {
     // Appel de la méthode pour informer d'une sélection/désélection
     if (this.onSelection) {
-      const selectedDatas = this._findDatasByProperty(
-        this._datas,
-        'selected',
-        true
-      )
+      const selectedDatas = this._findDatasByProperty(this._datas, 'selected', true)
       this.onSelection(selectedDatas)
     }
   }
@@ -682,24 +614,18 @@ export class JsTree extends LitElement {
         this._getChildren(oldNode, newChildren => {
           // Suppresson des enfants qui ne sont plus là
           const newIds = newChildren.map(c => c.id)
-          oldNode.loadedChildren = oldNode.loadedChildren.filter(child =>
-            newIds.includes(child.id)
-          )
+          oldNode.loadedChildren = oldNode.loadedChildren.filter(child => newIds.includes(child.id))
           // Ajout/Mise à jour des enfants
           let index = 0
           const promises = []
           newChildren.forEach(newChild => {
-            const oldChild = oldNode.loadedChildren.find(
-              c => c.id === newChild.id
-            )
+            const oldChild = oldNode.loadedChildren.find(c => c.id === newChild.id)
             if (!oldChild) {
               this._initDataList([newChild], oldNode.idHtml)
               newChild.parent = oldNode
               oldNode.loadedChildren.splice(index, 0, newChild)
             } else {
-              promises.push(
-                this._refreshNodes(oldChild, newChild, refreshChildren)
-              )
+              promises.push(this._refreshNodes(oldChild, newChild, refreshChildren))
             }
             index++
           })

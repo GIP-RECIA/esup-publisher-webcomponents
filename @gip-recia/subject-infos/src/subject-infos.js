@@ -2,12 +2,7 @@ import { LitElement, html } from 'lit'
 import { classMap } from 'lit/directives/class-map.js'
 import { subjectInfosStyle } from './subject-infos-style.js'
 import { subjectInfoLabel } from './subject-infos-label.js'
-import {
-  Localization,
-  ToolTip,
-  Utils,
-  bootstrapToolTipStyle
-} from '@gip-recia/esup-publisher-webcomponents-utils'
+import { Localization, ToolTip, Utils, bootstrapToolTipStyle } from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Subject Infos component.
@@ -53,11 +48,7 @@ export class SubjectInfos extends LitElement {
         rendering = this._htmlFromDTO(this._subject)
       } else if ('keyType' in this._subject && 'keyId' in this._subject) {
         rendering = this._htmlFromKey(this._subject)
-      } else if (
-        'keyValue' in this._subject &&
-        'keyAttribute' in this._subject &&
-        'keyType' in this._subject
-      ) {
+      } else if ('keyValue' in this._subject && 'keyAttribute' in this._subject && 'keyType' in this._subject) {
         rendering = this._htmlFromExtendedKey(this._subject)
       }
     }
@@ -76,24 +67,17 @@ export class SubjectInfos extends LitElement {
     // Si les propriétés subject ou config sont modifiées, on initialise les éléments
     let initDatas = false
     if (changedProperties) {
-      initDatas =
-        changedProperties.has('subject') || changedProperties.has('config')
+      initDatas = changedProperties.has('subject') || changedProperties.has('config')
     }
     if (initDatas) {
       this._localization.labels = subjectInfoLabel
-      this._localization.lang =
-        this.config && this.config.lang
-          ? this.config.lang
-          : this._localization.lang
+      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         this._localization.mergeLabels(this.config.labels)
       }
       // to resolve and complete subject
-      if (
-        this.config.getSubjectInfos &&
-        (!Utils.isDefined(this.config.resolveKey) || this.config.resolveKey)
-      ) {
+      if (this.config.getSubjectInfos && (!Utils.isDefined(this.config.resolveKey) || this.config.resolveKey)) {
         if (
           Utils.isDefined(this.subject) &&
           Utils.isDefined(this.subject.modelId) &&
@@ -108,21 +92,12 @@ export class SubjectInfos extends LitElement {
             this.subject.modelId.keyType !== this._subject.modelId.keyType ||
             this.subject.modelId.keyId !== this._subject.modelId.keyId
           ) {
-            this.config
-              .getSubjectInfos(
-                this.subject.modelId.keyType,
-                this.subject.modelId.keyId
-              )
-              .then(result => {
-                this._subject = result
-                this.requestUpdate()
-              })
+            this.config.getSubjectInfos(this.subject.modelId.keyType, this.subject.modelId.keyId).then(result => {
+              this._subject = result
+              this.requestUpdate()
+            })
           }
-        } else if (
-          Utils.isDefined(this.subject) &&
-          'keyType' in this.subject &&
-          'keyId' in this.subject
-        ) {
+        } else if (Utils.isDefined(this.subject) && 'keyType' in this.subject && 'keyId' in this.subject) {
           // is key Id
           // On teste si on n'a pas déjà récupéré les infos
           if (
@@ -131,12 +106,10 @@ export class SubjectInfos extends LitElement {
             this.subject.keyType !== this._subject.modelId.keyType ||
             this.subject.keyId !== this._subject.modelId.keyId
           ) {
-            this.config
-              .getSubjectInfos(this.subject.keyType, this.subject.keyId)
-              .then(result => {
-                this._subject = result
-                this.requestUpdate()
-              })
+            this.config.getSubjectInfos(this.subject.keyType, this.subject.keyId).then(result => {
+              this._subject = result
+              this.requestUpdate()
+            })
           }
         } else {
           this._subject = this.subject
@@ -163,9 +136,7 @@ export class SubjectInfos extends LitElement {
   _htmlFromDTO(subject) {
     const type = subject.modelId.keyType
     if (['PERSON', 'GROUP'].includes(type)) {
-      const isFound =
-        subject.foundOnExternalSource === true ||
-        (subject.displayName && subject.displayName.length > 0)
+      const isFound = subject.foundOnExternalSource === true || (subject.displayName && subject.displayName.length > 0)
       const cssLink = {
         'icon-users': type === 'GROUP',
         'icon-user': type === 'PERSON'
@@ -211,9 +182,7 @@ export class SubjectInfos extends LitElement {
         </a>
       `
     } else {
-      throw new Error(
-        'Subject Type not managed and should not be tested :' + type
-      )
+      throw new Error('Subject Type not managed and should not be tested :' + type)
     }
   }
 
@@ -274,21 +243,11 @@ export class SubjectInfos extends LitElement {
     const userAttrs = this.config.userDisplayedAttrs || []
     if (!Utils.isDefined(userAttrs) || !Utils.isDefined(subject)) return ''
     if (Utils.isDefined(subject.keyId)) {
-      return (
-        "'" + subject.keyId + "'" + this._localization.getLabel('disappear')
-      )
+      return "'" + subject.keyId + "'" + this._localization.getLabel('disappear')
     }
     if (!Utils.isDefined(subject.modelId)) return ''
-    if (
-      Utils.isDefined(subject.modelId) &&
-      subject.foundOnExternalSource !== true
-    ) {
-      return (
-        "'" +
-        subject.modelId.keyId +
-        "'" +
-        this._localization.getLabel('disappear')
-      )
+    if (Utils.isDefined(subject.modelId) && subject.foundOnExternalSource !== true) {
+      return "'" + subject.modelId.keyId + "'" + this._localization.getLabel('disappear')
     }
     if (subject.modelId.keyType === 'GROUP') {
       return subject.modelId.keyId
@@ -298,23 +257,12 @@ export class SubjectInfos extends LitElement {
     var attrs = subject.attributes
     var resHtml = ''
     for (index = 0; index < userAttrs.length; ++index) {
-      if (
-        index > 0 &&
-        Utils.isDefined(attrs[userAttrs[index]]) &&
-        resHtml !== ''
-      ) {
+      if (index > 0 && Utils.isDefined(attrs[userAttrs[index]]) && resHtml !== '') {
         resHtml += ' - '
       }
-      if (
-        Utils.isDefined(attrs[userAttrs[index]]) &&
-        Array.isArray(attrs[userAttrs[index]])
-      ) {
+      if (Utils.isDefined(attrs[userAttrs[index]]) && Array.isArray(attrs[userAttrs[index]])) {
         var subIndex
-        for (
-          subIndex = 0;
-          subIndex < attrs[userAttrs[index]].length;
-          ++subIndex
-        ) {
+        for (subIndex = 0; subIndex < attrs[userAttrs[index]].length; ++subIndex) {
           if (subIndex > 0) {
             resHtml += ', '
           }

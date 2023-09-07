@@ -3,12 +3,7 @@ import { subjectSearchButtonStyle } from './subject-search-button-style.js'
 import { subjectSearchButtonLabel } from './subject-search-button-label.js'
 import { bootstrapStyle } from './bootstrap-style.js'
 import '@gip-recia/js-tree'
-import {
-  Localization,
-  ToolTip,
-  Utils,
-  bootstrapToolTipStyle
-} from '@gip-recia/esup-publisher-webcomponents-utils'
+import { Localization, ToolTip, Utils, bootstrapToolTipStyle } from '@gip-recia/esup-publisher-webcomponents-utils'
 
 /**
  * Subject Search Button component.
@@ -96,10 +91,7 @@ export class SubjectSearchButton extends LitElement {
           <i class="icon icon-plus"></i><span>&nbsp;${this._localization.getLabel('type.userfromgroup')}</span>
         </button>
       `
-      modals = html`
-        ${modals} ${this._renderUserListModal()}
-        ${this._renderUserFromGroupListModal()}
-      `
+      modals = html` ${modals} ${this._renderUserListModal()} ${this._renderUserFromGroupListModal()} `
     }
     // prettier-ignore
     rendering = html`
@@ -120,10 +112,7 @@ export class SubjectSearchButton extends LitElement {
           </button>
         </div>
       `
-      modals = html`
-        ${modals} ${this._renderUserAttributeModal()}
-        ${this._renderUserAttributeRegexModal()}
-      `
+      modals = html` ${modals} ${this._renderUserAttributeModal()} ${this._renderUserAttributeRegexModal()} `
     }
     // prettier-ignore
     return html`
@@ -144,10 +133,7 @@ export class SubjectSearchButton extends LitElement {
     }
     if (initDatas) {
       this._localization.labels = subjectSearchButtonLabel
-      this._localization.lang =
-        this.config && this.config.lang
-          ? this.config.lang
-          : this._localization.lang
+      this._localization.lang = this.config && this.config.lang ? this.config.lang : this._localization.lang
       // Surcharge des labels
       if (this.config && this.config.labels) {
         this._localization.mergeLabels(this.config.labels)
@@ -161,41 +147,21 @@ export class SubjectSearchButton extends LitElement {
     super.updated(changedProperties)
 
     // Sélection des radiobuton/checkbox des utilisateur sélectionnés dans la modal des utilisateurs
-    this.shadowRoot
-      .querySelectorAll(
-        '#userListModal' + this.searchId + ' input[type="radio"]'
-      )
-      .forEach(el => {
-        el.checked =
-          this._resultsArr[el.dataset.index] === this._container.subject
-      })
-    this.shadowRoot
-      .querySelectorAll(
-        '#userListModal' + this.searchId + ' input[type="checkbox"]'
-      )
-      .forEach(el => {
-        el.checked = this._container.subjects.includes(
-          this._resultsArr[el.dataset.index]
-        )
-      })
+    this.shadowRoot.querySelectorAll('#userListModal' + this.searchId + ' input[type="radio"]').forEach(el => {
+      el.checked = this._resultsArr[el.dataset.index] === this._container.subject
+    })
+    this.shadowRoot.querySelectorAll('#userListModal' + this.searchId + ' input[type="checkbox"]').forEach(el => {
+      el.checked = this._container.subjects.includes(this._resultsArr[el.dataset.index])
+    })
 
     // Sélection des radiobuton/checkbox des utilisateurs sélectionnés dans la modal des utilisateurs de groupe
+    this.shadowRoot.querySelectorAll('#userFromGroupListModal' + this.searchId + ' input[type="radio"]').forEach(el => {
+      el.checked = this._resultsArr[el.dataset.index] === this._container.subject
+    })
     this.shadowRoot
-      .querySelectorAll(
-        '#userFromGroupListModal' + this.searchId + ' input[type="radio"]'
-      )
+      .querySelectorAll('#userFromGroupListModal' + this.searchId + ' input[type="checkbox"]')
       .forEach(el => {
-        el.checked =
-          this._resultsArr[el.dataset.index] === this._container.subject
-      })
-    this.shadowRoot
-      .querySelectorAll(
-        '#userFromGroupListModal' + this.searchId + ' input[type="checkbox"]'
-      )
-      .forEach(el => {
-        el.checked = this._container.subjects.includes(
-          this._resultsArr[el.dataset.index]
-        )
+        el.checked = this._container.subjects.includes(this._resultsArr[el.dataset.index])
       })
 
     this._tooltips.forEach(tt => tt.updateToolTip(this.shadowRoot))
@@ -578,13 +544,9 @@ export class SubjectSearchButton extends LitElement {
         this.config
       )
       tree.onSelection = datas => this._onTreeGroupSelection(datas)
-      this.shadowRoot
-        .querySelector('#groupListModal' + this.searchId + ' .tree')
-        .appendChild(tree)
+      this.shadowRoot.querySelector('#groupListModal' + this.searchId + ' .tree').appendChild(tree)
     }
-    this.shadowRoot.querySelector(
-      '#groupListModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#groupListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
     this._showModal('groupListModal' + this.searchId)
   }
 
@@ -613,15 +575,10 @@ export class SubjectSearchButton extends LitElement {
    */
   _showUserListModal() {
     this._clearSubject()
-    this.shadowRoot.querySelector(
-      '#userListModal' + this.searchId + ' #search'
-    ).value = this._search.queryUserTerm
-    this.shadowRoot.querySelector(
-      '#userListModal' + this.searchId + ' button.search'
-    ).disabled = this._search.queryUserTerm.length < 3
-    this.shadowRoot.querySelector(
-      '#userListModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' #search').value = this._search.queryUserTerm
+    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' button.search').disabled =
+      this._search.queryUserTerm.length < 3
+    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
     this._showModal('userListModal' + this.searchId)
   }
 
@@ -646,9 +603,7 @@ export class SubjectSearchButton extends LitElement {
    */
   _showUserFromGroupListModal() {
     this._clearSubject()
-    var tree = this.shadowRoot.querySelector(
-      '#jsTreeUserFromGroup' + this.searchId
-    )
+    var tree = this.shadowRoot.querySelector('#jsTreeUserFromGroup' + this.searchId)
     if (!tree) {
       tree = document.createElement('esup-js-tree')
       tree.setAttribute('id', 'jsTreeUserFromGroup' + this.searchId)
@@ -663,13 +618,10 @@ export class SubjectSearchButton extends LitElement {
         this.config
       )
       tree.onSelection = datas => this._onTreeUserFromGroupSelection(datas)
-      this.shadowRoot
-        .querySelector('#userFromGroupListModal' + this.searchId + ' .tree')
-        .appendChild(tree)
+      this.shadowRoot.querySelector('#userFromGroupListModal' + this.searchId + ' .tree').appendChild(tree)
     }
-    this.shadowRoot.querySelector(
-      '#userFromGroupListModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userFromGroupListModal' + this.searchId + ' button.validate').disabled =
+      !this._canSubmit()
     this._showModal('userFromGroupListModal' + this.searchId)
   }
 
@@ -678,9 +630,7 @@ export class SubjectSearchButton extends LitElement {
    */
   _hideUserFromGroupListModal() {
     this._clearSubject()
-    const tree = this.shadowRoot.querySelector(
-      '#jsTreeUserFromGroup' + this.searchId
-    )
+    const tree = this.shadowRoot.querySelector('#jsTreeUserFromGroup' + this.searchId)
     if (tree) {
       tree.deselectAllNodes()
     }
@@ -705,15 +655,10 @@ export class SubjectSearchButton extends LitElement {
       keyValue: null,
       keyType: 'PERSON_ATTR'
     }
-    this.shadowRoot.querySelector(
-      '#userAttributeModal' + this.searchId + ' option[value=""]'
-    ).selected = true
-    this.shadowRoot.querySelector(
-      '#userAttributeModal' + this.searchId + ' #userValue'
-    ).value = ''
-    this.shadowRoot.querySelector(
-      '#userAttributeModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userAttributeModal' + this.searchId + ' option[value=""]').selected = true
+    this.shadowRoot.querySelector('#userAttributeModal' + this.searchId + ' #userValue').value = ''
+    this.shadowRoot.querySelector('#userAttributeModal' + this.searchId + ' button.validate').disabled =
+      !this._canSubmit()
     this._showModal('userAttributeModal' + this.searchId)
   }
 
@@ -743,15 +688,10 @@ export class SubjectSearchButton extends LitElement {
       keyValue: null,
       keyType: 'PERSON_ATTR_REGEX'
     }
-    this.shadowRoot.querySelector(
-      '#userAttributeRegexModal' + this.searchId + ' option[value=""]'
-    ).selected = true
-    this.shadowRoot.querySelector(
-      '#userAttributeRegexModal' + this.searchId + ' #userRegexValue'
-    ).value = ''
-    this.shadowRoot.querySelector(
-      '#userAttributeRegexModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userAttributeRegexModal' + this.searchId + ' option[value=""]').selected = true
+    this.shadowRoot.querySelector('#userAttributeRegexModal' + this.searchId + ' #userRegexValue').value = ''
+    this.shadowRoot.querySelector('#userAttributeRegexModal' + this.searchId + ' button.validate').disabled =
+      !this._canSubmit()
     this._showModal('userAttributeRegexModal' + this.searchId)
   }
 
@@ -790,11 +730,8 @@ export class SubjectSearchButton extends LitElement {
         this._container.extendedSubject.keyValue.length <= 512) ||
       (Utils.isDefined(this._container.subjects) &&
         this._container.subjects.length > 0 &&
-        Utils.isDefined(
-          this._container.subjects[this._container.subjects.length - 1].modelId
-        ) &&
-        this._container.subjects[this._container.subjects.length - 1]
-          .modelId !== {})
+        Utils.isDefined(this._container.subjects[this._container.subjects.length - 1].modelId) &&
+        this._container.subjects[this._container.subjects.length - 1].modelId !== {})
     )
   }
 
@@ -803,17 +740,11 @@ export class SubjectSearchButton extends LitElement {
    */
   _submitSubject() {
     let result = []
-    if (
-      this._container.subjects &&
-      Utils.isArray(this._container.subjects) &&
-      this._container.subjects.length > 0
-    ) {
+    if (this._container.subjects && Utils.isArray(this._container.subjects) && this._container.subjects.length > 0) {
       if (this.multiSelection) {
         result = this._container.subjects
       } else {
-        result.push(
-          this._container.subjects[this._container.subjects.length - 1]
-        )
+        result.push(this._container.subjects[this._container.subjects.length - 1])
       }
     } else if (
       Utils.isDefined(this._container.subject) &&
@@ -821,10 +752,7 @@ export class SubjectSearchButton extends LitElement {
       this._container.subject.modelId !== {}
     ) {
       result.push(this._container.subject)
-    } else if (
-      Utils.isDefined(this._container.extendedSubject) &&
-      this._container.extendedSubject !== {}
-    ) {
+    } else if (Utils.isDefined(this._container.extendedSubject) && this._container.extendedSubject !== {}) {
       result.push(this._container.extendedSubject)
     }
     if (this.onSelection) {
@@ -895,12 +823,7 @@ export class SubjectSearchButton extends LitElement {
    */
   _tooltipUser(user) {
     const userAttrs = this.config.userDisplayedAttrs || []
-    if (
-      !Utils.isDefined(userAttrs) ||
-      !Utils.isDefined(user) ||
-      !Utils.isDefined(user.attributes)
-    )
-      return
+    if (!Utils.isDefined(userAttrs) || !Utils.isDefined(user) || !Utils.isDefined(user.attributes)) return
     var index
     var attrs = user.attributes
     var resHtml = ''
@@ -908,16 +831,9 @@ export class SubjectSearchButton extends LitElement {
       if (index > 0 && Utils.isDefined(attrs[userAttrs[index]])) {
         resHtml += ' - '
       }
-      if (
-        Utils.isDefined(attrs[userAttrs[index]]) &&
-        Utils.isArray(attrs[userAttrs[index]])
-      ) {
+      if (Utils.isDefined(attrs[userAttrs[index]]) && Utils.isArray(attrs[userAttrs[index]])) {
         var subIndex
-        for (
-          subIndex = 0;
-          subIndex < attrs[userAttrs[index]].length;
-          ++subIndex
-        ) {
+        for (subIndex = 0; subIndex < attrs[userAttrs[index]].length; ++subIndex) {
           if (subIndex > 0) {
             resHtml += ', '
           }
@@ -938,9 +854,7 @@ export class SubjectSearchButton extends LitElement {
   _onTreeGroupSelection(selectedGroups) {
     this._container.subjects = selectedGroups.map(group => group.a_attr.model)
     // Activation/désactivation du bouton de validation de la modale
-    this.shadowRoot.querySelector(
-      '#groupListModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#groupListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
   }
 
   /**
@@ -955,26 +869,21 @@ export class SubjectSearchButton extends LitElement {
     this._currentPage = 1
     this._nbTotalItems = 0
     if (this.config.getGroupMembers && selectedGroups.length > 0) {
-      this.config
-        .getGroupMembers(selectedGroups[0].a_attr.model.modelId.keyId)
-        .then(result => {
-          if (result.length > 0) {
-            this._userResult = result
-            this._userResult.sort((user1, user2) =>
-              user1.displayName.localeCompare(user2.displayName)
-            )
-            this._nbTotalItems = this._userResult.length
-            this._resultsArr = this._userResult.slice(0, this._numPerPage)
-          }
-          this.requestUpdate()
-        })
+      this.config.getGroupMembers(selectedGroups[0].a_attr.model.modelId.keyId).then(result => {
+        if (result.length > 0) {
+          this._userResult = result
+          this._userResult.sort((user1, user2) => user1.displayName.localeCompare(user2.displayName))
+          this._nbTotalItems = this._userResult.length
+          this._resultsArr = this._userResult.slice(0, this._numPerPage)
+        }
+        this.requestUpdate()
+      })
     }
     this._container.subject = undefined
     this._container.subjects = []
     // Activation/désactivation du bouton de validation de la modale
-    this.shadowRoot.querySelector(
-      '#userFromGroupListModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userFromGroupListModal' + this.searchId + ' button.validate').disabled =
+      !this._canSubmit()
   }
 
   /**
@@ -986,10 +895,7 @@ export class SubjectSearchButton extends LitElement {
     if (!this.multiSelection) {
       this._container.subject = selectedUser
     } else {
-      if (
-        Utils.isDefined(this._container.subjects) &&
-        this._container.subjects.length > 0
-      ) {
+      if (Utils.isDefined(this._container.subjects) && this._container.subjects.length > 0) {
         let index = -1
         for (let i = 0; i < this._container.subjects.length; i++) {
           if (this._container.subjects[i] === selectedUser) {
@@ -1007,9 +913,8 @@ export class SubjectSearchButton extends LitElement {
       }
     }
     // Activation/désactivation du bouton de validation de la modale
-    this.shadowRoot.querySelector(
-      '#userFromGroupListModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userFromGroupListModal' + this.searchId + ' button.validate').disabled =
+      !this._canSubmit()
   }
 
   /**
@@ -1020,9 +925,8 @@ export class SubjectSearchButton extends LitElement {
   _onInputUserTerm(val) {
     this._search.queryUserTerm = val
     // Activation/désactivation du bouton de recherche
-    this.shadowRoot.querySelector(
-      '#userListModal' + this.searchId + ' button.search'
-    ).disabled = this._search.queryUserTerm.length < 3
+    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' button.search').disabled =
+      this._search.queryUserTerm.length < 3
   }
 
   /**
@@ -1051,10 +955,7 @@ export class SubjectSearchButton extends LitElement {
     if (this._numPerPage !== _val) {
       this._numPerPage = _val
       this._currentPage = 1
-      this._resultsArr = this._filterOnDisplayName(
-        this._userResult,
-        this._search.filter
-      ).slice(0, this._numPerPage)
+      this._resultsArr = this._filterOnDisplayName(this._userResult, this._search.filter).slice(0, this._numPerPage)
       this.requestUpdate()
     }
   }
@@ -1077,16 +978,9 @@ export class SubjectSearchButton extends LitElement {
   _goToPage(event, page) {
     event.preventDefault()
     event.stopPropagation()
-    if (
-      page > 0 &&
-      page <= this._getTotalPage() &&
-      page !== this._currentPage
-    ) {
+    if (page > 0 && page <= this._getTotalPage() && page !== this._currentPage) {
       this._currentPage = page
-      this._resultsArr = this._filterOnDisplayName(
-        this._userResult,
-        this._search.filter
-      ).slice(
+      this._resultsArr = this._filterOnDisplayName(this._userResult, this._search.filter).slice(
         this._numPerPage * (this._currentPage - 1),
         this._numPerPage * (this._currentPage - 1) + this._numPerPage
       )
@@ -1128,10 +1022,7 @@ export class SubjectSearchButton extends LitElement {
     if (!this.multiSelection) {
       this._container.subject = selectedUser
     } else {
-      if (
-        Utils.isDefined(this._container.subjects) &&
-        this._container.subjects.length > 0
-      ) {
+      if (Utils.isDefined(this._container.subjects) && this._container.subjects.length > 0) {
         let index = -1
         for (let i = 0; i < this._container.subjects.length; i++) {
           if (this._container.subjects[i] === selectedUser) {
@@ -1149,9 +1040,7 @@ export class SubjectSearchButton extends LitElement {
       }
     }
     // Activation/désactivation du bouton de validation de la modale
-    this.shadowRoot.querySelector(
-      '#userListModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
   }
 
   /**
@@ -1167,9 +1056,7 @@ export class SubjectSearchButton extends LitElement {
     }
     var data = []
     inputArray.forEach(item => {
-      if (
-        item.displayName.toLowerCase().indexOf(criteria.toLowerCase()) !== -1
-      ) {
+      if (item.displayName.toLowerCase().indexOf(criteria.toLowerCase()) !== -1) {
         data.push(item)
       }
     })
@@ -1190,9 +1077,7 @@ export class SubjectSearchButton extends LitElement {
         this.config.searchUsers(this._search.queryUserTerm).then(result => {
           if (result.length > 0) {
             this._userResult = result
-            this._userResult.sort((user1, user2) =>
-              user1.displayName.localeCompare(user2.displayName)
-            )
+            this._userResult.sort((user1, user2) => user1.displayName.localeCompare(user2.displayName))
             this._nbTotalItems = this._userResult.length
             this._resultsArr = this._userResult.slice(0, this._numPerPage)
           }
@@ -1202,9 +1087,7 @@ export class SubjectSearchButton extends LitElement {
       this._container.subject = undefined
       this._container.subjects = []
       // Activation/désactivation du bouton de validation de la modale
-      this.shadowRoot.querySelector(
-        '#userListModal' + this.searchId + ' button.validate'
-      ).disabled = !this._canSubmit()
+      this.shadowRoot.querySelector('#userListModal' + this.searchId + ' button.validate').disabled = !this._canSubmit()
     }
   }
 
@@ -1216,9 +1099,8 @@ export class SubjectSearchButton extends LitElement {
   _onChangeUserAttribute(val) {
     this._container.extendedSubject.keyAttribute = val
     // Activation/désactivation du bouton de validation
-    this.shadowRoot.querySelector(
-      '#userAttributeModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userAttributeModal' + this.searchId + ' button.validate').disabled =
+      !this._canSubmit()
   }
 
   /**
@@ -1229,9 +1111,8 @@ export class SubjectSearchButton extends LitElement {
   _onInputUserAttrValue(val) {
     this._container.extendedSubject.keyValue = val
     // Activation/désactivation du bouton de validation
-    this.shadowRoot.querySelector(
-      '#userAttributeModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userAttributeModal' + this.searchId + ' button.validate').disabled =
+      !this._canSubmit()
   }
 
   /**
@@ -1242,9 +1123,8 @@ export class SubjectSearchButton extends LitElement {
   _onChangeUserRegexAttribute(val) {
     this._container.extendedSubject.keyAttribute = val
     // Activation/désactivation du bouton de validation
-    this.shadowRoot.querySelector(
-      '#userAttributeRegexModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userAttributeRegexModal' + this.searchId + ' button.validate').disabled =
+      !this._canSubmit()
   }
 
   /**
@@ -1255,9 +1135,8 @@ export class SubjectSearchButton extends LitElement {
   _onInputUserRegexAttrValue(val) {
     this._container.extendedSubject.keyValue = val
     // Activation/désactivation du bouton de validation
-    this.shadowRoot.querySelector(
-      '#userAttributeRegexModal' + this.searchId + ' button.validate'
-    ).disabled = !this._canSubmit()
+    this.shadowRoot.querySelector('#userAttributeRegexModal' + this.searchId + ' button.validate').disabled =
+      !this._canSubmit()
   }
 
   /**

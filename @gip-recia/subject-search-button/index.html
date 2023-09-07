@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="">
   <head>
@@ -6,9 +6,7 @@
     <title>Esup-Publisher - Subject Search Button</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
-    <link
-      rel="stylesheet"
-      href="../node_modules/@fortawesome/fontawesome-free/css/all.css" />
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css" />
     <script type="module" src="./src/subject-search-button.js"></script>
   </head>
   <body>
@@ -634,14 +632,11 @@
         ])
       }
     }
-    const subjectSearchButton = document.createElement(
-      'esup-subject-search-button'
-    )
+    const subjectSearchButton = document.createElement('esup-subject-search-button')
     subjectSearchButton.config = config
     subjectSearchButton.multiSelection = true
     subjectSearchButton.withExtended = true
-    subjectSearchButton.onSelection = res =>
-      console.log('Subject selected : ', res)
+    subjectSearchButton.onSelection = res => console.log('Subject selected : ', res)
     document.body.appendChild(subjectSearchButton)
   </script>
 </html>

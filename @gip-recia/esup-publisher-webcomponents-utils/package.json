@@ -1,10 +1,13 @@
 {
   "name": "@gip-recia/esup-publisher-webcomponents-utils",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Esup-Publisher Webcomponents Utils",
   "main": "src/index.js",
   "module": "src/index.js",
   "type": "module",
+  "files": [
+    "src"
+  ],
   "scripts": {
     "lint": "npm run lint:lit-analyzer && npm run lint:eslint",
     "lint:eslint": "eslint src/index.js",
@@ -33,21 +36,21 @@
     "lit": "2.8.0"
   },
   "devDependencies": {
-    "@babel/core": "7.22.15",
+    "@babel/core": "7.23.0",
     "@babel/eslint-parser": "7.22.15",
     "@custom-elements-manifest/analyzer": "0.8.4",
     "@esm-bundle/chai": "4.3.4-fix.0",
     "@open-wc/testing": "3.2.0",
     "@open-wc/testing-karma": "4.0.9",
-    "@types/mocha": "10.0.1",
-    "@web/dev-server": "0.3.1",
+    "@types/mocha": "10.0.2",
+    "@web/dev-server": "0.3.2",
     "@web/dev-server-legacy": "2.0.1",
     "@web/test-runner": "0.17.1",
     "@web/test-runner-mocha": "0.8.1",
     "@web/test-runner-playwright": "0.10.1",
     "@webcomponents/webcomponentsjs": "2.8.0",
     "deepmerge": "4.3.1",
-    "eslint": "8.48.0",
+    "eslint": "8.50.0",
     "lit-analyzer": "1.2.1",
     "mocha": "10.2.0",
     "prettier": "3.0.3"

@@ -44,7 +44,7 @@
     "@open-wc/testing-karma": "4.0.9",
     "@types/mocha": "10.0.2",
     "@web/dev-server": "0.3.4",
-    "@web/dev-server-legacy": "2.0.1",
+    "@web/dev-server-legacy": "2.0.3",
     "@web/test-runner": "0.17.2",
     "@web/test-runner-mocha": "0.8.1",
     "@web/test-runner-playwright": "0.10.1",

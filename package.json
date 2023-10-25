@@ -15,6 +15,11 @@
     "test:evaluator": "npm run test --workspace=@gip-recia/evaluator",
     "test:js-tree": "npm run test --workspace=@gip-recia/js-tree",
     "test:subject-infos": "npm run test --workspace=@gip-recia/subject-infos",
-    "test:subject-search-button": "npm run test --workspace=@gip-recia/subject-search-button"
+    "test:subject-search-button": "npm run test --workspace=@gip-recia/subject-search-button",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2"
   }
 }

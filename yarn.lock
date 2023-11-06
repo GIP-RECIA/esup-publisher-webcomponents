@@ -1550,7 +1550,7 @@ __metadata:
     "@fortawesome/fontawesome-free": "npm:6.4.2"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
     "@gip-recia/subject-infos": "npm:0.0.16"
-    "@gip-recia/subject-search-button": "npm:0.0.19"
+    "@gip-recia/subject-search-button": "npm:0.0.20"
     "@open-wc/testing": "npm:3.2.2"
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
@@ -1642,7 +1642,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/subject-search-button@npm:0.0.19, @gip-recia/subject-search-button@workspace:@gip-recia/subject-search-button":
+"@gip-recia/subject-search-button@npm:0.0.20, @gip-recia/subject-search-button@workspace:@gip-recia/subject-search-button":
   version: 0.0.0-use.local
   resolution: "@gip-recia/subject-search-button@workspace:@gip-recia/subject-search-button"
   dependencies:

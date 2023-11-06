@@ -1,21 +1,15 @@
 {
   "name": "esup-publisher-webcomponents",
   "workspaces": [
-    "@gip-recia/color-palette-picker",
     "@gip-recia/esup-publisher-webcomponents-utils",
-    "@gip-recia/evaluator",
-    "@gip-recia/js-tree",
+    "@gip-recia/color-palette-picker",
     "@gip-recia/subject-infos",
-    "@gip-recia/subject-search-button"
+    "@gip-recia/js-tree",
+    "@gip-recia/subject-search-button",
+    "@gip-recia/evaluator"
   ],
   "scripts": {
-    "test": "npm run test:esup-publisher-webcomponents-utils && npm run test:color-palette-picker && npm run test:subject-infos && npm run test:js-tree && npm run test:subject-search-button && npm run test:evaluator",
-    "test:color-palette-picker": "npm run test --workspace=@gip-recia/color-palette-picker",
-    "test:esup-publisher-webcomponents-utils": "npm run test --workspace=@gip-recia/esup-publisher-webcomponents-utils",
-    "test:evaluator": "npm run test --workspace=@gip-recia/evaluator",
-    "test:js-tree": "npm run test --workspace=@gip-recia/js-tree",
-    "test:subject-infos": "npm run test --workspace=@gip-recia/subject-infos",
-    "test:subject-search-button": "npm run test --workspace=@gip-recia/subject-search-button",
+    "test": "npm run test --workspaces",
     "prepare": "husky install"
   },
   "devDependencies": {

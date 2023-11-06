@@ -1575,7 +1575,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/js-tree@npm:0.0.17, @gip-recia/js-tree@workspace:@gip-recia/js-tree":
+"@gip-recia/js-tree@npm:0.0.18, @gip-recia/js-tree@workspace:@gip-recia/js-tree":
   version: 0.0.0-use.local
   resolution: "@gip-recia/js-tree@workspace:@gip-recia/js-tree"
   dependencies:
@@ -1652,7 +1652,7 @@ __metadata:
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.4.2"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
-    "@gip-recia/js-tree": "npm:0.0.17"
+    "@gip-recia/js-tree": "npm:0.0.18"
     "@open-wc/testing": "npm:3.2.2"
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"

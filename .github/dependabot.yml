@@ -5,27 +5,31 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/@gip-recia/color-palette-picker"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/@gip-recia/esup-publisher-webcomponents-utils"
+      interval: 'weekly'
+  - package-ecosystem: 'npm'
+    directory: '/@gip-recia/color-palette-picker'
     schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/@gip-recia/evaluator"
+      interval: 'weekly'
+  - package-ecosystem: 'npm'
+    directory: '/@gip-recia/esup-publisher-webcomponents-utils'
     schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/@gip-recia/js-tree"
+      interval: 'weekly'
+  - package-ecosystem: 'npm'
+    directory: '/@gip-recia/evaluator'
     schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/@gip-recia/subject-infos"
+      interval: 'weekly'
+  - package-ecosystem: 'npm'
+    directory: '/@gip-recia/js-tree'
     schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/@gip-recia/subject-search-button"
+      interval: 'weekly'
+  - package-ecosystem: 'npm'
+    directory: '/@gip-recia/subject-infos'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
+  - package-ecosystem: 'npm'
+    directory: '/@gip-recia/subject-search-button'
+    schedule:
+      interval: 'weekly'

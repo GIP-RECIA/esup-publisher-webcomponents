@@ -1,4 +1,4 @@
 {
-  "@gip-recia/**/*.{js}": ["prettier --write", "eslint --fix"],
+  "@gip-recia/**/*.{js,ts}": ["prettier --write", "eslint --fix"],
   "*.json": ["prettier --write"]
 }

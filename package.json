@@ -1,5 +1,6 @@
 {
   "name": "esup-publisher-webcomponents",
+  "private": true,
   "workspaces": [
     "@gip-recia/esup-publisher-webcomponents-utils",
     "@gip-recia/color-palette-picker",
@@ -9,11 +10,14 @@
     "@gip-recia/evaluator"
   ],
   "scripts": {
-    "test": "npm run test --workspaces",
+    "analyze": "yarn workspaces foreach -A run analyze",
+    "lint": "yarn workspaces foreach -A run lint",
+    "test": "yarn workspaces foreach -A run test",
     "prepare": "husky install"
   },
   "devDependencies": {
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2"
-  }
+  },
+  "packageManager": "yarn@4.0.1"
 }

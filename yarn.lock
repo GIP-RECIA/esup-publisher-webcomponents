@@ -1549,7 +1549,7 @@ __metadata:
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.4.2"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
-    "@gip-recia/subject-infos": "npm:0.0.15"
+    "@gip-recia/subject-infos": "npm:0.0.16"
     "@gip-recia/subject-search-button": "npm:0.0.19"
     "@open-wc/testing": "npm:3.2.2"
     "@open-wc/testing-karma": "npm:4.0.9"
@@ -1608,7 +1608,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/subject-infos@npm:0.0.15, @gip-recia/subject-infos@workspace:@gip-recia/subject-infos":
+"@gip-recia/subject-infos@npm:0.0.16, @gip-recia/subject-infos@workspace:@gip-recia/subject-infos":
   version: 0.0.0-use.local
   resolution: "@gip-recia/subject-infos@workspace:@gip-recia/subject-infos"
   dependencies:

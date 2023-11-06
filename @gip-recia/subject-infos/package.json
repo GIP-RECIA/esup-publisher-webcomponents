@@ -1,6 +1,6 @@
 {
   "name": "@gip-recia/subject-infos",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Subject Infos",
   "main": "src/subject-infos.js",
   "module": "src/subject-infos.js",

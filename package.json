@@ -4,15 +4,16 @@
   "workspaces": [
     "@gip-recia/esup-publisher-webcomponents-utils",
     "@gip-recia/color-palette-picker",
-    "@gip-recia/subject-infos",
     "@gip-recia/js-tree",
+    "@gip-recia/subject-infos",
     "@gip-recia/subject-search-button",
     "@gip-recia/evaluator"
   ],
   "scripts": {
-    "analyze": "yarn workspaces foreach -A run analyze",
-    "lint": "yarn workspaces foreach -A run lint",
-    "test": "yarn workspaces foreach -A run test",
+    "analyze": "yarn workspaces foreach -At run analyze",
+    "build": "yarn workspaces foreach -At run build",
+    "lint": "yarn workspaces foreach -At run lint",
+    "test": "yarn workspaces foreach -At run test",
     "prepare": "husky install"
   },
   "devDependencies": {

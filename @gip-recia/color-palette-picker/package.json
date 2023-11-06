@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
   "dependencies": {
-    "@gip-recia/esup-publisher-webcomponents-utils": "0.0.6",
+    "@gip-recia/esup-publisher-webcomponents-utils": "0.0.7",
     "lit": "2.8.0"
   },
   "devDependencies": {

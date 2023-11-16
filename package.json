@@ -2,12 +2,7 @@
   "name": "esup-publisher-webcomponents",
   "private": true,
   "workspaces": [
-    "@gip-recia/esup-publisher-webcomponents-utils",
-    "@gip-recia/color-palette-picker",
-    "@gip-recia/js-tree",
-    "@gip-recia/subject-infos",
-    "@gip-recia/subject-search-button",
-    "@gip-recia/evaluator"
+    "@gip-recia/*"
   ],
   "scripts": {
     "analyze": "yarn workspaces foreach -At run analyze",
@@ -20,5 +15,5 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.1.0"
   },
-  "packageManager": "yarn@4.0.1"
+  "packageManager": "yarn@4.0.2"
 }

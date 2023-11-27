@@ -2020,6 +2020,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/test@npm:1.39.0":
+  version: 1.39.0
+  resolution: "@playwright/test@npm:1.39.0"
+  dependencies:
+    playwright: "npm:1.39.0"
+  bin:
+    playwright: cli.js
+  checksum: 5d039234609395f3eab46b5954b259bdd80dacf79efe531369c1633647dcafce25a78d497e61e671d661274bf66076426a1bd46be585c44addf23bb5bfaa15a2
+  languageName: node
+  linkType: hard
+
 "@puppeteer/browsers@npm:1.4.6":
   version: 1.4.6
   resolution: "@puppeteer/browsers@npm:1.4.6"
@@ -5296,6 +5307,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "esup-publisher-webcomponents@workspace:."
   dependencies:
+    "@playwright/test": "npm:1.39.0"
     husky: "npm:^8.0.3"
     lint-staged: "npm:^15.1.0"
   languageName: unknown
@@ -8713,7 +8725,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.22.2":
+"playwright@npm:1.39.0, playwright@npm:^1.22.2":
   version: 1.39.0
   resolution: "playwright@npm:1.39.0"
   dependencies:

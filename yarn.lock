@@ -1484,10 +1484,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-free@npm:6.4.2":
-  version: 6.4.2
-  resolution: "@fortawesome/fontawesome-free@npm:6.4.2"
-  checksum: 6bbfb492b0b139f77cddc54b64b3166739a9b46afd68a4b15664722808406a5cbe17820c40cf010a15ab1b5f18847886b5cd52a857ba79fa269981e1318265cb
+"@fortawesome/fontawesome-free@npm:6.5.0":
+  version: 6.5.0
+  resolution: "@fortawesome/fontawesome-free@npm:6.5.0"
+  checksum: a7a3cde8ce8f1a64f86307db79fd597397f080df244e3e7d5c285f9f23560fb9c13d2f24eda463e38fb6565312e0ac5006c7e279adde024dda8abda105d7b323
   languageName: node
   linkType: hard
 
@@ -1499,7 +1499,7 @@ __metadata:
     "@babel/eslint-parser": "npm:7.22.15"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
-    "@fortawesome/fontawesome-free": "npm:6.4.2"
+    "@fortawesome/fontawesome-free": "npm:6.5.0"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
     "@open-wc/testing": "npm:4.0.0"
     "@open-wc/testing-karma": "npm:4.0.9"
@@ -1559,7 +1559,7 @@ __metadata:
     "@babel/eslint-parser": "npm:7.22.15"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
-    "@fortawesome/fontawesome-free": "npm:6.4.2"
+    "@fortawesome/fontawesome-free": "npm:6.5.0"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
     "@gip-recia/subject-infos": "npm:0.0.16"
     "@gip-recia/subject-search-button": "npm:0.0.20"
@@ -1595,7 +1595,7 @@ __metadata:
     "@babel/eslint-parser": "npm:7.22.15"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
-    "@fortawesome/fontawesome-free": "npm:6.4.2"
+    "@fortawesome/fontawesome-free": "npm:6.5.0"
     "@open-wc/testing": "npm:4.0.0"
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
@@ -1628,7 +1628,7 @@ __metadata:
     "@babel/eslint-parser": "npm:7.22.15"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
-    "@fortawesome/fontawesome-free": "npm:6.4.2"
+    "@fortawesome/fontawesome-free": "npm:6.5.0"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
     "@open-wc/testing": "npm:4.0.0"
     "@open-wc/testing-karma": "npm:4.0.9"
@@ -1662,7 +1662,7 @@ __metadata:
     "@babel/eslint-parser": "npm:7.22.15"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
-    "@fortawesome/fontawesome-free": "npm:6.4.2"
+    "@fortawesome/fontawesome-free": "npm:6.5.0"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
     "@gip-recia/js-tree": "npm:0.0.18"
     "@open-wc/testing": "npm:4.0.0"

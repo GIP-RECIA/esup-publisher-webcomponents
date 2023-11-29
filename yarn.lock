@@ -1505,7 +1505,7 @@ __metadata:
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
     "@types/mocha": "npm:10.0.6"
-    "@web/dev-server": "npm:0.4.0"
+    "@web/dev-server": "npm:0.4.1"
     "@web/dev-server-legacy": "npm:2.1.0"
     "@web/test-runner": "npm:0.18.0"
     "@web/test-runner-mocha": "npm:0.9.0"
@@ -1536,7 +1536,7 @@ __metadata:
     "@open-wc/testing": "npm:4.0.0"
     "@open-wc/testing-karma": "npm:4.0.9"
     "@types/mocha": "npm:10.0.6"
-    "@web/dev-server": "npm:0.4.0"
+    "@web/dev-server": "npm:0.4.1"
     "@web/dev-server-legacy": "npm:2.1.0"
     "@web/test-runner": "npm:0.18.0"
     "@web/test-runner-mocha": "npm:0.9.0"
@@ -1567,7 +1567,7 @@ __metadata:
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
     "@types/mocha": "npm:10.0.6"
-    "@web/dev-server": "npm:0.4.0"
+    "@web/dev-server": "npm:0.4.1"
     "@web/dev-server-legacy": "npm:2.1.0"
     "@web/test-runner": "npm:0.18.0"
     "@web/test-runner-mocha": "npm:0.9.0"
@@ -1600,7 +1600,7 @@ __metadata:
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
     "@types/mocha": "npm:10.0.6"
-    "@web/dev-server": "npm:0.4.0"
+    "@web/dev-server": "npm:0.4.1"
     "@web/dev-server-legacy": "npm:2.1.0"
     "@web/test-runner": "npm:0.18.0"
     "@web/test-runner-mocha": "npm:0.9.0"
@@ -1634,7 +1634,7 @@ __metadata:
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
     "@types/mocha": "npm:10.0.6"
-    "@web/dev-server": "npm:0.4.0"
+    "@web/dev-server": "npm:0.4.1"
     "@web/dev-server-legacy": "npm:2.1.0"
     "@web/test-runner": "npm:0.18.0"
     "@web/test-runner-mocha": "npm:0.9.0"
@@ -1669,7 +1669,7 @@ __metadata:
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
     "@types/mocha": "npm:10.0.6"
-    "@web/dev-server": "npm:0.4.0"
+    "@web/dev-server": "npm:0.4.1"
     "@web/dev-server-legacy": "npm:2.1.0"
     "@web/test-runner": "npm:0.18.0"
     "@web/test-runner-mocha": "npm:0.9.0"
@@ -2899,7 +2899,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web/dev-server-rollup@npm:^0.6.0":
+"@web/dev-server-rollup@npm:^0.6.0, @web/dev-server-rollup@npm:^0.6.1":
   version: 0.6.1
   resolution: "@web/dev-server-rollup@npm:0.6.1"
   dependencies:
@@ -2913,7 +2913,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web/dev-server@npm:0.4.0, @web/dev-server@npm:^0.4.0":
+"@web/dev-server@npm:0.4.1":
+  version: 0.4.1
+  resolution: "@web/dev-server@npm:0.4.1"
+  dependencies:
+    "@babel/code-frame": "npm:^7.12.11"
+    "@types/command-line-args": "npm:^5.0.0"
+    "@web/config-loader": "npm:^0.3.0"
+    "@web/dev-server-core": "npm:^0.7.0"
+    "@web/dev-server-rollup": "npm:^0.6.1"
+    camelcase: "npm:^6.2.0"
+    command-line-args: "npm:^5.1.1"
+    command-line-usage: "npm:^7.0.1"
+    debounce: "npm:^1.2.0"
+    deepmerge: "npm:^4.2.2"
+    ip: "npm:^1.1.5"
+    nanocolors: "npm:^0.2.1"
+    open: "npm:^8.0.2"
+    portfinder: "npm:^1.0.32"
+  bin:
+    wds: dist/bin.js
+    web-dev-server: dist/bin.js
+  checksum: 4a86bbebc5473244721dd29b1cecd9d1e3dbb4ad2535949fa5dd4d228209b4392aa7098110e5916b13371aef97fc669ad9115b7cc9e1ec53fffd01b417ab8df6
+  languageName: node
+  linkType: hard
+
+"@web/dev-server@npm:^0.4.0":
   version: 0.4.0
   resolution: "@web/dev-server@npm:0.4.0"
   dependencies:

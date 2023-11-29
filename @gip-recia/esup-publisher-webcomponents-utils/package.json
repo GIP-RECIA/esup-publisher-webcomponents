@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.23.3",
-    "@babel/eslint-parser": "7.22.15",
+    "@babel/eslint-parser": "7.23.3",
     "@custom-elements-manifest/analyzer": "0.9.0",
     "@esm-bundle/chai": "4.3.4-fix.0",
     "@open-wc/testing": "4.0.0",

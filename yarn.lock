@@ -1521,7 +1521,7 @@ __metadata:
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
     rollup-plugin-terser: "npm:7.0.2"
-    rollup-plugin-visualizer: "npm:5.9.3"
+    rollup-plugin-visualizer: "npm:5.10.0"
   languageName: unknown
   linkType: soft
 
@@ -1583,7 +1583,7 @@ __metadata:
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
     rollup-plugin-terser: "npm:7.0.2"
-    rollup-plugin-visualizer: "npm:5.9.3"
+    rollup-plugin-visualizer: "npm:5.10.0"
   languageName: unknown
   linkType: soft
 
@@ -1616,7 +1616,7 @@ __metadata:
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
     rollup-plugin-terser: "npm:7.0.2"
-    rollup-plugin-visualizer: "npm:5.9.3"
+    rollup-plugin-visualizer: "npm:5.10.0"
   languageName: unknown
   linkType: soft
 
@@ -1650,7 +1650,7 @@ __metadata:
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
     rollup-plugin-terser: "npm:7.0.2"
-    rollup-plugin-visualizer: "npm:5.9.3"
+    rollup-plugin-visualizer: "npm:5.10.0"
   languageName: unknown
   linkType: soft
 
@@ -1685,7 +1685,7 @@ __metadata:
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
     rollup-plugin-terser: "npm:7.0.2"
-    rollup-plugin-visualizer: "npm:5.9.3"
+    rollup-plugin-visualizer: "npm:5.10.0"
   languageName: unknown
   linkType: soft
 
@@ -9334,9 +9334,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-visualizer@npm:5.9.3":
-  version: 5.9.3
-  resolution: "rollup-plugin-visualizer@npm:5.9.3"
+"rollup-plugin-visualizer@npm:5.10.0":
+  version: 5.10.0
+  resolution: "rollup-plugin-visualizer@npm:5.10.0"
   dependencies:
     open: "npm:^8.4.0"
     picomatch: "npm:^2.3.1"
@@ -9349,7 +9349,7 @@ __metadata:
       optional: true
   bin:
     rollup-plugin-visualizer: dist/bin/cli.js
-  checksum: 569acbdf9401fb5e23456d889b1094e95a003331c63428732f94418eda59850fd74994587353f58c833a535cc24cdef56c06872996f76f98802ff22939ebbf0d
+  checksum: aa4ef8d2aae064b50a50168094db1337762d91bd0cd06206cfbc96a97adca45b7036dc1871eab7e70878111eeedb8164fe267f5cc56cd9eb4225ed71c8966aa6
   languageName: node
   linkType: hard
 

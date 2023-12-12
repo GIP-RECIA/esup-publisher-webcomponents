@@ -2021,14 +2021,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.39.0":
-  version: 1.39.0
-  resolution: "@playwright/test@npm:1.39.0"
+"@playwright/test@npm:^1.40.1":
+  version: 1.40.1
+  resolution: "@playwright/test@npm:1.40.1"
   dependencies:
-    playwright: "npm:1.39.0"
+    playwright: "npm:1.40.1"
   bin:
     playwright: cli.js
-  checksum: 5d039234609395f3eab46b5954b259bdd80dacf79efe531369c1633647dcafce25a78d497e61e671d661274bf66076426a1bd46be585c44addf23bb5bfaa15a2
+  checksum: 77bfc3d4a101fd996309de3a67256117f671952764404727e520a4d512ba2e528d8f9e0b28ef9b2851664a651a5d002a0b05993e313077a2fa640bb430f38b25
   languageName: node
   linkType: hard
 
@@ -5322,7 +5322,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "esup-publisher-webcomponents@workspace:."
   dependencies:
-    "@playwright/test": "npm:1.39.0"
+    "@playwright/test": "npm:^1.40.1"
     husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.0"
   languageName: unknown
@@ -8734,15 +8734,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.39.0":
-  version: 1.39.0
-  resolution: "playwright-core@npm:1.39.0"
-  bin:
-    playwright-core: cli.js
-  checksum: e4e01ddea024c7564bbfacdba5f545b004a4017b466af08ae90e5184da4f5bc61e74c96e37cc5e30b7d4f97341c0883cfb2038c8cfbfab65316d714f65b82d83
-  languageName: node
-  linkType: hard
-
 "playwright-core@npm:1.40.1":
   version: 1.40.1
   resolution: "playwright-core@npm:1.40.1"
@@ -8752,22 +8743,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright@npm:1.39.0":
-  version: 1.39.0
-  resolution: "playwright@npm:1.39.0"
-  dependencies:
-    fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.39.0"
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    playwright: cli.js
-  checksum: 6f6b2f4381fccfbc560c4cd25e164f5093fec4e2046990587282e18618151d723b299b56c16741ce08e44a759c22e38c3e705b716d31238320e08e6ffcfa7319
-  languageName: node
-  linkType: hard
-
-"playwright@npm:^1.22.2":
+"playwright@npm:1.40.1, playwright@npm:^1.22.2":
   version: 1.40.1
   resolution: "playwright@npm:1.40.1"
   dependencies:

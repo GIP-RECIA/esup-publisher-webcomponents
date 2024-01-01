@@ -49,7 +49,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.23.5, @babel/core@npm:^7.11.1, @babel/core@npm:^7.12.10, @babel/core@npm:^7.12.3":
+"@babel/core@npm:7.23.7":
+  version: 7.23.7
+  resolution: "@babel/core@npm:7.23.7"
+  dependencies:
+    "@ampproject/remapping": "npm:^2.2.0"
+    "@babel/code-frame": "npm:^7.23.5"
+    "@babel/generator": "npm:^7.23.6"
+    "@babel/helper-compilation-targets": "npm:^7.23.6"
+    "@babel/helper-module-transforms": "npm:^7.23.3"
+    "@babel/helpers": "npm:^7.23.7"
+    "@babel/parser": "npm:^7.23.6"
+    "@babel/template": "npm:^7.22.15"
+    "@babel/traverse": "npm:^7.23.7"
+    "@babel/types": "npm:^7.23.6"
+    convert-source-map: "npm:^2.0.0"
+    debug: "npm:^4.1.0"
+    gensync: "npm:^1.0.0-beta.2"
+    json5: "npm:^2.2.3"
+    semver: "npm:^6.3.1"
+  checksum: 956841695ea801c8b4196d01072e6c1062335960715a6fcfd4009831003b526b00627c78b373ed49b1658c3622c71142f7ff04235fe839cac4a1a25ed51b90aa
+  languageName: node
+  linkType: hard
+
+"@babel/core@npm:^7.11.1, @babel/core@npm:^7.12.10, @babel/core@npm:^7.12.3":
   version: 7.23.5
   resolution: "@babel/core@npm:7.23.5"
   dependencies:
@@ -344,6 +367,17 @@ __metadata:
     "@babel/traverse": "npm:^7.23.6"
     "@babel/types": "npm:^7.23.6"
   checksum: 2a85fd2bcbc15a6c94dbe7b9e94d8920f9de76d164179d6895fee89c4339079d9e3e56f572bf19b5e7d1e6f1997d7fbaeaa686b47d35136852631dfd09e85c2f
+  languageName: node
+  linkType: hard
+
+"@babel/helpers@npm:^7.23.7":
+  version: 7.23.7
+  resolution: "@babel/helpers@npm:7.23.7"
+  dependencies:
+    "@babel/template": "npm:^7.22.15"
+    "@babel/traverse": "npm:^7.23.7"
+    "@babel/types": "npm:^7.23.6"
+  checksum: ec07061dc871d406ed82c8757c4d7a510aaf15145799fb0a2c3bd3c72ca101fe82a02dd5f83ca604fbbba5de5408dd731bb1452150562bed4f3b0a2846f81f61
   languageName: node
   linkType: hard
 
@@ -1377,6 +1411,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/traverse@npm:^7.23.7":
+  version: 7.23.7
+  resolution: "@babel/traverse@npm:7.23.7"
+  dependencies:
+    "@babel/code-frame": "npm:^7.23.5"
+    "@babel/generator": "npm:^7.23.6"
+    "@babel/helper-environment-visitor": "npm:^7.22.20"
+    "@babel/helper-function-name": "npm:^7.23.0"
+    "@babel/helper-hoist-variables": "npm:^7.22.5"
+    "@babel/helper-split-export-declaration": "npm:^7.22.6"
+    "@babel/parser": "npm:^7.23.6"
+    "@babel/types": "npm:^7.23.6"
+    debug: "npm:^4.3.1"
+    globals: "npm:^11.1.0"
+  checksum: 3215e59429963c8dac85c26933372cdd322952aa9930e4bc5ef2d0e4bd7a1510d1ecf8f8fd860ace5d4d9fe496d23805a1ea019a86410aee4111de5f63ee84f9
+  languageName: node
+  linkType: hard
+
 "@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.19, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.5, @babel/types@npm:^7.23.6, @babel/types@npm:^7.4.0, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
   version: 7.23.6
   resolution: "@babel/types@npm:7.23.6"
@@ -1496,7 +1548,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gip-recia/color-palette-picker@workspace:@gip-recia/color-palette-picker"
   dependencies:
-    "@babel/core": "npm:7.23.5"
+    "@babel/core": "npm:7.23.7"
     "@babel/eslint-parser": "npm:7.23.3"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
@@ -1530,7 +1582,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gip-recia/esup-publisher-webcomponents-utils@workspace:@gip-recia/esup-publisher-webcomponents-utils"
   dependencies:
-    "@babel/core": "npm:7.23.5"
+    "@babel/core": "npm:7.23.7"
     "@babel/eslint-parser": "npm:7.23.3"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
@@ -1556,7 +1608,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gip-recia/evaluator@workspace:@gip-recia/evaluator"
   dependencies:
-    "@babel/core": "npm:7.23.5"
+    "@babel/core": "npm:7.23.7"
     "@babel/eslint-parser": "npm:7.23.3"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
@@ -1592,7 +1644,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gip-recia/js-tree@workspace:@gip-recia/js-tree"
   dependencies:
-    "@babel/core": "npm:7.23.5"
+    "@babel/core": "npm:7.23.7"
     "@babel/eslint-parser": "npm:7.23.3"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
@@ -1625,7 +1677,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gip-recia/subject-infos@workspace:@gip-recia/subject-infos"
   dependencies:
-    "@babel/core": "npm:7.23.5"
+    "@babel/core": "npm:7.23.7"
     "@babel/eslint-parser": "npm:7.23.3"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
@@ -1659,7 +1711,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@gip-recia/subject-search-button@workspace:@gip-recia/subject-search-button"
   dependencies:
-    "@babel/core": "npm:7.23.5"
+    "@babel/core": "npm:7.23.7"
     "@babel/eslint-parser": "npm:7.23.3"
     "@custom-elements-manifest/analyzer": "npm:0.9.0"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"

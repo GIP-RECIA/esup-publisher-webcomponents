@@ -1567,7 +1567,7 @@ __metadata:
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.56.0"
     lit: "npm:2.8.0"
-    lit-analyzer: "npm:2.0.2"
+    lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.2.0"
     prettier: "npm:3.2.2"
     rollup: "npm:2.79.1"
@@ -1598,7 +1598,7 @@ __metadata:
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.56.0"
     lit: "npm:2.8.0"
-    lit-analyzer: "npm:2.0.2"
+    lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.2.0"
     prettier: "npm:3.2.2"
   languageName: unknown
@@ -1629,7 +1629,7 @@ __metadata:
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.56.0"
     lit: "npm:2.8.0"
-    lit-analyzer: "npm:2.0.2"
+    lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.2.0"
     prettier: "npm:3.2.2"
     rollup: "npm:2.79.1"
@@ -1662,7 +1662,7 @@ __metadata:
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.56.0"
     lit: "npm:2.8.0"
-    lit-analyzer: "npm:2.0.2"
+    lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.2.0"
     prettier: "npm:3.2.2"
     rollup: "npm:2.79.1"
@@ -1696,7 +1696,7 @@ __metadata:
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.56.0"
     lit: "npm:2.8.0"
-    lit-analyzer: "npm:2.0.2"
+    lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.2.0"
     prettier: "npm:3.2.2"
     rollup: "npm:2.79.1"
@@ -1731,7 +1731,7 @@ __metadata:
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.56.0"
     lit: "npm:2.8.0"
-    lit-analyzer: "npm:2.0.2"
+    lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.2.0"
     prettier: "npm:3.2.2"
     rollup: "npm:2.79.1"
@@ -7397,9 +7397,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-analyzer@npm:2.0.2":
-  version: 2.0.2
-  resolution: "lit-analyzer@npm:2.0.2"
+"lit-analyzer@npm:2.0.3":
+  version: 2.0.3
+  resolution: "lit-analyzer@npm:2.0.3"
   dependencies:
     "@vscode/web-custom-data": "npm:^0.4.2"
     chalk: "npm:^2.4.2"
@@ -7412,7 +7412,7 @@ __metadata:
     web-component-analyzer: "npm:^2.0.0"
   bin:
     lit-analyzer: cli.js
-  checksum: 247de26c9de2a340d9bf0d82ce87c8ff1a32c399111c5e66485e6831e204d3e3393614d7a430b24869c392861a075dba581647185c66c4febec9cebf4c3433e8
+  checksum: 596bb3463fa7d0da28d156ae3e2240f721273950a5acae09e6d4a4f339c87bce9d7d43b64cea6d7a0f55fcf75a03435f26b330576ccba23078ec461e50d31238
   languageName: node
   linkType: hard
 

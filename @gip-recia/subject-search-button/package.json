@@ -37,7 +37,7 @@
   "dependencies": {
     "@gip-recia/esup-publisher-webcomponents-utils": "0.0.7",
     "@gip-recia/js-tree": "0.0.18",
-    "lit": "2.8.0"
+    "lit": "3.1.1"
   },
   "devDependencies": {
     "@babel/core": "7.23.9",

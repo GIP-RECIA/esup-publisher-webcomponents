@@ -1,0 +1,28 @@
+{
+  "root": true,
+  "extends": ["eslint:recommended"],
+  "parser": "@babel/eslint-parser",
+  "globals": {
+    "chai": "readonly"
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "requireConfigFile": false
+  },
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "es6": true
+  },
+  "rules": {
+    "no-unexpected-multiline": "off"
+  },
+  "overrides": [
+    {
+      "files": ["rollup.config.js", "web-test-runner.config.js"],
+      "env": {
+        "node": true
+      }
+    }
+  ]
+}

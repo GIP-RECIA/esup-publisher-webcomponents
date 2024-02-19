@@ -2214,7 +2214,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:^1.41.1":
+"@playwright/test@npm:^1.41.2":
   version: 1.41.2
   resolution: "@playwright/test@npm:1.41.2"
   dependencies:
@@ -5684,7 +5684,7 @@ __metadata:
   dependencies:
     "@commitlint/cli": "npm:^18.6.1"
     "@commitlint/config-conventional": "npm:^18.6.2"
-    "@playwright/test": "npm:^1.41.1"
+    "@playwright/test": "npm:^1.41.2"
     husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.2"
   languageName: unknown

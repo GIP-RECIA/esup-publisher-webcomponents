@@ -1681,9 +1681,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@custom-elements-manifest/analyzer@npm:0.9.3":
-  version: 0.9.3
-  resolution: "@custom-elements-manifest/analyzer@npm:0.9.3"
+"@custom-elements-manifest/analyzer@npm:0.9.4":
+  version: 0.9.4
+  resolution: "@custom-elements-manifest/analyzer@npm:0.9.4"
   dependencies:
     "@custom-elements-manifest/find-dependencies": "npm:^0.0.5"
     "@github/catalyst": "npm:^1.6.0"
@@ -1694,11 +1694,11 @@ __metadata:
     custom-elements-manifest: "npm:1.0.0"
     debounce: "npm:1.2.1"
     globby: "npm:11.0.4"
-    typescript: "npm:~4.3.2"
+    typescript: "npm:~5.4.2"
   bin:
     cem: cem.js
     custom-elements-manifest: cem.js
-  checksum: 10/2545f0958eadbe86e448f81adefae6fd5e77387a22e19b0d5794660dba7d69ea658e5feffc91351afd16a29136ceceaab9ac497546426c3313e39d04c70bc1f2
+  checksum: 10/864f5412b43d268e1f446a311f4965044843017ff3390fe9493b905ef2d384b8d78e60afc65dc62139320274a1f6a3f208a06b2b4f436b058153b83745284a22
   languageName: node
   linkType: hard
 
@@ -1784,7 +1784,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:7.24.3"
     "@babel/eslint-parser": "npm:7.23.10"
-    "@custom-elements-manifest/analyzer": "npm:0.9.3"
+    "@custom-elements-manifest/analyzer": "npm:0.9.4"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.1"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
@@ -1818,7 +1818,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:7.24.3"
     "@babel/eslint-parser": "npm:7.23.10"
-    "@custom-elements-manifest/analyzer": "npm:0.9.3"
+    "@custom-elements-manifest/analyzer": "npm:0.9.4"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@open-wc/testing": "npm:4.0.0"
     "@open-wc/testing-karma": "npm:4.0.9"
@@ -1844,7 +1844,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:7.24.3"
     "@babel/eslint-parser": "npm:7.23.10"
-    "@custom-elements-manifest/analyzer": "npm:0.9.3"
+    "@custom-elements-manifest/analyzer": "npm:0.9.4"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.1"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
@@ -1880,7 +1880,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:7.24.3"
     "@babel/eslint-parser": "npm:7.23.10"
-    "@custom-elements-manifest/analyzer": "npm:0.9.3"
+    "@custom-elements-manifest/analyzer": "npm:0.9.4"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.1"
     "@open-wc/testing": "npm:4.0.0"
@@ -1913,7 +1913,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:7.24.3"
     "@babel/eslint-parser": "npm:7.23.10"
-    "@custom-elements-manifest/analyzer": "npm:0.9.3"
+    "@custom-elements-manifest/analyzer": "npm:0.9.4"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.1"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
@@ -1947,7 +1947,7 @@ __metadata:
   dependencies:
     "@babel/core": "npm:7.24.3"
     "@babel/eslint-parser": "npm:7.23.10"
-    "@custom-elements-manifest/analyzer": "npm:0.9.3"
+    "@custom-elements-manifest/analyzer": "npm:0.9.4"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.1"
     "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
@@ -11200,16 +11200,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:~4.3.2":
-  version: 4.3.5
-  resolution: "typescript@npm:4.3.5"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10/59845af105af9f9be0ff029bcd5ba10df24025bb987f4d48be1c7c269c17a93f1d461a209815f669eda9ac4287d404c9453ed892198bcee7eac090501d9f4aae
-  languageName: node
-  linkType: hard
-
 "typescript@npm:~5.2.0":
   version: 5.2.2
   resolution: "typescript@npm:5.2.2"
@@ -11217,6 +11207,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10/d65e50eb849bd21ff8677e5b9447f9c6e74777e346afd67754934264dcbf4bd59e7d2473f6062d9a015d66bd573311166357e3eb07fea0b52859cf9bb2b58555
+  languageName: node
+  linkType: hard
+
+"typescript@npm:~5.4.2":
+  version: 5.4.3
+  resolution: "typescript@npm:5.4.3"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10/de4c69f49a7ad4b1ea66a6dcc8b055ac34eb56af059a069d8988dd811c5e649be07e042e5bf573e8d0ac3ec2f30e6c999aa651cd09f6e9cbc6113749e8b6be20
   languageName: node
   linkType: hard
 
@@ -11230,16 +11230,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A~4.3.2#optional!builtin<compat/typescript>":
-  version: 4.3.5
-  resolution: "typescript@patch:typescript@npm%3A4.3.5#optional!builtin<compat/typescript>::version=4.3.5&hash=dba6d9"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10/100e3f4aff0090089f657ee730f059e0fc4de7637ef6574b2fe8632218f1c5882dd5fbfd0cbde3c7fc4fa501955bc93841f540bb6cbb678f655a0f7880cb7881
-  languageName: node
-  linkType: hard
-
 "typescript@patch:typescript@npm%3A~5.2.0#optional!builtin<compat/typescript>":
   version: 5.2.2
   resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"
@@ -11247,6 +11237,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10/f79cc2ba802c94c2b78dbb00d767a10adb67368ae764709737dc277273ec148aa4558033a03ce901406b35fddf4eac46dabc94a1e1d12d2587e2b9cfe5707b4a
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A~5.4.2#optional!builtin<compat/typescript>":
+  version: 5.4.3
+  resolution: "typescript@patch:typescript@npm%3A5.4.3#optional!builtin<compat/typescript>::version=5.4.3&hash=5adc0c"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10/5aedd97595582b08aadb8a70e8e3ddebaf5a9c1e5ad4d6503c2fcfc15329b5cf8d01145b09913e9555683ac16c5123a96be32b6d72614098ebd42df520eed9b1
   languageName: node
   linkType: hard
 

@@ -2,7 +2,7 @@
   "name": "esup-publisher-webcomponents",
   "private": true,
   "workspaces": [
-    "@gip-recia/*"
+    "packages/*"
   ],
   "scripts": {
     "analyze": "yarn workspaces foreach -At run analyze",

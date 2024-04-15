@@ -19,7 +19,11 @@
     "test": "npm run test:dev",
     "test:dev": "wtr",
     "test:watch": "wtr --watch",
-    "start": "npm run serve"
+    "start": "npm run serve",
+    "release": "standard-version -t esup-publisher-webcomponents-utils/",
+    "release:minor": "standard-version --release-as minor -t esup-publisher-webcomponents-utils/",
+    "release:patch": "standard-version --release-as patch -t esup-publisher-webcomponents-utils/",
+    "release:major": "standard-version --release-as major -t esup-publisher-webcomponents-utils/"
   },
   "repository": {
     "type": "git",
@@ -53,7 +57,8 @@
     "eslint": "8.57.0",
     "lit-analyzer": "2.0.3",
     "mocha": "10.4.0",
-    "prettier": "3.2.5"
+    "prettier": "3.2.5",
+    "standard-version": "^9.5.0"
   },
   "customElements": "custom-elements.json"
 }

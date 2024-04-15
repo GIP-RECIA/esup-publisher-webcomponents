@@ -1693,7 +1693,7 @@ __metadata:
     "@custom-elements-manifest/analyzer": "npm:0.9.4"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.2"
-    "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
+    "@gip-recia/esup-publisher-webcomponents-utils": "workspace:*"
     "@open-wc/testing": "npm:4.0.0"
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
@@ -1718,7 +1718,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/esup-publisher-webcomponents-utils@npm:0.0.7, @gip-recia/esup-publisher-webcomponents-utils@workspace:packages/esup-publisher-webcomponents-utils":
+"@gip-recia/esup-publisher-webcomponents-utils@workspace:*, @gip-recia/esup-publisher-webcomponents-utils@workspace:packages/esup-publisher-webcomponents-utils":
   version: 0.0.0-use.local
   resolution: "@gip-recia/esup-publisher-webcomponents-utils@workspace:packages/esup-publisher-webcomponents-utils"
   dependencies:
@@ -1753,9 +1753,9 @@ __metadata:
     "@custom-elements-manifest/analyzer": "npm:0.9.4"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.2"
-    "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
-    "@gip-recia/subject-infos": "npm:0.0.16"
-    "@gip-recia/subject-search-button": "npm:0.0.20"
+    "@gip-recia/esup-publisher-webcomponents-utils": "workspace:*"
+    "@gip-recia/subject-infos": "workspace:*"
+    "@gip-recia/subject-search-button": "workspace:*"
     "@open-wc/testing": "npm:4.0.0"
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
@@ -1780,7 +1780,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/js-tree@npm:0.0.18, @gip-recia/js-tree@workspace:packages/js-tree":
+"@gip-recia/js-tree@workspace:*, @gip-recia/js-tree@workspace:packages/js-tree":
   version: 0.0.0-use.local
   resolution: "@gip-recia/js-tree@workspace:packages/js-tree"
   dependencies:
@@ -1813,7 +1813,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/subject-infos@npm:0.0.16, @gip-recia/subject-infos@workspace:packages/subject-infos":
+"@gip-recia/subject-infos@workspace:*, @gip-recia/subject-infos@workspace:packages/subject-infos":
   version: 0.0.0-use.local
   resolution: "@gip-recia/subject-infos@workspace:packages/subject-infos"
   dependencies:
@@ -1822,7 +1822,7 @@ __metadata:
     "@custom-elements-manifest/analyzer": "npm:0.9.4"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.2"
-    "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
+    "@gip-recia/esup-publisher-webcomponents-utils": "workspace:*"
     "@open-wc/testing": "npm:4.0.0"
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"
@@ -1847,7 +1847,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@gip-recia/subject-search-button@npm:0.0.20, @gip-recia/subject-search-button@workspace:packages/subject-search-button":
+"@gip-recia/subject-search-button@workspace:*, @gip-recia/subject-search-button@workspace:packages/subject-search-button":
   version: 0.0.0-use.local
   resolution: "@gip-recia/subject-search-button@workspace:packages/subject-search-button"
   dependencies:
@@ -1856,8 +1856,8 @@ __metadata:
     "@custom-elements-manifest/analyzer": "npm:0.9.4"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.2"
-    "@gip-recia/esup-publisher-webcomponents-utils": "npm:0.0.7"
-    "@gip-recia/js-tree": "npm:0.0.18"
+    "@gip-recia/esup-publisher-webcomponents-utils": "workspace:*"
+    "@gip-recia/js-tree": "workspace:*"
     "@open-wc/testing": "npm:4.0.0"
     "@open-wc/testing-karma": "npm:4.0.9"
     "@rollup/plugin-node-resolve": "npm:15.2.3"

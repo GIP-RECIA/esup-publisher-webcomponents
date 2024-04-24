@@ -1722,7 +1722,7 @@ __metadata:
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.4.0"
     prettier: "npm:3.2.5"
-    rollup: "npm:2.79.1"
+    rollup: "npm:4.16.4"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
     rollup-plugin-terser: "npm:7.0.2"
@@ -1786,7 +1786,7 @@ __metadata:
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.4.0"
     prettier: "npm:3.2.5"
-    rollup: "npm:2.79.1"
+    rollup: "npm:4.16.4"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
     rollup-plugin-terser: "npm:7.0.2"
@@ -1820,7 +1820,7 @@ __metadata:
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.4.0"
     prettier: "npm:3.2.5"
-    rollup: "npm:2.79.1"
+    rollup: "npm:4.16.4"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
     rollup-plugin-terser: "npm:7.0.2"
@@ -1855,7 +1855,7 @@ __metadata:
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.4.0"
     prettier: "npm:3.2.5"
-    rollup: "npm:2.79.1"
+    rollup: "npm:4.16.4"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
     rollup-plugin-terser: "npm:7.0.2"
@@ -1891,7 +1891,7 @@ __metadata:
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:10.4.0"
     prettier: "npm:3.2.5"
-    rollup: "npm:2.79.1"
+    rollup: "npm:4.16.4"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
     rollup-plugin-terser: "npm:7.0.2"
@@ -10740,21 +10740,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:2.79.1, rollup@npm:^2.7.2":
-  version: 2.79.1
-  resolution: "rollup@npm:2.79.1"
-  dependencies:
-    fsevents: "npm:~2.3.2"
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    rollup: dist/bin/rollup
-  checksum: 10/df087b701304432f30922bbee5f534ab189aa6938bd383b5686c03147e0d00cd1789ea10a462361326ce6b6ebe448ce272ad3f3cc40b82eeb3157df12f33663c
-  languageName: node
-  linkType: hard
-
-"rollup@npm:^4.4.0":
+"rollup@npm:4.16.4, rollup@npm:^4.4.0":
   version: 4.16.4
   resolution: "rollup@npm:4.16.4"
   dependencies:
@@ -10814,6 +10800,20 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: 10/a5c96c264c7dbea0910dd09ef46a2c2b5f8dd7d431d41ca50c941e8fd6991f5f0645746e5dc1bf332063ca0873b5344d04bc165e276f298acb35143def534485
+  languageName: node
+  linkType: hard
+
+"rollup@npm:^2.7.2":
+  version: 2.79.1
+  resolution: "rollup@npm:2.79.1"
+  dependencies:
+    fsevents: "npm:~2.3.2"
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: 10/df087b701304432f30922bbee5f534ab189aa6938bd383b5686c03147e0d00cd1789ea10a462361326ce6b6ebe448ce272ad3f3cc40b82eeb3157df12f33663c
   languageName: node
   linkType: hard
 

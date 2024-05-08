@@ -40,7 +40,7 @@
     "lit": "2.8.0"
   },
   "devDependencies": {
-    "@babel/core": "7.24.4",
+    "@babel/core": "7.24.5",
     "@babel/eslint-parser": "7.24.5",
     "@custom-elements-manifest/analyzer": "0.9.4",
     "@esm-bundle/chai": "4.3.4-fix.0",

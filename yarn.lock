@@ -1836,7 +1836,7 @@ __metadata:
     "@types/mocha": "npm:10.0.6"
     "@web/dev-server": "npm:0.4.4"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.18.1"
+    "@web/test-runner": "npm:0.18.2"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -1868,7 +1868,7 @@ __metadata:
     "@types/mocha": "npm:10.0.6"
     "@web/dev-server": "npm:0.4.4"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.18.1"
+    "@web/test-runner": "npm:0.18.2"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -1900,7 +1900,7 @@ __metadata:
     "@types/mocha": "npm:10.0.6"
     "@web/dev-server": "npm:0.4.4"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.18.1"
+    "@web/test-runner": "npm:0.18.2"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -1934,7 +1934,7 @@ __metadata:
     "@types/mocha": "npm:10.0.6"
     "@web/dev-server": "npm:0.4.4"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.18.1"
+    "@web/test-runner": "npm:0.18.2"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -1969,7 +1969,7 @@ __metadata:
     "@types/mocha": "npm:10.0.6"
     "@web/dev-server": "npm:0.4.4"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.18.1"
+    "@web/test-runner": "npm:0.18.2"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -2005,7 +2005,7 @@ __metadata:
     "@types/mocha": "npm:10.0.6"
     "@web/dev-server": "npm:0.4.4"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.18.1"
+    "@web/test-runner": "npm:0.18.2"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -3471,9 +3471,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web/test-runner@npm:0.18.1":
-  version: 0.18.1
-  resolution: "@web/test-runner@npm:0.18.1"
+"@web/test-runner@npm:0.18.2":
+  version: 0.18.2
+  resolution: "@web/test-runner@npm:0.18.2"
   dependencies:
     "@web/browser-logs": "npm:^0.4.0"
     "@web/config-loader": "npm:^0.3.0"
@@ -3494,7 +3494,7 @@ __metadata:
   bin:
     web-test-runner: dist/bin.js
     wtr: dist/bin.js
-  checksum: 10/2468fe89ee4f84fe0a1de41bf783bc8304551a2edb5bd2cebdaa58f68ff6fb08cedb335a46bc4a7003c4ddff6cf220db0b4fa0c254545429b7a00f2100bebcd6
+  checksum: 10/b216922c38358ed180e7a4ca9c452b3a608de61000812424193e8e213ef6c4a617c1e6338d73a2a31be25f830dc6be98b4b0c81afc568cc2494e3815a66e9613
   languageName: node
   linkType: hard
 

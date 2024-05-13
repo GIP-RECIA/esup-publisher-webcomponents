@@ -40,7 +40,7 @@
   "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
   "dependencies": {
     "@gip-recia/esup-publisher-webcomponents-utils": "workspace:*",
-    "lit": "2.8.0"
+    "lit": "3.1.3"
   },
   "devDependencies": {
     "@babel/core": "7.24.5",

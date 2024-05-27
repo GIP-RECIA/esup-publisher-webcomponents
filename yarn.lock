@@ -112,9 +112,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/eslint-parser@npm:7.24.5":
-  version: 7.24.5
-  resolution: "@babel/eslint-parser@npm:7.24.5"
+"@babel/eslint-parser@npm:7.24.6":
+  version: 7.24.6
+  resolution: "@babel/eslint-parser@npm:7.24.6"
   dependencies:
     "@nicolo-ribaudo/eslint-scope-5-internals": "npm:5.1.1-v1"
     eslint-visitor-keys: "npm:^2.1.0"
@@ -122,7 +122,7 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.11.0
     eslint: ^7.5.0 || ^8.0.0 || ^9.0.0
-  checksum: 10/7235dc475ece11d39d6753b649299f0734a903932cf359eda60081e6a63c1f8a160f6b99faac12aa6b24d93d596240aa349be211d7d1bf0d32a95f857c633cff
+  checksum: 10/90fa462eb2fdfe9028f0285a3b6a645452890244d515121ac40ea26897f128d4308da357785cc017577904aa5ccd9c1173db1b38c307db3fcd1e9e97c99c6ed8
   languageName: node
   linkType: hard
 
@@ -1926,7 +1926,7 @@ __metadata:
   resolution: "@gip-recia/color-palette-picker@workspace:packages/color-palette-picker"
   dependencies:
     "@babel/core": "npm:7.24.6"
-    "@babel/eslint-parser": "npm:7.24.5"
+    "@babel/eslint-parser": "npm:7.24.6"
     "@custom-elements-manifest/analyzer": "npm:0.10.2"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.2"
@@ -1961,7 +1961,7 @@ __metadata:
   resolution: "@gip-recia/esup-publisher-webcomponents-utils@workspace:packages/esup-publisher-webcomponents-utils"
   dependencies:
     "@babel/core": "npm:7.24.6"
-    "@babel/eslint-parser": "npm:7.24.5"
+    "@babel/eslint-parser": "npm:7.24.6"
     "@custom-elements-manifest/analyzer": "npm:0.10.2"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@open-wc/testing": "npm:4.0.0"
@@ -1988,7 +1988,7 @@ __metadata:
   resolution: "@gip-recia/evaluator@workspace:packages/evaluator"
   dependencies:
     "@babel/core": "npm:7.24.6"
-    "@babel/eslint-parser": "npm:7.24.5"
+    "@babel/eslint-parser": "npm:7.24.6"
     "@custom-elements-manifest/analyzer": "npm:0.10.2"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.2"
@@ -2025,7 +2025,7 @@ __metadata:
   resolution: "@gip-recia/js-tree@workspace:packages/js-tree"
   dependencies:
     "@babel/core": "npm:7.24.6"
-    "@babel/eslint-parser": "npm:7.24.5"
+    "@babel/eslint-parser": "npm:7.24.6"
     "@custom-elements-manifest/analyzer": "npm:0.10.2"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.2"
@@ -2059,7 +2059,7 @@ __metadata:
   resolution: "@gip-recia/subject-infos@workspace:packages/subject-infos"
   dependencies:
     "@babel/core": "npm:7.24.6"
-    "@babel/eslint-parser": "npm:7.24.5"
+    "@babel/eslint-parser": "npm:7.24.6"
     "@custom-elements-manifest/analyzer": "npm:0.10.2"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.2"
@@ -2094,7 +2094,7 @@ __metadata:
   resolution: "@gip-recia/subject-search-button@workspace:packages/subject-search-button"
   dependencies:
     "@babel/core": "npm:7.24.6"
-    "@babel/eslint-parser": "npm:7.24.5"
+    "@babel/eslint-parser": "npm:7.24.6"
     "@custom-elements-manifest/analyzer": "npm:0.10.2"
     "@esm-bundle/chai": "npm:4.3.4-fix.0"
     "@fortawesome/fontawesome-free": "npm:6.5.2"

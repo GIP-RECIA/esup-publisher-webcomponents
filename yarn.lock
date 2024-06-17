@@ -6106,8 +6106,10 @@ __metadata:
     "@commitlint/cli": "npm:^19.2.2"
     "@commitlint/config-conventional": "npm:^19.2.2"
     "@playwright/test": "npm:^1.41.2"
+    eslint: "npm:8.57.0"
     husky: "npm:^8.0.3"
     lint-staged: "npm:^15.2.7"
+    prettier: "npm:3.3.2"
   languageName: unknown
   linkType: soft
 

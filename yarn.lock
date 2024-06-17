@@ -1727,7 +1727,7 @@ __metadata:
     prettier: "npm:3.3.2"
     rollup: "npm:2.79.1"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
-    rollup-plugin-summary: "npm:1.4.3"
+    rollup-plugin-summary: "npm:2.0.1"
     rollup-plugin-terser: "npm:7.0.2"
     rollup-plugin-visualizer: "npm:5.12.0"
     standard-version: "npm:^9.5.0"
@@ -1791,7 +1791,7 @@ __metadata:
     prettier: "npm:3.3.2"
     rollup: "npm:2.79.1"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
-    rollup-plugin-summary: "npm:1.4.3"
+    rollup-plugin-summary: "npm:2.0.1"
     rollup-plugin-terser: "npm:7.0.2"
     rollup-plugin-visualizer: "npm:5.12.0"
     standard-version: "npm:^9.5.0"
@@ -1825,7 +1825,7 @@ __metadata:
     prettier: "npm:3.3.2"
     rollup: "npm:2.79.1"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
-    rollup-plugin-summary: "npm:1.4.3"
+    rollup-plugin-summary: "npm:2.0.1"
     rollup-plugin-terser: "npm:7.0.2"
     rollup-plugin-visualizer: "npm:5.12.0"
     standard-version: "npm:^9.5.0"
@@ -1860,7 +1860,7 @@ __metadata:
     prettier: "npm:3.3.2"
     rollup: "npm:2.79.1"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
-    rollup-plugin-summary: "npm:1.4.3"
+    rollup-plugin-summary: "npm:2.0.1"
     rollup-plugin-terser: "npm:7.0.2"
     rollup-plugin-visualizer: "npm:5.12.0"
     standard-version: "npm:^9.5.0"
@@ -1896,7 +1896,7 @@ __metadata:
     prettier: "npm:3.3.2"
     rollup: "npm:2.79.1"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
-    rollup-plugin-summary: "npm:1.4.3"
+    rollup-plugin-summary: "npm:2.0.1"
     rollup-plugin-terser: "npm:7.0.2"
     rollup-plugin-visualizer: "npm:5.12.0"
     standard-version: "npm:^9.5.0"
@@ -4407,16 +4407,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-table3@npm:^0.6.1":
-  version: 0.6.4
-  resolution: "cli-table3@npm:0.6.4"
+"cli-table3@npm:^0.6.3":
+  version: 0.6.5
+  resolution: "cli-table3@npm:0.6.5"
   dependencies:
     "@colors/colors": "npm:1.5.0"
     string-width: "npm:^4.2.0"
   dependenciesMeta:
     "@colors/colors":
       optional: true
-  checksum: 10/f610294fce327b1b36c40f7475f18d166f907627cab7991b35d233b8bf6e182a0d0753b5bab2d4c8571aea64ff880ff11334cef4e5eb0cee8a4b4b5fcd661486
+  checksum: 10/8dca71256f6f1367bab84c33add3f957367c7c43750a9828a4212ebd31b8df76bd7419d386e3391ac7419698a8540c25f1a474584028f35b170841cde2e055c5
   languageName: node
   linkType: hard
 
@@ -6278,10 +6278,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"filesize@npm:^8.0.7":
-  version: 8.0.7
-  resolution: "filesize@npm:8.0.7"
-  checksum: 10/e35f1799c314cef49a585af82fe2d15b362f743a74c95f06e3dd99cf0334ca45516ed144f6a58649ca0e2e5e63844c0ef476d9374d5d43736d26f7c13aa49dad
+"filesize@npm:^10.0.5":
+  version: 10.1.2
+  resolution: "filesize@npm:10.1.2"
+  checksum: 10/47830a299cc8cfe7b90089a6c37790d2334f3057b98efd891e1e2e1683c8076962d9bd1d600eb77bb9bc33f5e7c4682e07ccb62281b8833b923d39c5c322e983
   languageName: node
   linkType: hard
 
@@ -10686,18 +10686,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup-plugin-summary@npm:1.4.3":
-  version: 1.4.3
-  resolution: "rollup-plugin-summary@npm:1.4.3"
+"rollup-plugin-summary@npm:2.0.1":
+  version: 2.0.1
+  resolution: "rollup-plugin-summary@npm:2.0.1"
   dependencies:
     brotli-size: "npm:^4.0.0"
-    cli-table3: "npm:^0.6.1"
-    filesize: "npm:^8.0.7"
+    cli-table3: "npm:^0.6.3"
+    filesize: "npm:^10.0.5"
     gzip-size: "npm:^7.0.0"
-    terser: "npm:^5.12.1"
+    terser: "npm:^5.15.1"
   peerDependencies:
-    rollup: ^2.0.0
-  checksum: 10/91ba47ba9cca344db25710b758a5a61013af1c146939f3ef9bb55957af63f65eb390e563eb2fa4696d17313348d01fd6d261ddbde624a39df1b627105fcb4e4f
+    rollup: ^2.68.0||^3.0.0||^4.0.0
+  checksum: 10/b450ccc8631f446023023351bb36505028ad69164db915d76a929169a8eced20bfdaba5b11135de36810a5bbe05122dee46df31302643c3964b94716a7dfb13d
   languageName: node
   linkType: hard
 
@@ -11704,7 +11704,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.0.0, terser@npm:^5.12.1, terser@npm:^5.14.2":
+"terser@npm:^5.0.0, terser@npm:^5.14.2":
   version: 5.30.4
   resolution: "terser@npm:5.30.4"
   dependencies:
@@ -11715,6 +11715,20 @@ __metadata:
   bin:
     terser: bin/terser
   checksum: 10/79459106281fccb2ff4243ba1553e4aa67a71b336bb8c091b131bb26347fcf03791c6abf6870bd17fe4a210256e08910207cf5733c0d6ba840289e67d5aa84d3
+  languageName: node
+  linkType: hard
+
+"terser@npm:^5.15.1":
+  version: 5.31.1
+  resolution: "terser@npm:5.31.1"
+  dependencies:
+    "@jridgewell/source-map": "npm:^0.3.3"
+    acorn: "npm:^8.8.2"
+    commander: "npm:^2.20.0"
+    source-map-support: "npm:~0.5.20"
+  bin:
+    terser: bin/terser
+  checksum: 10/4b22b62e762aebcd538dc3f5d5323fb3b51786e9294f7069d591cb61401a1161778039fdf283bbaf06244f500ee8563e0c49fc3c64176310556f34cc6637d463
   languageName: node
   linkType: hard
 

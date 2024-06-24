@@ -50,7 +50,7 @@
     "@open-wc/testing": "4.0.0",
     "@open-wc/testing-karma": "4.0.9",
     "@rollup/plugin-node-resolve": "15.2.3",
-    "@types/mocha": "10.0.6",
+    "@types/mocha": "10.0.7",
     "@web/dev-server": "0.4.5",
     "@web/dev-server-legacy": "2.1.1",
     "@web/test-runner": "0.18.2",

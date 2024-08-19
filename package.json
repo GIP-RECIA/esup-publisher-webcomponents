@@ -18,7 +18,7 @@
     "@playwright/test": "^1.41.2",
     "eslint": "8.57.0",
     "husky": "^8.0.3",
-    "lint-staged": "^15.2.7",
+    "lint-staged": "^15.2.9",
     "prettier": "3.3.3"
   },
   "packageManager": "yarn@4.3.1"

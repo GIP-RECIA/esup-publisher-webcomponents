@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/GIP-RECIA/esup-publisher-webcomponents",
   "dependencies": {
-    "lit": "2.8.0"
+    "lit": "3.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.25.2",

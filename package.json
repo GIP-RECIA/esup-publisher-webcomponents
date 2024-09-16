@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
-    "@commitlint/config-conventional": "^19.4.1",
+    "@commitlint/config-conventional": "^19.5.0",
     "@playwright/test": "^1.41.2",
     "eslint": "8.57.0",
     "husky": "^8.0.3",

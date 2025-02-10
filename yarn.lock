@@ -1709,7 +1709,7 @@ __metadata:
     lit: "npm:2.8.0"
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:11.1.0"
-    prettier: "npm:3.3.3"
+    prettier: "npm:3.5.0"
     rollup: "npm:2.79.2"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
@@ -1741,7 +1741,7 @@ __metadata:
     lit: "npm:2.8.0"
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:11.1.0"
-    prettier: "npm:3.3.3"
+    prettier: "npm:3.5.0"
     standard-version: "npm:^9.5.0"
   languageName: unknown
   linkType: soft
@@ -1773,7 +1773,7 @@ __metadata:
     lit: "npm:2.8.0"
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:11.1.0"
-    prettier: "npm:3.3.3"
+    prettier: "npm:3.5.0"
     rollup: "npm:2.79.2"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
@@ -1807,7 +1807,7 @@ __metadata:
     lit: "npm:2.8.0"
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:11.1.0"
-    prettier: "npm:3.3.3"
+    prettier: "npm:3.5.0"
     rollup: "npm:2.79.2"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
@@ -1842,7 +1842,7 @@ __metadata:
     lit: "npm:2.8.0"
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:11.1.0"
-    prettier: "npm:3.3.3"
+    prettier: "npm:3.5.0"
     rollup: "npm:2.79.2"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
@@ -1878,7 +1878,7 @@ __metadata:
     lit: "npm:2.8.0"
     lit-analyzer: "npm:2.0.3"
     mocha: "npm:11.1.0"
-    prettier: "npm:3.3.3"
+    prettier: "npm:3.5.0"
     rollup: "npm:2.79.2"
     rollup-plugin-minify-html-literals: "npm:1.2.6"
     rollup-plugin-summary: "npm:1.4.3"
@@ -6085,7 +6085,7 @@ __metadata:
     eslint: "npm:8.57.0"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^15.4.3"
-    prettier: "npm:3.3.3"
+    prettier: "npm:3.5.0"
   languageName: unknown
   linkType: soft
 
@@ -10145,12 +10145,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.3.3":
-  version: 3.3.3
-  resolution: "prettier@npm:3.3.3"
+"prettier@npm:3.5.0":
+  version: 3.5.0
+  resolution: "prettier@npm:3.5.0"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10/5beac1f30b5b40162532b8e2f7c3a4eb650910a2695e9c8512a62ffdc09dae93190c29db9107fa7f26d1b6c71aad3628ecb9b5de1ecb0911191099be109434d7
+  checksum: 10/fc26c74bd317282f2a49ffe3ac0ffa79adbe6b2d7a1cdcadd96acf7fec77d3fa45b15f3728c1a2f281f4beccb35d97207187452a581d4919d18b460d0c37e480
   languageName: node
   linkType: hard
 

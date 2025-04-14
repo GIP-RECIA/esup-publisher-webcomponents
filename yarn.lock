@@ -1700,7 +1700,7 @@ __metadata:
     "@types/mocha": "npm:10.0.10"
     "@web/dev-server": "npm:0.4.6"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.20.0"
+    "@web/test-runner": "npm:0.20.1"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -1732,7 +1732,7 @@ __metadata:
     "@types/mocha": "npm:10.0.10"
     "@web/dev-server": "npm:0.4.6"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.20.0"
+    "@web/test-runner": "npm:0.20.1"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -1764,7 +1764,7 @@ __metadata:
     "@types/mocha": "npm:10.0.10"
     "@web/dev-server": "npm:0.4.6"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.20.0"
+    "@web/test-runner": "npm:0.20.1"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -1798,7 +1798,7 @@ __metadata:
     "@types/mocha": "npm:10.0.10"
     "@web/dev-server": "npm:0.4.6"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.20.0"
+    "@web/test-runner": "npm:0.20.1"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -1833,7 +1833,7 @@ __metadata:
     "@types/mocha": "npm:10.0.10"
     "@web/dev-server": "npm:0.4.6"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.20.0"
+    "@web/test-runner": "npm:0.20.1"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -1869,7 +1869,7 @@ __metadata:
     "@types/mocha": "npm:10.0.10"
     "@web/dev-server": "npm:0.4.6"
     "@web/dev-server-legacy": "npm:2.1.1"
-    "@web/test-runner": "npm:0.20.0"
+    "@web/test-runner": "npm:0.20.1"
     "@web/test-runner-mocha": "npm:0.9.0"
     "@web/test-runner-playwright": "npm:0.11.0"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
@@ -3235,16 +3235,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web/test-runner-chrome@npm:^0.18.0":
-  version: 0.18.0
-  resolution: "@web/test-runner-chrome@npm:0.18.0"
+"@web/test-runner-chrome@npm:^0.18.1":
+  version: 0.18.1
+  resolution: "@web/test-runner-chrome@npm:0.18.1"
   dependencies:
     "@web/test-runner-core": "npm:^0.13.0"
     "@web/test-runner-coverage-v8": "npm:^0.8.0"
-    async-mutex: "npm:0.4.0"
     chrome-launcher: "npm:^0.15.0"
     puppeteer-core: "npm:^24.0.0"
-  checksum: 10/5683e889e6c5e102c63a223d56778fecac32e4f062ac96b962fb123c788df7faf647fa88eb2b87e2119b20a2b90a908a34e05646fba8427b56f0cbb96740244e
+  checksum: 10/bd0e987d65d8a4642a0407e74efe8e4531b60002be26b689b5435e574c7f6670c34c41e31f394f8a04a05642522cfc3cbdc34387f6e576a3f75dc5d8c05c7a03
   languageName: node
   linkType: hard
 
@@ -3325,14 +3324,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web/test-runner@npm:0.20.0":
-  version: 0.20.0
-  resolution: "@web/test-runner@npm:0.20.0"
+"@web/test-runner@npm:0.20.1":
+  version: 0.20.1
+  resolution: "@web/test-runner@npm:0.20.1"
   dependencies:
     "@web/browser-logs": "npm:^0.4.0"
     "@web/config-loader": "npm:^0.3.0"
     "@web/dev-server": "npm:^0.4.0"
-    "@web/test-runner-chrome": "npm:^0.18.0"
+    "@web/test-runner-chrome": "npm:^0.18.1"
     "@web/test-runner-commands": "npm:^0.9.0"
     "@web/test-runner-core": "npm:^0.13.0"
     "@web/test-runner-mocha": "npm:^0.9.0"
@@ -3348,7 +3347,7 @@ __metadata:
   bin:
     web-test-runner: dist/bin.js
     wtr: dist/bin.js
-  checksum: 10/15d96bf0d9466dfb041880ead1275bfe4ff46777c0b4f5743bab11c7373a1725e6245555cb6ec8655b89b625b91d18421d7a97157d25ad10631c93774fc7bec8
+  checksum: 10/9c9a8c8ba96f5a4265d4bd7740454f2466c5b5123c54f892b923215534fee0b03ee77d19be4aed6ab0732e53ae382cafbac2820dccc50e4dbcabca2b5d268904
   languageName: node
   linkType: hard
 
@@ -3726,15 +3725,6 @@ __metadata:
   version: 2.0.0
   resolution: "astral-regex@npm:2.0.0"
   checksum: 10/876231688c66400473ba505731df37ea436e574dd524520294cc3bbc54ea40334865e01fa0d074d74d036ee874ee7e62f486ea38bc421ee8e6a871c06f011766
-  languageName: node
-  linkType: hard
-
-"async-mutex@npm:0.4.0":
-  version: 0.4.0
-  resolution: "async-mutex@npm:0.4.0"
-  dependencies:
-    tslib: "npm:^2.4.0"
-  checksum: 10/4a55065aae8c7283e45e2a8ac38ba9812f030696640d650c4ec62cfd67e5d61bd698e67b758a81fcb845e2d5ea1d857106f9235cc4282ad40cd1944b26fde1b2
   languageName: node
   linkType: hard
 
@@ -11986,7 +11976,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.4.0":
+"tslib@npm:^2.0.1, tslib@npm:^2.0.3":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 10/bd26c22d36736513980091a1e356378e8b662ded04204453d353a7f34a4c21ed0afc59b5f90719d4ba756e581a162ecbf93118dc9c6be5acf70aa309188166ca

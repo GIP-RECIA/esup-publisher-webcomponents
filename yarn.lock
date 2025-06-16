@@ -1702,7 +1702,7 @@ __metadata:
     "@web/dev-server-legacy": "npm:2.1.1"
     "@web/test-runner": "npm:0.20.2"
     "@web/test-runner-mocha": "npm:0.9.0"
-    "@web/test-runner-playwright": "npm:0.11.0"
+    "@web/test-runner-playwright": "npm:0.11.1"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.57.0"
@@ -1734,7 +1734,7 @@ __metadata:
     "@web/dev-server-legacy": "npm:2.1.1"
     "@web/test-runner": "npm:0.20.2"
     "@web/test-runner-mocha": "npm:0.9.0"
-    "@web/test-runner-playwright": "npm:0.11.0"
+    "@web/test-runner-playwright": "npm:0.11.1"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.57.0"
@@ -1766,7 +1766,7 @@ __metadata:
     "@web/dev-server-legacy": "npm:2.1.1"
     "@web/test-runner": "npm:0.20.2"
     "@web/test-runner-mocha": "npm:0.9.0"
-    "@web/test-runner-playwright": "npm:0.11.0"
+    "@web/test-runner-playwright": "npm:0.11.1"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.57.0"
@@ -1800,7 +1800,7 @@ __metadata:
     "@web/dev-server-legacy": "npm:2.1.1"
     "@web/test-runner": "npm:0.20.2"
     "@web/test-runner-mocha": "npm:0.9.0"
-    "@web/test-runner-playwright": "npm:0.11.0"
+    "@web/test-runner-playwright": "npm:0.11.1"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.57.0"
@@ -1835,7 +1835,7 @@ __metadata:
     "@web/dev-server-legacy": "npm:2.1.1"
     "@web/test-runner": "npm:0.20.2"
     "@web/test-runner-mocha": "npm:0.9.0"
-    "@web/test-runner-playwright": "npm:0.11.0"
+    "@web/test-runner-playwright": "npm:0.11.1"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.57.0"
@@ -1871,7 +1871,7 @@ __metadata:
     "@web/dev-server-legacy": "npm:2.1.1"
     "@web/test-runner": "npm:0.20.2"
     "@web/test-runner-mocha": "npm:0.9.0"
-    "@web/test-runner-playwright": "npm:0.11.0"
+    "@web/test-runner-playwright": "npm:0.11.1"
     "@webcomponents/webcomponentsjs": "npm:2.8.0"
     deepmerge: "npm:4.3.1"
     eslint: "npm:8.57.0"
@@ -3313,14 +3313,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web/test-runner-playwright@npm:0.11.0":
-  version: 0.11.0
-  resolution: "@web/test-runner-playwright@npm:0.11.0"
+"@web/test-runner-playwright@npm:0.11.1":
+  version: 0.11.1
+  resolution: "@web/test-runner-playwright@npm:0.11.1"
   dependencies:
     "@web/test-runner-core": "npm:^0.13.0"
     "@web/test-runner-coverage-v8": "npm:^0.8.0"
-    playwright: "npm:^1.22.2"
-  checksum: 10/82cd63a339434269b638010228bafa4896375476d537c86aa4eb0f4e866490b4346d6331b6074a3b0da36eada43c92336452fa6b05251d9ee9c5a19e81ebf3c1
+    playwright: "npm:^1.53.0"
+  checksum: 10/560024912dbf14372d69ad38fe4680dff61537a41e0cefcfb48145b1780a3bdcebffd658d3de048a692e7a4f8602509a4160514ffd27c95b9e0e881de022ae9c
   languageName: node
   linkType: hard
 
@@ -10016,7 +10016,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright@npm:1.43.1, playwright@npm:^1.22.2":
+"playwright-core@npm:1.53.0":
+  version: 1.53.0
+  resolution: "playwright-core@npm:1.53.0"
+  bin:
+    playwright-core: cli.js
+  checksum: 10/881f27a9b7edd9954700489a5a4212cb91bcada226fd1d79a239b2eab0f333df1e2e41e275e6fa846d7f57c6a92afe14dca33ca7a2ce303dfb687d02511b7c69
+  languageName: node
+  linkType: hard
+
+"playwright@npm:1.43.1":
   version: 1.43.1
   resolution: "playwright@npm:1.43.1"
   dependencies:
@@ -10028,6 +10037,21 @@ __metadata:
   bin:
     playwright: cli.js
   checksum: 10/0c8cf26df58e6fac2cbad77cc060451ca1bb96d4631ca07d83d382a0462a307f33fa47c1ec53fc2b1b78058cdd6e62c9b881a0bd91ddd956cc1e900d866d8af6
+  languageName: node
+  linkType: hard
+
+"playwright@npm:^1.53.0":
+  version: 1.53.0
+  resolution: "playwright@npm:1.53.0"
+  dependencies:
+    fsevents: "npm:2.3.2"
+    playwright-core: "npm:1.53.0"
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    playwright: cli.js
+  checksum: 10/0b0258630f39b4d6ff1555d008ee4d591fe45cbe1e0f643a612397e3e6b1f7a99a2037a957eaa7351edd907ba10966ba105b2d244eafd1b247378910b660f086
   languageName: node
   linkType: hard
 
